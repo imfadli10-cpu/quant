@@ -1,7 +1,8 @@
 from pathlib import Path
 from huggingface_hub import HfApi
 
-token = Path("kunci_hf.txt").read_text().strip()
+token = os.environ.get("HF_TOKEN") or Path("kunci_hf.txt").read_text().strip()
+
 api = HfApi(token=token)
 
 nama_akun = api.whoami()["name"]

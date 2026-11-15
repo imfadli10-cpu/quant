@@ -1,9 +1,11 @@
+import os
 import time
 import requests
 import pandas as pd
 from pathlib import Path
 
-KUNCI = Path("kunci_fred.txt").read_text().strip()
+
+KUNCI = os.environ.get("FRED_API_KEY") or Path("kunci_fred.txt").read_text().strip()
 
 # Kode FRED : keterangan
 SERI = {
@@ -29,6 +31,7 @@ SERI = {
 
 folder = Path("data/raw/makro")
 folder.mkdir(parents=True, exist_ok=True)
+Path("data/ref").mkdir(parents=True, exist_ok=True)
 
 
 def ambil(kode):

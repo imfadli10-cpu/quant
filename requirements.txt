@@ -1,0 +1,6 @@
+pandas
+pyarrow
+requests
+huggingface_hub
+yfinance
+openpyxl
