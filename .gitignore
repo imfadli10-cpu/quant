@@ -1,0 +1,13 @@
+# Kunci rahasia - JANGAN PERNAH di-upload
+kunci_*.txt
+
+# Lingkungan Python (bisa dibuat ulang)
+.venv/
+
+# Data disimpan di Hugging Face, bukan di GitHub
+data/
+*.csv
+*.png
+
+# File sampah Python
+__pycache__/
