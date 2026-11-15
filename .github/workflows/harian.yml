@@ -30,7 +30,10 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python kumpul_harga_harian.py
-
+        
+    
+      - name: Ambil cuaca harian (15 kota)
+        run: python kumpul_cuaca_harian.py
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
