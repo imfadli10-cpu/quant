@@ -50,7 +50,9 @@ jobs:
       - name: Ambil Wikipedia pageviews
         continue-on-error: true
         run: python kumpul_wikipedia.py
-
+      - name: Ambil crypto (Coinbase)
+        continue-on-error: true
+        run: python kumpul_crypto.py
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
