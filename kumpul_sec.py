@@ -51,9 +51,14 @@ def olah(data):
 
 def simpan(baris, nama):
     df = pd.DataFrame(baris)
+    # Paksa setiap kolom ke tipe yang konsisten (data SEC kadang campur angka & teks)
+    df["cik"] = pd.to_numeric(df["cik"], errors="coerce").astype("Int64")
+    df["tahun_fiskal"] = pd.to_numeric(df["tahun_fiskal"], errors="coerce").astype("Int64")
+    df["nilai"] = pd.to_numeric(df["nilai"], errors="coerce")
     for kolom in ["mulai", "akhir", "tanggal_lapor"]:
         df[kolom] = pd.to_datetime(df[kolom], errors="coerce")
-    df["nilai"] = pd.to_numeric(df["nilai"], errors="coerce")
+    for kolom in ["perusahaan", "konsep", "unit", "periode_fiskal", "form"]:
+        df[kolom] = df[kolom].astype("string")
     df.to_parquet(FOLDER / nama, index=False)
     print(f"   💾 {nama}: {df['cik'].nunique()} perusahaan, {len(df):,} baris")
 
@@ -91,8 +96,11 @@ with zipfile.ZipFile(zip_path) as z:
     print(f"📂 {len(nama_file)} perusahaan di dalam file")
     baris, bagian = [], 0
     for i, nama in enumerate(nama_file, start=1):
-        with z.open(nama) as f:
-            baris += olah(json.load(f))
+        try:
+            with z.open(nama) as f:
+                baris += olah(json.load(f))
+        except Exception as e:
+            print(f"   ⏭️  lewati {nama}: {type(e).__name__}")
         if i % 1000 == 0 or i == len(nama_file):
             simpan(baris, f"bagian_{bagian:02d}.parquet")
             baris, bagian = [], bagian + 1
