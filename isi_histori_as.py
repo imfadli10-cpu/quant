@@ -28,6 +28,21 @@ def upload():
         print("   ☁️  Ter-upload ke Hugging Face")
 
 
+
+
+def ambil_satu_per_satu(kelompok):
+    """Cadangan: kalau ambil sekaligus error, ambil satu per satu dan lewati yang rusak."""
+    bagian = {}
+    for k in kelompok:
+        try:
+            d = yf.download(k, period="max", interval="1d", auto_adjust=False,
+                            progress=False, multi_level_index=False)
+            if not d.empty:
+                bagian[k] = d
+        except Exception:
+            print(f"      ⏭️  lewati kode bermasalah: {k!r}")
+    return pd.concat(bagian, axis=1) if bagian else pd.DataFrame()
+
 # ===== 1. Daftar kode yang DIKUNCI =====
 files = api.list_repo_files(REPO, repo_type="dataset")
 if f"{FOLDER_REPO}/daftar.parquet" in files:
@@ -60,8 +75,8 @@ for n in range(total):
         df = yf.download(kelompok, period="max", interval="1d", auto_adjust=False,
                          progress=False, group_by="ticker", threads=True)
     except Exception as e:
-        print(f"🛑 {nama}: {type(e).__name__}. Berhenti, jalankan lagi nanti.")
-        break
+        print(f"   ⚠️ {nama}: {type(e).__name__}, coba ambil satu per satu...")
+        df = ambil_satu_per_satu(kelompok)
 
     potongan = []
     for k in kelompok:

@@ -23,7 +23,7 @@ daftar = []
 for nama, url in SUMBER.items():
     r = requests.get(url, headers=HEADER, timeout=60)
     r.raise_for_status()
-    df = pd.read_csv(io.StringIO(r.text), sep="|")
+    df = pd.read_csv(io.StringIO(r.text), sep="|", dtype=str, keep_default_na=False)
     df = df[~df.iloc[:, 0].astype(str).str.startswith("File Creation Time")]
     kolom_simbol = "Symbol" if "Symbol" in df.columns else "ACT Symbol"
     df = df[df["Test Issue"] == "N"]
