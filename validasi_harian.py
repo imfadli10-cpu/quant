@@ -45,6 +45,7 @@ def cek(nama, kolom_tanggal, maks_basi, min_baris, kolom_unik=None, min_unik=Non
 
 #    nama sumber        kolom tanggal  maks basi  min baris  kolom unik           min unik
 cek("harga",            "tanggal",     4,         3000,      ["kode"],            850)
+cek("saham_as",         "tanggal",     4,         40000,     ["kode"],            8000),
 cek("cuaca",            "tanggal",     2,         150,       ["kota"],            15)
 cek("bitcoin",          "tanggal",     2,         10)
 cek("ethereum",         "tanggal",     3,         7)
