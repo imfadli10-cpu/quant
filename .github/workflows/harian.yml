@@ -58,5 +58,11 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python upload_ke_cloud.py
 
+      - name: Perbarui katalog
+        continue-on-error: true
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python buat_katalog.py
+
       - name: Validasi data
         run: python validasi_harian.py
