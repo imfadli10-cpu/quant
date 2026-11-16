@@ -1,0 +1,30 @@
+name: Kumpulkan fundamental bulanan (SEC)
+
+on:
+  schedule:
+    - cron: "41 2 2 * *"   # tanggal 2 setiap bulan, jam 09:41 WIB
+  workflow_dispatch:
+
+jobs:
+  sec:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install library
+        run: pip install -r requirements.txt
+
+      - name: Ambil laporan keuangan SEC
+        env:
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+        run: python kumpul_sec.py
+
+      - name: Upload ke Hugging Face
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python upload_ke_cloud.py
