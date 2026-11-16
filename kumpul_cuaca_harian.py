@@ -18,28 +18,40 @@ KOTA = {
 VARIABEL = ("temperature_2m_max,temperature_2m_min,precipitation_sum,"
             "sunshine_duration,wind_speed_10m_max")
 
-hasil = []
-for nama, (lat, lon) in KOTA.items():
-    url = (f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}"
-           f"&daily={VARIABEL}&past_days=14&forecast_days=0&timezone=auto")
-    for percobaan in range(3):
-        try:
-            r = requests.get(url, timeout=60)
-            r.raise_for_status()
-            df = pd.DataFrame(r.json()["daily"]).rename(columns={"time": "tanggal"})
-            hasil.append(df.assign(kota=nama))
-            print(f"✅ {nama}")
-            break
-        except Exception as e:
-            print(f"   ⏳ {nama} gagal ({type(e).__name__}), coba lagi...")
-            time.sleep(15)
-    time.sleep(1)
+# Gabungkan semua koordinat jadi satu permintaan, dipisah koma
+lintang = ",".join(str(lat) for lat, lon in KOTA.values())
+bujur = ",".join(str(lon) for lat, lon in KOTA.values())
+url = (f"https://api.open-meteo.com/v1/forecast?latitude={lintang}&longitude={bujur}"
+       f"&daily={VARIABEL}&past_days=14&forecast_days=0&timezone=auto")
 
-gabung = pd.concat(hasil, ignore_index=True)
-gabung["tanggal"] = pd.to_datetime(gabung["tanggal"])
+data = None
+for percobaan in range(1, 6):
+    try:
+        r = requests.get(url, timeout=120)
+        if r.status_code == 429:
+            print(f"   ⏳ Kena batas, tunggu 60 detik (percobaan {percobaan}/5)")
+            time.sleep(60)
+            continue
+        r.raise_for_status()
+        data = r.json()
+        break
+    except requests.exceptions.RequestException as e:
+        print(f"   🔌 {type(e).__name__}, coba lagi 30 detik (percobaan {percobaan}/5)")
+        time.sleep(30)
 
-folder = Path("data/raw/harian/cuaca")
-folder.mkdir(parents=True, exist_ok=True)
-file_out = folder / f"{date.today().isoformat()}.parquet"
-gabung.to_parquet(file_out, index=False)
-print(f"\n✅ {gabung['kota'].nunique()} kota, {len(gabung)} baris → {file_out}")
+if data is None:
+    print("❌ Cuaca gagal diambil hari ini. Besok dicoba lagi (data 14 hari tetap aman).")
+else:
+    hasil = []
+    for nama, isi in zip(KOTA, data):   # urutan jawaban = urutan kota
+        df = pd.DataFrame(isi["daily"]).rename(columns={"time": "tanggal"})
+        hasil.append(df.assign(kota=nama))
+
+    gabung = pd.concat(hasil, ignore_index=True)
+    gabung["tanggal"] = pd.to_datetime(gabung["tanggal"])
+
+    folder = Path("data/raw/harian/cuaca")
+    folder.mkdir(parents=True, exist_ok=True)
+    file_out = folder / f"{date.today().isoformat()}.parquet"
+    gabung.to_parquet(file_out, index=False)
+    print(f"✅ {gabung['kota'].nunique()} kota, {len(gabung)} baris → {file_out}")

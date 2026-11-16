@@ -38,6 +38,8 @@ jobs:
         env:
           GCP_KEY_JSON: ${{ secrets.GCP_KEY_JSON }}
         run: python kumpul_bigquery.py
+      - name: Ambil Wikipedia pageviews
+        run: python kumpul_wikipedia.py
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
