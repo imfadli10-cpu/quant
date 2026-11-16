@@ -53,6 +53,11 @@ jobs:
       - name: Ambil crypto (Coinbase)
         continue-on-error: true
         run: python kumpul_crypto.py
+
+      - name: Ambil data alam (gempa + matahari)
+        continue-on-error: true
+        run: python kumpul_alam.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}

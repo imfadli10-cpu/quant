@@ -34,6 +34,9 @@ INFO = {
     "raw/harian/google_trends_id": ("Istilah pencarian terpopuler Indonesia, versi terbaru", "BigQuery Google Trends", "Harian"),
     "raw/harian/wikipedia":       ("Pembaca 20 artikel Wikipedia, 30 hari terakhir", "Wikimedia API", "Harian"),
     "raw/fundamental/sec":        ("~16 juta angka laporan keuangan ~20.000 perusahaan AS + tiker.parquet", "SEC EDGAR", "Bulanan (tgl 2)"),
+    "raw/harian/gempa":           ("Gempa M2.5+ seluruh dunia, 14 hari terakhir", "USGS", "Harian"),
+    "raw/histori/gempa":          ("Gempa M4.5+ seluruh dunia sejak 1990, 1 file per tahun", "USGS", "Sekali (awal)"),
+    "raw/alam":                   ("Badai geomagnetik (Kp/Ap), bintik matahari, F10.7 harian sejak 1932", "GFZ Potsdam", "Harian (ditimpa)"),
     "ref":                        ("File referensi: daftar saham IDX, katalog makro & cuaca, laporan validasi", "Berbagai", "Sesekali"),
 }
 
