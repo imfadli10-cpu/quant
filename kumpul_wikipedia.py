@@ -1,3 +1,4 @@
+import sys
 import time
 from datetime import date, timedelta
 from pathlib import Path
@@ -6,7 +7,6 @@ from urllib.parse import quote
 import pandas as pd
 import requests
 
-# Daftar artikel yang dipantau. Tambah kapan saja.
 ARTIKEL = {
     "id.wikipedia": [
         "Bank_Central_Asia", "Bank_Rakyat_Indonesia", "Telkom_Indonesia",
@@ -20,18 +20,18 @@ ARTIKEL = {
     ],
 }
 
-# Wikimedia meminta setiap program memperkenalkan diri lewat User-Agent
 HEADER = {"User-Agent": "quant-data-collector/1.0 (personal research project; python-requests)"}
 
+HISTORI = "--histori" in sys.argv                                       # BARU
 akhir = date.today() - timedelta(days=1)
-awal = akhir - timedelta(days=30)
+awal = date(2015, 7, 1) if HISTORI else akhir - timedelta(days=30)     # BARU: data Wikimedia mulai Juli 2015
 
 
 def ambil(url):
     """Ambil satu artikel. Kalau ditolak (429), tunggu lalu coba lagi."""
     for percobaan in range(1, 5):
         try:
-            r = requests.get(url, headers=HEADER, timeout=30)
+            r = requests.get(url, headers=HEADER, timeout=60)
         except requests.exceptions.RequestException as e:
             print(f"   🔌 {type(e).__name__}, coba lagi...")
             time.sleep(10)
@@ -67,8 +67,13 @@ for proyek, daftar in ARTIKEL.items():
         time.sleep(1)
 
 df = pd.DataFrame(hasil)
-folder = Path("data/raw/harian/wikipedia")
+if HISTORI:                                                             # BARU
+    folder = Path("data/raw/histori/wikipedia")
+    file_out = folder / "semua.parquet"
+else:
+    folder = Path("data/raw/harian/wikipedia")
+    file_out = folder / f"{date.today().isoformat()}.parquet"
 folder.mkdir(parents=True, exist_ok=True)
-file_out = folder / f"{date.today().isoformat()}.parquet"
 df.to_parquet(file_out, index=False)
-print(f"\n✅ {df['artikel'].nunique()} artikel, {len(df)} baris → {file_out}")
+jumlah = len(df[["wiki", "artikel"]].drop_duplicates())                # BARU: hitung yang benar
+print(f"\n✅ {jumlah} artikel, {len(df):,} baris → {file_out}")
