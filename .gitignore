@@ -1,5 +1,6 @@
 # Kunci rahasia - JANGAN PERNAH di-upload
 kunci_*.txt
+kunci_*.json
 
 # Lingkungan Python (bisa dibuat ulang)
 .venv/

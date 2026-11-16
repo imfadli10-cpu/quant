@@ -34,6 +34,10 @@ jobs:
     
       - name: Ambil cuaca harian (15 kota)
         run: python kumpul_cuaca_harian.py
+      - name: Ambil data BigQuery (Bitcoin)
+        env:
+          GCP_KEY_JSON: ${{ secrets.GCP_KEY_JSON }}
+        run: python kumpul_bigquery.py
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}

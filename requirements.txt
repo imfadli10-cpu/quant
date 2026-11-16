@@ -4,3 +4,5 @@ requests
 huggingface_hub
 yfinance
 openpyxl
+google-cloud-bigquery
+db-dtypes
