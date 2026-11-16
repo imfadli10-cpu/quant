@@ -1,0 +1,28 @@
+name: Isi histori saham AS
+
+on:
+  workflow_dispatch:
+    inputs:
+      maks_kelompok:
+        description: "Jumlah bagian per run (1 bagian = 100 kode)"
+        default: "30"
+
+jobs:
+  isi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install library
+        run: pip install -r requirements.txt
+
+      - name: Isi histori
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          MAKS_KELOMPOK: ${{ inputs.maks_kelompok }}
+        run: python isi_histori_as.py
