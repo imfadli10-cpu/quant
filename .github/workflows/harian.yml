@@ -22,25 +22,35 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Ambil data makro (FRED)
+        continue-on-error: true
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python ambil_makro.py
 
       - name: Ambil harga harian (IDX + global)
+        continue-on-error: true
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python kumpul_harga_harian.py
-        
-    
+
       - name: Ambil cuaca harian (15 kota)
+        continue-on-error: true
         run: python kumpul_cuaca_harian.py
-      - name: Ambil data BigQuery (Bitcoin)
+
+      - name: Ambil data BigQuery (Bitcoin, Ethereum, GDELT, Trends)
+        continue-on-error: true
         env:
           GCP_KEY_JSON: ${{ secrets.GCP_KEY_JSON }}
         run: python kumpul_bigquery.py
+
       - name: Ambil Wikipedia pageviews
+        continue-on-error: true
         run: python kumpul_wikipedia.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python upload_ke_cloud.py
+
+      - name: Validasi data
+        run: python validasi_harian.py

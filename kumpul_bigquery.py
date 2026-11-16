@@ -4,6 +4,7 @@ import warnings
 from datetime import date
 from pathlib import Path
 
+import pandas as pd
 from google.cloud import bigquery
 from google.oauth2 import service_account
 
@@ -30,9 +31,15 @@ def jalankan(nama, sql):
         return
     # Langkah 2: jalankan sungguhan
     df = client.query(sql).to_dataframe()
+
     if df.empty:
         print(f"⚠️  {nama}: 0 baris (sumber belum diperbarui?), tidak disimpan")
         return
+    # Ubah format tanggal khusus Google (dbdate) jadi format tanggal standar
+    for kolom in df.columns:
+        if str(df[kolom].dtype) == "dbdate":
+            df[kolom] = pd.to_datetime(df[kolom].astype(str))
+            
     folder = Path(f"data/raw/harian/{nama}")
     folder.mkdir(parents=True, exist_ok=True)
     file_out = folder / f"{date.today().isoformat()}.parquet"
