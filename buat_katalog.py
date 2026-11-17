@@ -37,6 +37,12 @@ INFO = {
     "raw/harian/gempa":           ("Gempa M2.5+ seluruh dunia, 14 hari terakhir", "USGS", "Harian"),
     "raw/histori/gempa":          ("Gempa M4.5+ seluruh dunia sejak 1990, 1 file per tahun", "USGS", "Sekali (awal)"),
     "raw/alam":                   ("Badai geomagnetik (Kp/Ap), bintik matahari, F10.7 harian sejak 1932", "GFZ Potsdam", "Harian (ditimpa)"),
+        "raw/harian/cot_legacy":        ("Posisi futures spekulan vs hedger, 8 minggu terakhir", "CFTC", "Harian (laporan mingguan)"),
+    "raw/harian/cot_disaggregated": ("Posisi futures komoditas, pelaku lebih rinci, 8 minggu terakhir", "CFTC", "Harian (laporan mingguan)"),
+    "raw/harian/cot_keuangan":      ("Posisi futures keuangan (indeks, obligasi, mata uang), 8 minggu terakhir", "CFTC", "Harian (laporan mingguan)"),
+    "raw/histori/cot":              ("Histori lengkap COT: legacy sejak 1986, lainnya sejak 2006", "CFTC", "Sekali (otomatis)"),
+    "raw/riset":                    ("Faktor Fama-French harian (3 & 5 faktor, momentum), dalam desimal", "Kenneth French Data Library", "Harian (ditimpa)"),
+
     "ref":                        ("File referensi: daftar saham IDX, katalog makro & cuaca, laporan validasi", "Berbagai", "Sesekali"),
 }
 

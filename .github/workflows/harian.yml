@@ -58,6 +58,12 @@ jobs:
         continue-on-error: true
         run: python kumpul_alam.py
 
+      - name: Ambil data riset (CFTC COT + Fama-French)
+        continue-on-error: true
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python kumpul_riset.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
