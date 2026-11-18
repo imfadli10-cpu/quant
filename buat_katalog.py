@@ -20,7 +20,9 @@ INFO = {
     "raw/histori/ethereum":       ("Aktivitas blockchain Ethereum per hari sejak 2015, 1 file per tahun", "BigQuery", "Sekali (awal)"),
     "raw/histori/berita_gdelt":   ("Jumlah, nada & porsi konflik berita per negara sejak 2015", "BigQuery GDELT", "Sekali (awal)"),
     "raw/histori/wikipedia":      ("Jumlah pembaca 20 artikel Wikipedia sejak Juli 2015", "Wikimedia API", "Sekali (awal)"),
-    "raw/makro":                  ("18 seri makroekonomi AS & Indonesia (1 file per seri, ditimpa)", "FRED", "Harian"),
+
+    "raw/makro":                  ("75 seri makro: suku bunga, inflasi, likuiditas Fed, tenaga kerja, kurs 15 mata uang, yield obligasi 5 negara, energi, 13 komoditas (nikel, timah, sawit, batu bara, dll.), Indonesia", "FRED", "Harian"),
+
     "raw/cuaca":                  ("Histori cuaca harian 15 kota sejak 1990", "Open-Meteo", "Sekali (awal)"),
     "raw/harian/harga":           ("Harga 7 hari terakhir ~920 saham IDX + aset global", "Yahoo Finance", "Harian"),
     "raw/harian/saham_as":        ("Harga 7 hari terakhir ~11.000 saham & ETF AS", "Yahoo Finance", "Harian"),
