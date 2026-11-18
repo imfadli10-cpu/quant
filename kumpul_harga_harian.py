@@ -18,7 +18,15 @@ kolom_kode = [c for c in daftar.columns if "kode" in str(c).lower()][0]
 kode_idx = [f"{k}.JK" for k in daftar[kolom_kode].dropna().astype(str).str.strip()]
 
 # Aset global yang juga dipantau
-GLOBAL = ["^JKSE", "^GSPC", "GC=F", "CL=F", "IDR=X", "BTC-USD"]
+GLOBAL = [
+    "^JKSE", "^GSPC", "GC=F", "CL=F", "IDR=X", "BTC-USD",
+    "^N225", "^HSI", "000001.SS", "^STI", "^KLSE", "^SET.BK", "PSEI.PS",
+    "^BSESN", "^NSEI", "^KS11", "^TWII", "^AXJO",
+    "^FTSE", "^GDAXI", "^FCHI", "^STOXX50E", "^DJI", "^IXIC", "^RUT", "^BVSP",
+    "^VIX", "DX-Y.NYB", "^TNX",
+    "SI=F", "HG=F", "PL=F", "PA=F", "BZ=F", "NG=F", "RB=F", "HO=F",
+    "ZC=F", "ZW=F", "ZS=F", "ZM=F", "ZL=F", "KC=F", "CC=F", "SB=F", "CT=F", "LE=F", "HE=F", "OJ=F",
+]
 semua_kode = kode_idx + GLOBAL
 print(f"Mengambil 7 hari terakhir untuk {len(semua_kode)} kode...\n")
 

@@ -13,7 +13,7 @@ PAGAR = "`" * 3   # tanda blok kode di README
 # folder: (isi, sumber asli, jadwal)
 INFO = {
     "raw/harga_idx":              ("Histori harga ~920 saham IDX, 1 file per saham", "Yahoo Finance", "Sekali (awal)"),
-    "raw/harga":                  ("Histori IHSG, S&P 500, emas, minyak, USD/IDR, BTC, saham IDX besar", "Yahoo Finance", "Sekali (awal)"),
+    "raw/harga":                  ("Histori ~50 aset global: indeks saham 23 negara, futures logam/energi/pertanian/ternak, VIX, DXY, kurs, BTC", "Yahoo Finance", "Sekali (awal)"),
     "raw/histori/saham_as":       ("Histori ~12.700 saham & ETF AS, 129 bagian + daftar.parquet", "Yahoo Finance", "Sekali (awal)"),
     "raw/histori/crypto_harian":  ("Histori harga harian 404 koin crypto/USD sejak listing", "Coinbase", "Sekali (awal)"),
     "raw/histori/bitcoin":        ("Aktivitas blockchain Bitcoin per hari sejak 2009, 1 file per tahun", "BigQuery", "Sekali (awal)"),
