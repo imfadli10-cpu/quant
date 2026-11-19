@@ -5,12 +5,14 @@ on:
     inputs:
       maks_kelompok:
         description: "Jumlah bagian per run (1 bagian = 100 variabel)"
-        default: "10"
+        default: "5"
 
 jobs:
   isi:
     runs-on: ubuntu-latest
     timeout-minutes: 340
+    env:
+      PYTHONUNBUFFERED: "1"
     steps:
       - uses: actions/checkout@v4
 

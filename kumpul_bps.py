@@ -173,8 +173,7 @@ for n in range(total):
         pd.DataFrame(columns=["var_id"]).to_parquet(lokal / nama, index=False)   # tanda: sudah dicek, kosong
         print(f"   ⚪ {nama}: tidak ada data")
     dikerjakan += 1
-    if dikerjakan % 5 == 0:
-        upload()
+    upload()
 
 upload()
 selesai = len(sudah) + dikerjakan
