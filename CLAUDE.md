@@ -91,6 +91,15 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
 - `kumpul_finra.py`: FINRA Reg SHO volume short harian ~12.000 saham AS (short, short dikecualikan, total), 10 hari
   → `raw/harian/finra_short` (mulai 19 Nov 2026). `--histori` → `raw/histori/finra_short/<tahun>.parquet` (sejak 1 Agustus 2018,
   upload tiap tahun, bisa dilanjutkan). `--tes` = cek cepat tanpa simpan. Baris penutup file (jumlah baris) dibuang.
+- `kumpul_lme.py`: harga resmi LME (tunai & 3 bulan) + STOK gudang LME untuk nikel, timah, tembaga, aluminium, seng, timbal,
+  40 hari → `raw/harian/lme` (mulai 19 Nov 2026). Sumber: tabel publik westmetall.com (robots.txt tidak melarang, jeda 2 detik).
+  `--histori` → `raw/histori/lme/semua.parquet` (sejak 2008, 4.776 hari/logam; diambil dari laptop + `upload_satu.py`).
+  Divalidasi: rata-rata bulanan = IMF di FRED (rasio 0,999–1,002, korelasi ≥ 0,993). Nilai kosong sah: libur bank Inggris
+  (26-05-2014, 27-12-2016), nikel dihentikan Maret 2022, harga 3 bulan awal 2008. Lompatan nikel +44%/−28% Maret 2022 = NYATA (short squeeze).
+- Sawit harian: `CPO=F` (USD Malaysian Crude Palm Oil, CME) masuk daftar GLOBAL `kumpul_harga_harian.py` & `ambil_harga.py`
+  → histori `raw/harga/SAWIT.parquet` (sejak Mei 2010). Kontrak jarang ditransaksikan (87% hari volume 0) tapi harga berubah
+  tiap hari; vs IMF sawit: rasio 0,995, korelasi perubahan bulanan 0,92.
+- Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
 - `kumpul_sec.py`: SEC companyfacts.zip (~1,4 GB), 25 konsep keuangan, ~20.588 perusahaan (termasuk yang sudah mati),
@@ -193,6 +202,7 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan).
 - Calon sumber data berikutnya: transaksi orang dalam SEC Form 4, Polymarket, lelang Treasury AS.
-  (Volume short FINRA SUDAH ditambahkan 19 Nov 2026.)
+  (Volume short FINRA, logam LME + stok, dan sawit harian SUDAH ditambahkan 19 Nov 2026.)
+  Dengan harga harian LME & sawit, riset #3 bisa diuji ulang di horizon MINGGUAN (nikel/timah sejak 2008, sawit sejak 2010).
   Prioritaskan data "hanya ke depan" (tidak bisa diambil mundur).
 - Pantau: email alarm, jatah menit GitHub (github.com/settings/billing, "$x used / $12.00"), jatah BigQuery.

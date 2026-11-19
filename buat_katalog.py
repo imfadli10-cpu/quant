@@ -13,7 +13,7 @@ PAGAR = "`" * 3   # tanda blok kode di README
 # folder: (isi, sumber asli, jadwal)
 INFO = {
     "raw/harga_idx":              ("Histori harga ~920 saham IDX, 1 file per saham", "Yahoo Finance", "Sekali (awal)"),
-    "raw/harga":                  ("Histori ~50 aset global: indeks saham 23 negara, futures logam/energi/pertanian/ternak, VIX, DXY, kurs, BTC", "Yahoo Finance", "Sekali (awal)"),
+    "raw/harga":                  ("Histori ~50 aset global: indeks saham 23 negara, futures logam/energi/pertanian/ternak, sawit (SAWIT, sejak 2010), VIX, DXY, kurs, BTC", "Yahoo Finance", "Sekali (awal)"),
     "raw/histori/saham_as":       ("Histori ~12.700 saham & ETF AS, 129 bagian + daftar.parquet", "Yahoo Finance", "Sekali (awal)"),
     "raw/histori/crypto_harian":  ("Histori harga harian 404 koin crypto/USD sejak listing", "Coinbase", "Sekali (awal)"),
     "raw/histori/bitcoin":        ("Aktivitas blockchain Bitcoin per hari sejak 2009, 1 file per tahun", "BigQuery", "Sekali (awal)"),
@@ -48,6 +48,8 @@ INFO = {
     "raw/bps/terbaru":            ("Semua variabel BPS nasional, 3 tahun terakhir (inflasi per kota, ekspor, dll.)", "BPS", "Bulanan (tgl 2)"),
     "raw/histori/bps":            ("Semua variabel BPS nasional, semua tahun, per 100 variabel", "BPS", "Sekali (bertahap)"),
     "raw/harian/opsi":            ("Foto harian rantai opsi 49 saham/ETF AS (6 jatuh tempo terdekat): harga, volume, open interest, volatilitas tersirat", "Yahoo Finance", "Harian (hanya ke depan)"),
+    "raw/harian/lme":             ("Harga resmi LME (tunai & 3 bulan) + stok gudang 6 logam: nikel, timah, tembaga, aluminium, seng, timbal; 40 hari terakhir", "Westmetall (data LME)", "Harian"),
+    "raw/histori/lme":            ("Histori harga resmi LME + stok gudang 6 logam sejak 2008 (semua.parquet)", "Westmetall (data LME)", "Sekali (awal)"),
     "raw/harian/finra_short":     ("Volume short harian ~12.000 saham AS (short, short dikecualikan, total), 10 hari terakhir", "FINRA Reg SHO", "Harian"),
     "raw/histori/finra_short":    ("Histori volume short harian semua saham AS sejak Agustus 2018, 1 file per tahun", "FINRA Reg SHO", "Sekali (awal)"),
     "bersih":                     ("DATA SIAP PAKAI: harga saham IDX & AS (histori + harian digabung, tanpa dobel)", "Gabungan", "Mingguan (Minggu)"),

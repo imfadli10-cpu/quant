@@ -23,6 +23,7 @@ DAFTAR = {
     "JAGUNG": "ZC=F", "GANDUM": "ZW=F", "KEDELAI": "ZS=F", "BUNGKIL_KEDELAI": "ZM=F",
     "MINYAK_KEDELAI": "ZL=F", "KOPI": "KC=F", "KAKAO": "CC=F", "GULA": "SB=F",
     "KAPAS": "CT=F", "SAPI": "LE=F", "BABI": "HE=F", "JUS_JERUK": "OJ=F",
+    "SAWIT": "CPO=F",   # USD Malaysian Crude Palm Oil (CME), sejak 2010, ditambahkan 19 Nov 2026
 }
 
 # Folder tujuan: D:\quant\data\raw\harga

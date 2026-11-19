@@ -71,6 +71,10 @@ jobs:
         continue-on-error: true
         run: python kumpul_finra.py
 
+      - name: Ambil harga & stok logam LME (Westmetall)
+        continue-on-error: true
+        run: python kumpul_lme.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
