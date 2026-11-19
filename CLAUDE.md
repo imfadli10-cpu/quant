@@ -153,6 +153,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - Open-Meteo & Wikipedia membatasi kecepatan: jeda + coba ulang (hormati `Retry-After`).
 - Koneksi Python ke Hugging Face dari laptop pengguna kadang putus: nyalakan Cloudflare WARP. Situs Indonesia lebih cepat tanpa WARP.
 - Pekerjaan panjang di Actions: upload per bagian (bukan per 5), `PYTHONUNBUFFERED=1`, dan bisa dilanjutkan (resume).
+- Stok gudang LME nikel RUSAK di sumber 2–10 April 2012 (26–614 ton, seharusnya ~99.000): satu titik membuat t robust
+  palsu −5,5. Data mentah dibiarkan; bersihkan saat dipakai (fungsi `bersihkan` di `riset_03b`: buang nilai < 10% atau
+  > 10x median 21 hari). Aturan itu memakai median TERPUSAT (melihat 10 hari ke depan): boleh untuk riset historis,
+  JANGAN untuk sinyal live. Pelajaran umum: kalau t robust dan t biasa sangat berbeda, curigai pencilan/data rusak.
 - Saat menulis kode Python yang berisi tiga backtick di dalam string, buat lewat variabel (mis. `"`" * 3`) supaya tampilan chat tidak rusak.
 
 ## 9. Aturan riset (WAJIB)
@@ -197,6 +201,15 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     "informasi sudah publik di bursa LME/ICE akhir bulan m". Untuk dijalankan sungguhan butuh sumber harga HARIAN nikel/timah/batu bara/sawit.
   - "Pegang semua kelompok" +2,5%/bln di 2001-2018 = boom komoditas + survivorship bias, BUKAN sinyal.
   - Kesimpulan: bukan strategi; arah positif konsisten tapi lemah. Kalau nanti ada harga harian, bisa diuji ulang di horizon mingguan.
+- **Riset #3b SELESAI: harga & stok komoditas HARIAN → saham minggu depan** (`riset_03b_komoditas_mingguan.py`). HASIL NEGATIF.
+  Nikel/timah (LME, 2008–2018, 550 minggu), sawit (CPO=F, 2010–2018, 398 minggu). Minggu Sabtu–Jumat; sinyal minggu w,
+  beli tutup hari bursa pertama minggu w+1 (harga LME & CME terbentuk SETELAH IDX tutup). t robust (White) = ukuran utama.
+  - Cek kewajaran minggu yang sama sangat kuat (t 7,7–8,1), tapi prediksi minggu depan: nikel t −0,7, timah −0,7,
+    sawit +2,1 (tidak lolos). Stok LME (dugaan negatif): nikel +1,0, timah +0,2. Strategi mingguan: kotor −0,02%/mg
+    (t −0,1), bersih −14%/thn. Ganti ~67%/minggu → biaya membunuh strategi mingguan berbasis tanda naik/turun.
+  - Di data TIRUAN dengan pola 0,2 pun strategi bersih hanya t 1,5: strategi mingguan butuh efek sangat besar.
+  - Kode lolos `--tes-kosong`/`--tes-tiruan`; hapus data 2019+ → IDENTIK. Data uji tidak dibuka.
+  - Kesimpulan riset #3 + #3b: pasar IDX menyerap harga komoditas DALAM minggu yang sama. Tidak ada reaksi lambat yang bisa dipakai.
 - **Daftar ide berikutnya** (urutan rekomendasi):
   #4 USD/IDR & DXY → IHSG → #5 saham "tidur" telat bereaksi → #6 posisi COT ekstrem → berbalik →
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
