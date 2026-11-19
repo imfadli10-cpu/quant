@@ -1,0 +1,27 @@
+name: Gabungkan data (mingguan)
+
+on:
+  schedule:
+    - cron: "23 3 * * 0"   # setiap Minggu jam 10:23 WIB
+  workflow_dispatch:
+
+jobs:
+  gabung:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install library
+        run: pip install -r requirements.txt
+
+      - name: Gabungkan data
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python gabung.py
