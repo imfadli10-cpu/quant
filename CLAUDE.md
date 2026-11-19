@@ -1,66 +1,164 @@
-# Proyek Quant: Gudang Data & Riset Trading
+# Proyek Quant: Gudang Data & Riset Trading (proyek jangka panjang, berbulan-bulan)
 
-## Tentang pengguna
-- Pemula dalam pemrograman. SELALU jawab dalam **Bahasa Indonesia**, jelaskan istilah baru dengan sederhana.
-- Berikan **file/kode lengkap**, jangan potongan yang harus disisipkan manual.
-- **Uji dulu** setiap perubahan sebelum menyuruh push. Jalankan sendiri perintahnya kalau bisa.
-- Laptop Windows (PowerShell), Python 3.13 di `D:\quant\.venv` (aktifkan: `.venv\Scripts\activate`).
-- Drive C hampir penuh: semua data & cache di D atau cloud.
+Dokumen ini adalah "serah terima" dari sesi panjang sebelumnya (dimulai 15 November 2026).
+Baca SELURUHNYA sebelum bekerja. Jangan mengulang keputusan yang sudah diambil tanpa alasan kuat.
 
-## Tujuan
-Meniru CARA BERPIKIR Renaissance Technologies (bukan skalanya): kumpulkan data sangat luas
-(termasuk data "aneh"), bersihkan dengan teliti, cari banyak sinyal lemah dengan statistik ketat,
-gabungkan, uji dengan biaya transaksi. Medan realistis: horizon hari–minggu, pasar Indonesia.
+---
 
-## Arsitektur (gratis, tanpa kartu kredit)
-- **Kode**: GitHub private `imfadli10-cpu/quant`.
-- **Data**: Hugging Face dataset private `fadli-sparks/quant-data` (`raw/` mentah, `bersih/` siap pakai).
-- **Otomatisasi**: GitHub Actions (jatah 2.000 menit/bulan untuk repo private).
-- **BigQuery Sandbox**: project `potent-duality-512213-u4`, service account `quant-collector`. Pagar 5 GB/query.
+## 1. Visi pengguna (jangan disalahpahami)
 
-## Workflow (.github/workflows/)
-- `harian.yml`: 00:17 UTC (07:17 WIB) tiap hari. Semua collector harian (`continue-on-error: true`),
-  lalu `upload_ke_cloud.py`, `buat_katalog.py`, `validasi_harian.py` (gagal = email alarm).
-- `fundamental.yml`: tanggal 2 tiap bulan. `kumpul_sec.py` + `kumpul_bps.py` (3 tahun terakhir).
-- `gabung.yml`: tiap Minggu. `gabung.py` → `bersih/harga_idx.parquet`, `bersih/saham_as.parquet`.
-- `histori_as.yml`, `histori_bps.yml`: manual, sekali jalan (sudah selesai 100%).
+- Pengguna ingin menjadi **quant trader** dalam beberapa bulan ke depan. Ini proyek **berbulan-bulan**, bukan tugas sekali jadi.
+- Inspirasinya **Renaissance Technologies (Jim Simons / Medallion)**: kumpulkan data **sebanyak mungkin**, apa pun yang bisa
+  dijadikan angka, termasuk data "aneh" yang kelihatannya tidak berhubungan dengan pasar (cuaca, gempa, aktivitas matahari,
+  perhatian publik, dll.), lalu analisis dengan statistik untuk mengambil keputusan trading.
+- Prinsip pengguna sejak awal: **data sebanyak mungkin**, walaupun belum tentu berguna. **Jangan disimpan di laptop**
+  (kapasitas terbatas). **Gratis, tanpa kartu kredit** (pengguna hanya punya kartu BRI, DANA, ShopeePay, GoPay).
+- Pengguna ingin **terus menambah sumber data** bahkan saat sudah masuk tahap riset. Pola yang disepakati:
+  **bergantian** antara menambah satu sumber baru dan satu langkah pengolahan/riset.
+- Pemahaman yang disepakati soal Renaissance: tiru **cara berpikirnya**, bukan skalanya:
+  1) data luas, 2) bersihkan dengan obsesif, 3) cari banyak sinyal lemah (mereka benar sekitar 50,75% dari waktu),
+  4) gabungkan jadi satu model, 5) statistik ketat (hindari pola kebetulan), 6) modelkan biaya transaksi dengan teliti.
+  Trader perorangan tidak bisa meniru kecepatan eksekusi, leverage, dan tim ilmuwan mereka. Medan realistis:
+  horizon hari sampai minggu (bukan detik), dan pasar yang kurang diperebutkan dana besar (misalnya Indonesia).
 
-## Rahasia (JANGAN PERNAH di-commit)
-- Lokal: `kunci_fred.txt`, `kunci_hf.txt`, `kunci_gcp.json`, `kunci_sec.txt`, `kunci_bps.txt` (diabaikan `.gitignore`).
-- GitHub Secrets: `FRED_API_KEY`, `HF_TOKEN`, `GCP_KEY_JSON`, `SEC_USER_AGENT`, `BPS_KEY`.
-- Pola kode: `os.environ.get("NAMA") or Path("kunci_x.txt").read_text().strip()`.
-- Selalu `git status` sebelum `git add`: pastikan tidak ada file `kunci_*`.
+## 2. Tentang pengguna & cara berkomunikasi
 
-## Pola menambah sumber data baru
-1. Collector `kumpul_xxx.py` (simpan ke `data/raw/harian/<nama>/<tanggal>.parquet`, ambil N hari terakhir supaya tumpang tindih).
-2. Langkah di `harian.yml` dengan `continue-on-error: true`.
-3. Baris `cek(...)` di `validasi_harian.py`.
-4. Baris keterangan di kamus `INFO` di `buat_katalog.py`.
-Data "hanya ke depan" (opsi, daftar saham harian) harus dimulai sedini mungkin.
+- SELALU pakai **Bahasa Indonesia** santai. Pengguna **pemula** pemrograman: jelaskan istilah baru dengan sederhana dan contoh.
+- Berikan **file/kode LENGKAP** (ganti seluruh isi file), JANGAN potongan yang harus disisipkan manual: pengguna sering
+  salah tempel, dan itu memicu error berantai. Kalau bisa, edit file dan jalankan perintahnya sendiri.
+- **UJI dulu** sebelum menyerahkan. Pengguna sangat frustrasi kalau diberi kode yang salah berkali-kali
+  ("JANGAN MAIN MAIN YA, HARUS SERIUS"). Uji dengan data yang meniru format ASLI (tipe tanggal, zona waktu, nama kolom).
+- Pengguna mau **serius dan jujur**: jangan membesar-besarkan hasil. Hasil riset negatif disampaikan apa adanya.
+- Kalau pengguna bilang "ngikut kau" / "bagusnya yang mana": **ambil keputusan** dan jelaskan alasannya singkat.
+- Tugas analitis (menyusun daftar ide riset, merancang uji) adalah tugas Claude, JANGAN dilempar ke pengguna.
+  Pengguna cukup memilih/menyetujui. (Pengguna pernah kesal saat diminta menulis jurnal ide sendiri.)
+- Berikan **link langsung** (GitHub Actions, Hugging Face, dll.) saat menyuruh membuka sesuatu.
+- Kebiasaan yang perlu diingatkan: tekan Ctrl+S sebelum menjalankan; `git status` sebelum `git add`
+  (pastikan tidak ada file `kunci_*`); jangan mengetik kode Python di terminal; aktifkan venv (`(.venv)`).
+- Lingkungan: Windows + PowerShell, VS Code, Python 3.13 di `D:\quant\.venv` (`.venv\Scripts\activate`).
+  Drive C hampir penuh: semua di D atau cloud. Laptop bisa sleep di tengah proses lama: ingatkan.
 
-## Jebakan yang SUDAH ditemukan (jangan diulang)
-- **JANGAN jalankan `upload_ke_cloud.py` dari laptop**: bisa menimpa file server dengan file tes. Pakai `upload_satu.py <jalur>`.
-- Tanggal file harian = tanggal UTC server. Jadwal harus mulai setelah 00:00 UTC (dulu alarm palsu karena lewat tengah malam).
-- BigQuery `to_dataframe()` → kolom `dbdate`: ubah ke datetime standar sebelum disimpan.
-- pandas membaca kode saham "NA" sebagai kosong: pakai `keep_default_na=False, dtype=str`.
-- Tanggal dari sumber berbeda punya presisi/zona waktu beda (ms vs us, tz): samakan dulu sebelum `merge_asof`.
-  JANGAN pakai `.values` pada tanggal ber-zona waktu (menggeser satu hari diam-diam).
-- Koneksi Python ke Hugging Face dari laptop kadang putus: nyalakan Cloudflare WARP. Situs Indonesia (BPS) lebih cepat tanpa WARP.
-- BPS API: parameter `th` wajib, maksimal 3 tahun per permintaan, kode tahun = tahun − 1900.
-- SEC wajib User-Agent berisi nama+email (di secret). Data SEC campur tipe: paksa tipe kolom.
-- Situs IDX diblokir Cloudflare untuk program otomatis: JANGAN menembus/menyamar (keputusan pengguna).
-- Open-Meteo & Wikipedia membatasi kecepatan: beri jeda + coba ulang. Satu permintaan banyak kota untuk Open-Meteo.
-- Python di Actions: set `PYTHONUNBUFFERED=1` supaya log langsung tampil; upload per bagian untuk pekerjaan panjang.
+## 3. Arsitektur (semua gratis, tanpa kartu kredit)
 
-## Aturan riset
-- Data latih s/d 2018-12-31, data uji 2019+ DIKUNCI (buka sekali di akhir dengan `--buka-uji`).
-- Ambang t > 3. Uji di instrumen yang BISA dibeli. Selalu potong biaya (asumsi IDX 0,4% bolak-balik).
-- Tulis dugaan + alasan logis SEBELUM melihat data.
+| Bagian | Layanan | Catatan |
+|---|---|---|
+| Kode | GitHub private `imfadli10-cpu/quant` | 2FA aktif |
+| Data | Hugging Face dataset **private** `fadli-sparks/quant-data` | `raw/` = mentah, `bersih/` = siap pakai, `ref/` = referensi. Halaman depan = katalog otomatis (README) |
+| Otomatisasi | GitHub Actions | Jatah repo private: 2.000 menit/bulan (= $12 "included"; $0,006/menit). Billing tidak pernah menagih (tanpa kartu), Actions berhenti kalau habis |
+| Data publik raksasa | BigQuery Sandbox, project `potent-duality-512213-u4`, service account `quant-collector` (role BigQuery User) | Jatah 1 TB dibaca/bulan. Pemakaian rutin ~80 GB/bulan. Pagar pengaman 5 GB per query (dry run dulu) |
+| Kunci API gratis | FRED, Hugging Face, BPS, GCP | Lihat bagian Rahasia |
 
-## Status riset
-- **#1 EIDO → IHSG besok** (`riset_01_eido.py`, `riset_01b_cek.py`): IHSG t=10,5 tapi sebagian besar
-  ilusi indeks basi. Saham likuid lemah (BBRI t=4,8, lainnya ~2) dan RUGI setelah biaya. Data uji tidak dibuka.
-  Kesimpulan: tidak layak sebagai strategi tunggal; mungkin berguna sebagai salah satu sinyal gabungan.
-- Berikutnya (daftar ide): #2 momentum saham IDX, #3 komoditas (nikel/timah/batu bara/sawit) → saham terkait,
-  #4 kurs & DXY → IHSG, #5 saham "tidur" telat bereaksi, #6 COT ekstrem, #7 Wikipedia → volatilitas crypto.
-- Penggabungan ke `bersih/` baru untuk harga saham IDX & AS; sumber lain belum.
+Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan besar dijalankan di GitHub Actions.
+
+## 4. Rahasia (JANGAN PERNAH di-commit atau ditampilkan)
+
+- File lokal (diabaikan `.gitignore` lewat pola `kunci_*.txt`, `kunci_*.json`): `kunci_fred.txt`, `kunci_hf.txt`,
+  `kunci_gcp.json`, `kunci_sec.txt`, `kunci_bps.txt`.
+- GitHub Secrets: `FRED_API_KEY`, `HF_TOKEN`, `GCP_KEY_JSON`, `SEC_USER_AGENT` (nama+email, wajib untuk SEC), `BPS_KEY`.
+- Pola kode: `os.environ.get("NAMA") or Path("kunci_x.txt").read_text().strip()` (server pakai Secrets, laptop pakai file).
+- `.gitignore` juga mengabaikan: `.venv/`, `data/`, `*.csv`, `*.png`, `*.xlsx`, `__pycache__/`.
+- Jangan memasukkan data pribadi pengguna ke User-Agent atau permintaan ke pihak luar tanpa izin (SEC sudah diizinkan).
+
+## 5. Jadwal otomatis (.github/workflows/)
+
+- `harian.yml`: **00:17 UTC (07:17 WIB)** setiap hari (~35 menit). Semua collector harian (masing-masing
+  `continue-on-error: true` supaya tidak saling menghentikan) → `upload_ke_cloud.py` → `buat_katalog.py` →
+  `validasi_harian.py` (gagal = GitHub mengirim email alarm ke pengguna).
+- `fundamental.yml`: tanggal 2 setiap bulan, 02:41 UTC: `kumpul_sec.py` + `kumpul_bps.py` (mode bulanan) → upload.
+- `gabung.yml`: setiap Minggu 03:23 UTC: `gabung.py` → `bersih/`.
+- `histori_as.yml`, `histori_bps.yml`: manual, sudah selesai 100%. `PYTHONUNBUFFERED=1` wajib untuk pekerjaan panjang.
+
+## 6. Katalog sumber data (status per 19 Nov 2026)
+
+Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, isinya beberapa hari terakhir, sengaja tumpang tindih):
+- `ambil_makro.py`: FRED 75 seri (suku bunga, inflasi, likuiditas Fed, tenaga kerja, kurs 15 mata uang, yield 5 negara,
+  energi, 13 komoditas IMF termasuk nikel/timah/sawit/batu bara/karet, 2 seri Indonesia) → `raw/makro/<KODE>.parquet` (ditimpa).
+- `kumpul_harga_harian.py`: ~950 saham IDX + ~49 aset global (indeks 23 negara, futures, VIX, DXY, kurs, BTC), 7 hari → `raw/harian/harga`.
+- `kumpul_saham_as.py`: daftar semua kode AS dari NASDAQ Trader (~12.900, termasuk ETF) → `raw/harian/daftar_saham_as`
+  (lacak delisting, data "hanya ke depan") + harga 7 hari ~11.800 kode → `raw/harian/saham_as`. ~17 menit.
+- `kumpul_cuaca_harian.py`: Open-Meteo 15 kota dalam SATU permintaan, 14 hari → `raw/harian/cuaca`.
+- `kumpul_bigquery.py`: `bitcoin`, `ethereum`, `berita_gdelt` (nada/Goldstein/porsi konflik untuk ID/US/CH/JA/RS/lainnya),
+  `google_trends_id`. Ethereum ~0,74 GB/hari, Trends ~1,8 GB/hari.
+- `kumpul_wikipedia.py`: 20 artikel (id & en), 30 hari. `--histori` → `raw/histori/wikipedia/semua.parquet` (sejak Juli 2015).
+- `kumpul_crypto.py`: Coinbase 404 pasangan crypto/USD: `crypto_harian` (14 hari) & `crypto_jam` (per jam, 3 hari).
+- `kumpul_alam.py`: gempa USGS M2.5+ 14 hari → `raw/harian/gempa`; geomagnetik Kp/Ap + bintik matahari + F10.7 sejak 1932
+  (GFZ) → `raw/alam/geomagnetik_matahari.parquet`. `--histori-gempa` → `raw/histori/gempa/<tahun>` (M4.5+ sejak 1990).
+- `kumpul_riset.py`: CFTC COT (legacy sejak 1986, disaggregated & keuangan sejak 2006), 8 minggu → `raw/harian/cot_*`;
+  histori otomatis sekali → `raw/histori/cot`; Fama-French (3 faktor & momentum sejak 1926, 5 faktor sejak 1963, desimal) → `raw/riset`.
+- `kumpul_opsi.py`: foto rantai opsi 49 saham/ETF AS (termasuk EIDO), 6 jatuh tempo terdekat → `raw/harian/opsi`
+  (data "hanya ke depan", mulai 20 Nov 2026).
+
+Bulanan:
+- `kumpul_sec.py`: SEC companyfacts.zip (~1,4 GB), 25 konsep keuangan, ~20.588 perusahaan (termasuk yang sudah mati),
+  ~16 juta baris → `raw/fundamental/sec/bagian_xx` + `tiker.parquet` (CIK → kode saham).
+- `kumpul_bps.py`: BPS 1.767 variabel nasional, 3 tahun terakhir, 6 permintaan paralel → `raw/bps/terbaru`.
+  `--histori` → `raw/histori/bps` (18 bagian, SUDAH lengkap, jutaan baris). Format panjang:
+  var_id, judul, satuan, wilayah (banyak per provinsi/kota), kategori, tahun, periode, bulan, nilai.
+
+Histori sekali jalan (sudah selesai): `ambil_semua_idx.py` (`raw/harga_idx`, 918 saham), `ambil_harga.py` (`raw/harga`, 52 aset),
+`ambil_cuaca.py` (`raw/cuaca`, 15 kota sejak 1990), `isi_histori_as.py` (`raw/histori/saham_as`, 129 bagian, ~35 juta baris),
+`isi_histori_bigquery.py` (Bitcoin sejak 2009, Ethereum & GDELT sejak 2015, per tahun), `isi_histori_crypto.py`
+(`raw/histori/crypto_harian/semua.parquet`, 404 koin sejak listing).
+
+Data bersih (`gabung.py`, DuckDB, versi file harian paling baru menang, tanpa dobel):
+- `bersih/harga_idx.parquet`: 2,93 juta baris, 918 saham, 2000 → sekarang.
+- `bersih/saham_as.parquet`: 35 juta baris, 12.740 kode, 1962 → sekarang (902 MB).
+- Sumber lain BELUM digabung. Gabungkan hanya yang dibutuhkan riset.
+
+Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps.py <kata>`, `cek_bps.py <var_id>`,
+`validasi_harian.py`, `buat_katalog.py` (tambahkan keterangan setiap folder baru ke kamus INFO).
+
+## 7. Keterbatasan data yang diketahui
+
+- Survivorship bias: daftar saham IDX & crypto hanya yang masih aktif saat diambil. SEC & daftar AS harian mencakup yang mati.
+- Histori saham IDX di Yahoo umumnya baru sejak ~2000 (indeks IHSG sejak 1990).
+- SET Thailand & PSEi Filipina di Yahoo hanya 1 hari histori (terbentuk perlahan dari collector harian).
+- Kode AS "NA" hilang dari histori (dibaca pandas sebagai kosong), sudah diperbaiki untuk data harian.
+- `IDNCPIALLMINMEI` berhenti April 2025; `BAMLH0A0HYM2`/`BAMLC0A0CM` di FRED hanya 3 tahun terakhir.
+- Fama-French telat 1-2 bulan. Google Trends mingguan. Harga minyak WTI benar-benar negatif 20 April 2020.
+- Arus dana asing per saham IDX TIDAK tersedia: situs IDX memblokir program (Cloudflare). Keputusan pengguna:
+  JANGAN menembus/menyamar. Pakai pendekatan tidak langsung (USD/IDR, EIDO, BPS, FRED). Alternatif nanti: download manual harian.
+- Collector selalu mengambil beberapa hari ke belakang: kegagalan satu-dua hari tidak menghilangkan data.
+
+## 8. Jebakan teknis yang SUDAH ditemukan (jangan diulang)
+
+- JANGAN jalankan `upload_ke_cloud.py` dari laptop (menimpa file server dengan file tes). Pakai `upload_satu.py`.
+- Jadwal harus mulai SETELAH 00:00 UTC (dulu alarm palsu karena proses melewati tengah malam UTC dan tanggal file berbeda).
+- Tanggal dari sumber berbeda punya presisi/zona waktu beda (ms vs us, tz Jakarta): samakan dengan
+  `pd.DatetimeIndex(pd.to_datetime(x))` → `tz_localize(None)` → `normalize()` → `astype("datetime64[ns]")`.
+  JANGAN pakai `.values` pada tanggal ber-zona waktu (diam-diam menggeser satu hari).
+- BigQuery `to_dataframe()` menghasilkan tipe `dbdate`: ubah ke datetime standar sebelum disimpan.
+- `pd.read_csv` membaca "NA" sebagai kosong: pakai `dtype=str, keep_default_na=False`.
+- SEC: kolom bertipe campur (CIK angka/teks): paksa tipe setiap kolom sebelum simpan.
+- BPS: parameter `th` wajib, maksimal 3 tahun per permintaan, kode tahun = tahun − 1900, daftar dibagi per halaman.
+  Jangan ulangi permintaan yang gagal 4xx (kecuali 429).
+- Yahoo: sesekali gagal untuk kode tertentu ("possibly delisted"), biasanya sementara. Sembunyikan log dengan
+  `logging.getLogger("yfinance").setLevel(logging.CRITICAL)`. Batch 100 kode + jeda.
+- Open-Meteo & Wikipedia membatasi kecepatan: jeda + coba ulang (hormati `Retry-After`).
+- Koneksi Python ke Hugging Face dari laptop pengguna kadang putus: nyalakan Cloudflare WARP. Situs Indonesia lebih cepat tanpa WARP.
+- Pekerjaan panjang di Actions: upload per bagian (bukan per 5), `PYTHONUNBUFFERED=1`, dan bisa dilanjutkan (resume).
+- Saat menulis kode Python yang berisi tiga backtick di dalam string, buat lewat variabel (mis. `"`" * 3`) supaya tampilan chat tidak rusak.
+
+## 9. Aturan riset (WAJIB)
+
+- Tulis dugaan + alasan logis SEBELUM melihat data (hindari HARKing & data mining).
+- Data latih s/d **2018-12-31**; data uji **2019+ DIKUNCI**, dibuka sekali di akhir (`--buka-uji`), hanya untuk strategi yang lolos di data latih.
+- Ambang signifikansi **|t| > 3**. Hitung berapa banyak uji yang sudah dilakukan (multiple testing).
+- Uji di instrumen yang **BISA dibeli** (bukan indeks). Selalu potong biaya transaksi (asumsi IDX 0,4% bolak-balik).
+- Uji kode riset dulu dengan data tiruan yang diberi pola tersembunyi: program harus menemukan pola itu kembali.
+
+## 10. Status riset & rencana berikutnya
+
+- **Riset #1 SELESAI: EIDO (ETF Indonesia di bursa AS) semalam → IHSG besok** (`riset_01_eido.py`, `riset_01b_cek.py`).
+  IHSG buka→tutup t = +10,5 (tampak kuat), TAPI sebagian besar ilusi harga buka indeks yang basi (saham penyusun kecil belum
+  bertransaksi saat pembukaan). Di saham likuid: BBRI t = +4,8, BBCA/BMRI/TLKM/ASII t ≈ 1,5–2,1, dan SEMUA rugi setelah biaya 0,4%
+  (keuntungan kotor +0,1% s/d +0,3% per transaksi). Data uji tidak dibuka. Kesimpulan: bukan strategi tunggal; EIDO semalam
+  mungkin berguna sebagai SALAH SATU sinyal dalam model gabungan.
+- **Daftar ide berikutnya** (urutan rekomendasi):
+  #2 momentum saham IDX (12-1 bulan, Jegadeesh-Titman) → #3 komoditas (nikel→INCO/ANTM, timah→TINS, batu bara→PTBA/ADRO,
+  sawit→AALI) mendahului saham → #4 USD/IDR & DXY → IHSG → #5 saham "tidur" telat bereaksi → #6 posisi COT ekstrem → berbalik →
+  #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
+  → #10 volatilitas tersirat opsi (tunggu data beberapa bulan).
+- Calon sumber data berikutnya: transaksi orang dalam SEC Form 4, volume short harian FINRA, Polymarket, lelang Treasury AS.
+  Prioritaskan data "hanya ke depan" (tidak bisa diambil mundur).
+- Pantau: email alarm, jatah menit GitHub (github.com/settings/billing, "$x used / $12.00"), jatah BigQuery.
