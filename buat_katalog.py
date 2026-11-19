@@ -44,6 +44,10 @@ INFO = {
     "raw/harian/cot_keuangan":      ("Posisi futures keuangan (indeks, obligasi, mata uang), 8 minggu terakhir", "CFTC", "Harian (laporan mingguan)"),
     "raw/histori/cot":              ("Histori lengkap COT: legacy sejak 1986, lainnya sejak 2006", "CFTC", "Sekali (otomatis)"),
     "raw/riset":                    ("Faktor Fama-French harian (3 & 5 faktor, momentum), dalam desimal", "Kenneth French Data Library", "Harian (ditimpa)"),
+    "raw/bps":                    ("Daftar semua variabel statistik nasional BPS", "BPS", "Bulanan"),
+    "raw/bps/terbaru":            ("Semua variabel BPS nasional, 3 tahun terakhir (inflasi per kota, ekspor, dll.)", "BPS", "Bulanan (tgl 2)"),
+    "raw/histori/bps":            ("Semua variabel BPS nasional, semua tahun, per 100 variabel", "BPS", "Sekali (bertahap)"),
+
 
     "ref":                        ("File referensi: daftar saham IDX, katalog makro & cuaca, laporan validasi", "Berbagai", "Sesekali"),
 }

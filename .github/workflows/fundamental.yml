@@ -1,4 +1,4 @@
-name: Kumpulkan fundamental bulanan (SEC)
+name: Kumpulkan fundamental bulanan (SEC + BPS)
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
 jobs:
   sec:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@v4
 
@@ -20,9 +20,16 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Ambil laporan keuangan SEC
+        continue-on-error: true
         env:
           SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
         run: python kumpul_sec.py
+
+      - name: Ambil data BPS (semua variabel, 3 tahun terakhir)
+        continue-on-error: true
+        env:
+          BPS_KEY: ${{ secrets.BPS_KEY }}
+        run: python kumpul_bps.py
 
       - name: Upload ke Hugging Face
         env:

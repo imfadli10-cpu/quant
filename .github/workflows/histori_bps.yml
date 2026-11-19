@@ -1,0 +1,29 @@
+name: Isi histori BPS
+
+on:
+  workflow_dispatch:
+    inputs:
+      maks_kelompok:
+        description: "Jumlah bagian per run (1 bagian = 100 variabel)"
+        default: "10"
+
+jobs:
+  isi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install library
+        run: pip install -r requirements.txt
+
+      - name: Isi histori BPS
+        env:
+          BPS_KEY: ${{ secrets.BPS_KEY }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          MAKS_KELOMPOK: ${{ inputs.maks_kelompok }}
+        run: python kumpul_bps.py --histori
