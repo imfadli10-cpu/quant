@@ -9,6 +9,7 @@ kunci_*.json
 data/
 *.csv
 *.png
+*.xlsx
 
 # File sampah Python
 __pycache__/
