@@ -66,7 +66,7 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
   `validasi_harian.py` (gagal = GitHub mengirim email alarm ke pengguna).
 - `fundamental.yml`: tanggal 2 setiap bulan, 02:41 UTC: `kumpul_sec.py` + `kumpul_bps.py` (mode bulanan) → upload.
 - `gabung.yml`: setiap Minggu 03:23 UTC: `gabung.py` → `bersih/`.
-- `histori_as.yml`, `histori_bps.yml`: manual, sudah selesai 100%. `PYTHONUNBUFFERED=1` wajib untuk pekerjaan panjang.
+- `histori_as.yml`, `histori_bps.yml`: manual, sudah selesai 100%. `histori_finra.yml`: manual, sekali jalan (~30 menit). `PYTHONUNBUFFERED=1` wajib untuk pekerjaan panjang.
 
 ## 6. Katalog sumber data (status per 19 Nov 2026)
 
@@ -87,6 +87,9 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   histori otomatis sekali → `raw/histori/cot`; Fama-French (3 faktor & momentum sejak 1926, 5 faktor sejak 1963, desimal) → `raw/riset`.
 - `kumpul_opsi.py`: foto rantai opsi 49 saham/ETF AS (termasuk EIDO), 6 jatuh tempo terdekat → `raw/harian/opsi`
   (data "hanya ke depan", mulai 20 Nov 2026).
+- `kumpul_finra.py`: FINRA Reg SHO volume short harian ~12.000 saham AS (short, short dikecualikan, total), 10 hari
+  → `raw/harian/finra_short` (mulai 19 Nov 2026). `--histori` → `raw/histori/finra_short/<tahun>.parquet` (sejak 1 Agustus 2018,
+  upload tiap tahun, bisa dilanjutkan). `--tes` = cek cepat tanpa simpan. Baris penutup file (jumlah baris) dibuang.
 
 Bulanan:
 - `kumpul_sec.py`: SEC companyfacts.zip (~1,4 GB), 25 konsep keuangan, ~20.588 perusahaan (termasuk yang sudah mati),
@@ -118,6 +121,9 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - Fama-French telat 1-2 bulan. Google Trends mingguan. Harga minyak WTI benar-benar negatif 20 April 2020.
 - Arus dana asing per saham IDX TIDAK tersedia: situs IDX memblokir program (Cloudflare). Keputusan pengguna:
   JANGAN menembus/menyamar. Pakai pendekatan tidak langsung (USD/IDR, EIDO, BPS, FRED). Alternatif nanti: download manual harian.
+- FINRA short: server hanya menyimpan file sejak 1 Agustus 2018 (lebih lama = 403), jadi hampir seluruhnya jatuh di
+  periode DATA UJI (2019+). Riset dengan data ini butuh pembagian latih/uji sendiri, ditetapkan SEBELUM melihat data.
+  Volume = hanya yang dilaporkan ke FINRA (off-exchange/TRF), bukan seluruh volume bursa. Sejak ~2022 volume berdesimal.
 - Collector selalu mengambil beberapa hari ke belakang: kegagalan satu-dua hari tidak menghilangkan data.
 
 ## 8. Jebakan teknis yang SUDAH ditemukan (jangan diulang)
@@ -154,11 +160,27 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   bertransaksi saat pembukaan). Di saham likuid: BBRI t = +4,8, BBCA/BMRI/TLKM/ASII t ≈ 1,5–2,1, dan SEMUA rugi setelah biaya 0,4%
   (keuntungan kotor +0,1% s/d +0,3% per transaksi). Data uji tidak dibuka. Kesimpulan: bukan strategi tunggal; EIDO semalam
   mungkin berguna sebagai SALAH SATU sinyal dalam model gabungan.
+- **Riset #2 SELESAI: momentum saham IDX** (`riset_02_momentum.py`). Data latih Des 2004–Okt 2018 (155 bulan), semesta
+  ~98 saham (harga ≥ Rp100, median nilai transaksi 60 hari ≥ Rp1 miliar, ≥ 80% hari aktif). Sinyal akhir bulan, beli di
+  tutup hari bursa pertama bulan berikutnya, tahan 1 bulan, 5 kelompok (K1–K5), bobot sama. 4 varian ditetapkan di depan.
+  - **12-1 NYATA sebagai sinyal**: IC +0,069 (t = 5,0), K5−K1 +2,11%/bln (t = 4,0), naik rapi K1→K5; tahan di 50 saham
+    paling likuid (IC t = 3,8) & saat return dipotong ±30% (t = 5,0); melemah di paruh kedua (2012–2018 t = 2,9).
+  - **Yang bisa dijalankan BELUM LOLOS**: beli K5 saja, potong 0,4% × perputaran (~26%/bln), dibanding semesta tanpa biaya:
+    +0,79%/bln, t = 2,6. K5 ~20 saham, median nilai transaksi Rp10 miliar/hari (34% di bawah Rp5 miliar).
+  - 6-1 & 3-1 lebih lemah (IC t 3,1 & 2,6). Dugaan "pembalikan 1 bulan" SALAH: justru berlanjut (IC t = +2,9);
+    membeli yang paling jatuh rugi ~13%/thn.
+  - Kode lolos uji: `--tes-kosong` (data acak, IC ≈ 0) dan `--tes-tiruan` (pola tersembunyi ditemukan, t = 18,9).
+    Menghapus semua data 2019+ memberi hasil IDENTIK (data uji benar-benar tidak disentuh). Data uji tidak dibuka.
+  - Kelemahan yang belum bisa diatasi: survivorship bias; `Close` Yahoo sudah disesuaikan split (saringan harga memakai
+    info masa depan, dampak kecil; nilai transaksi tidak terpengaruh); biaya 0,4% belum memasukkan spread/tick
+    (saham murah: 1 tick bisa 0,5–1%), jadi hasil nyata kemungkinan sedikit lebih buruk.
+  - Kesimpulan: bukan strategi tunggal; momentum 12-1 adalah kandidat TERKUAT sejauh ini untuk model gabungan.
 - **Daftar ide berikutnya** (urutan rekomendasi):
-  #2 momentum saham IDX (12-1 bulan, Jegadeesh-Titman) → #3 komoditas (nikel→INCO/ANTM, timah→TINS, batu bara→PTBA/ADRO,
+  #3 komoditas (nikel→INCO/ANTM, timah→TINS, batu bara→PTBA/ADRO,
   sawit→AALI) mendahului saham → #4 USD/IDR & DXY → IHSG → #5 saham "tidur" telat bereaksi → #6 posisi COT ekstrem → berbalik →
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan).
-- Calon sumber data berikutnya: transaksi orang dalam SEC Form 4, volume short harian FINRA, Polymarket, lelang Treasury AS.
+- Calon sumber data berikutnya: transaksi orang dalam SEC Form 4, Polymarket, lelang Treasury AS.
+  (Volume short FINRA SUDAH ditambahkan 19 Nov 2026.)
   Prioritaskan data "hanya ke depan" (tidak bisa diambil mundur).
 - Pantau: email alarm, jatah menit GitHub (github.com/settings/billing, "$x used / $12.00"), jatah BigQuery.

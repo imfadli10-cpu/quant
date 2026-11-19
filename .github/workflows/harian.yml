@@ -67,6 +67,10 @@ jobs:
         continue-on-error: true
         run: python kumpul_opsi.py
 
+      - name: Ambil volume short harian AS (FINRA)
+        continue-on-error: true
+        run: python kumpul_finra.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}

@@ -69,14 +69,42 @@ def nilai_t(s):
     return s.mean() / (s.std(ddof=1) / np.sqrt(len(s))) if len(s) > 2 else np.nan
 
 
+TES_TIRUAN = "--tes-tiruan" in sys.argv     # data palsu DENGAN momentum tersembunyi: harus ditemukan
+TES_KOSONG = "--tes-kosong" in sys.argv     # data palsu TANPA pola: hasil harus ~nol (cek bocoran masa depan)
+
+
+def buat_data_tiruan(dengan_pola):
+    """150 saham palsu, hari kerja 2000-2026. Tiap saham punya 'arah' tersembunyi yang berubah pelan
+    tiap bulan (AR 0,9). Kalau dengan_pola=False, arahnya nol: harga murni acak."""
+    acak = np.random.default_rng(42)
+    tgl = pd.bdate_range("2000-07-03", "2026-11-13").astype("datetime64[ns]")
+    n_saham = 150
+    bln = tgl.to_period("M")
+    kode_bln = pd.factorize(bln)[0]
+    arah = np.zeros((kode_bln.max() + 1, n_saham))
+    for m in range(1, len(arah)):
+        arah[m] = 0.9 * arah[m - 1] + acak.normal(0, 0.012, n_saham)     # arah bulanan, sd ~2,8%
+    harian = acak.normal(0, 0.02, (len(tgl), n_saham))
+    if dengan_pola:
+        harian += arah[kode_bln] / 21
+    kolom = [f"S{i:03d}" for i in range(n_saham)]
+    a = pd.DataFrame(1000 * np.exp(np.cumsum(harian, axis=0)), index=tgl, columns=kolom)
+    v = pd.DataFrame(1e7, index=tgl, columns=kolom)
+    return a, a.copy(), v
+
+
 # ===== 1. Muat data harian semua saham =====
-adj, tutup, volume = {}, {}, {}
-for f in sorted(Path("data/raw/harga_idx").glob("*.parquet")):
-    d = pd.read_parquet(f, columns=["Adj Close", "Close", "Volume"])
-    d.index = jadi_tanggal(d.index)
-    d = d[~d.index.duplicated(keep="last")]
-    adj[f.stem], tutup[f.stem], volume[f.stem] = d["Adj Close"], d["Close"], d["Volume"]
-adj, tutup, volume = (pd.DataFrame(x).sort_index() for x in (adj, tutup, volume))
+if TES_TIRUAN or TES_KOSONG:
+    adj, tutup, volume = buat_data_tiruan(dengan_pola=TES_TIRUAN)
+    print(f"🧪 MODE TES: data PALSU {'dengan pola momentum tersembunyi' if TES_TIRUAN else 'tanpa pola'}")
+else:
+    adj, tutup, volume = {}, {}, {}
+    for f in sorted(Path("data/raw/harga_idx").glob("*.parquet")):
+        d = pd.read_parquet(f, columns=["Adj Close", "Close", "Volume"])
+        d.index = jadi_tanggal(d.index)
+        d = d[~d.index.duplicated(keep="last")]
+        adj[f.stem], tutup[f.stem], volume[f.stem] = d["Adj Close"], d["Close"], d["Volume"]
+    adj, tutup, volume = (pd.DataFrame(x).sort_index() for x in (adj, tutup, volume))
 
 # Hari bursa = hari kerja dengan minimal 10 saham bertransaksi (buang baris libur buatan yfinance)
 aktif = volume.fillna(0) > 0

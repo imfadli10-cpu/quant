@@ -59,6 +59,7 @@ cek("cot_legacy",        "report_date_as_yyyy_mm_dd", 14, 500)
 cek("cot_disaggregated", "report_date_as_yyyy_mm_dd", 14, 500)
 cek("cot_keuangan",      "report_date_as_yyyy_mm_dd", 14, 100)
 cek("opsi",             "waktu_ambil", 2,         20000,     ["kode"],            40)
+cek("finra_short",      "tanggal",     5,         50000,     ["kode"],            8000)
 
 # Makro: semua 18 seri harus ada, dan suku bunga harian The Fed harus segar
 file_makro = list(Path("data/raw/makro").glob("*.parquet"))

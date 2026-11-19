@@ -1,0 +1,25 @@
+name: Isi histori FINRA short
+
+on:
+  workflow_dispatch:         # manual, sekali jalan (bisa diulang: tahun yang sudah ada dilewati)
+
+jobs:
+  isi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install library
+        run: pip install -r requirements.txt
+
+      - name: Isi histori FINRA (sejak Agustus 2018, upload tiap tahun)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python kumpul_finra.py --histori
