@@ -66,7 +66,8 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
   `validasi_harian.py` (gagal = GitHub mengirim email alarm ke pengguna).
 - `fundamental.yml`: tanggal 2 setiap bulan, 02:41 UTC: `kumpul_sec.py` + `kumpul_bps.py` (mode bulanan) → upload.
 - `gabung.yml`: setiap Minggu 03:23 UTC: `gabung.py` → `bersih/`.
-- `histori_as.yml`, `histori_bps.yml`: manual, sudah selesai 100%. `histori_finra.yml`: manual, sekali jalan (~30 menit). `PYTHONUNBUFFERED=1` wajib untuk pekerjaan panjang.
+- `histori_as.yml`, `histori_bps.yml`: manual, sudah selesai 100%. `histori_finra.yml`: manual, SUDAH selesai
+  19 Nov 2026 (17 menit; 9 file, 20,1 juta baris, 2.087 hari bursa, hari kosong = persis hari libur bursa AS). `PYTHONUNBUFFERED=1` wajib untuk pekerjaan panjang.
 
 ## 6. Katalog sumber data (status per 19 Nov 2026)
 
