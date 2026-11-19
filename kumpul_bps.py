@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date
 from pathlib import Path
 
@@ -13,6 +14,7 @@ API = "https://webapi.bps.go.id/v1/api/list"
 REPO = "fadli-sparks/quant-data"
 TES = "--tes" in sys.argv
 HISTORI = "--histori" in sys.argv
+PEKERJA = int(os.environ.get("PEKERJA", "6"))   # jumlah permintaan paralel ke BPS
 BULAN = {"Januari": 1, "Februari": 2, "Maret": 3, "April": 4, "Mei": 5, "Juni": 6, "Juli": 7,
          "Agustus": 8, "September": 9, "Oktober": 10, "November": 11, "Desember": 12}
 
@@ -110,15 +112,17 @@ if not HISTORI:
 
     kode = [date.today().year - 1900 - 2, date.today().year - 1900 - 1, date.today().year - 1900]
     baris, nomor, berisi = [], 0, 0
-    for i, v in enumerate(semua, start=1):
-        hasil = ambil_variabel(v, kode)
-        berisi += bool(hasil)
-        baris += hasil
-        if TES or i % 100 == 0:
-            print(f"  ... {i}/{len(semua)}  [{v['var_id']}] {'✅' if hasil else '⚪'} {str(v.get('title'))[:50]}")
-        if (i % 300 == 0 or i == len(semua)) and baris:
-            simpan(baris, folder / "terbaru" / f"bagian_{nomor:02d}.parquet")
-            baris, nomor = [], nomor + 1
+    mulai = time.time()
+    with ThreadPoolExecutor(max_workers=PEKERJA) as pool:
+        for i, (v, hasil) in enumerate(zip(semua, pool.map(lambda v: ambil_variabel(v, kode), semua)), start=1):
+            berisi += bool(hasil)
+            baris += hasil
+            if TES or i % 100 == 0:
+                print(f"  ... {i}/{len(semua)}  [{v['var_id']}] {'✅' if hasil else '⚪'} "
+                      f"{str(v.get('title'))[:50]}  ({(time.time() - mulai) / 60:.1f} menit)")
+            if (i % 300 == 0 or i == len(semua)) and baris:
+                simpan(baris, folder / "terbaru" / f"bagian_{nomor:02d}.parquet")
+                baris, nomor = [], nomor + 1
     print(f"\n🎉 Selesai. {berisi} dari {len(semua)} variabel punya data {kode[0] + 1900}-{kode[-1] + 1900}")
     sys.exit()
 
@@ -156,6 +160,11 @@ def upload():
         print("   ☁️  Ter-upload ke Hugging Face")
 
 
+def ambil_semua_tahun(v):
+    tahun = sorted({int(t["th_id"]) for t in daftar_halaman({"model": "th", "var": v["var_id"]})})
+    return ambil_variabel(v, tahun)
+
+
 dikerjakan = 0
 for n in range(total):
     nama = f"bagian_{n:03d}.parquet"
@@ -163,10 +172,11 @@ for n in range(total):
         continue
     if dikerjakan >= MAKS:
         break
-    baris = []
-    for v in semua[n * 100:(n + 1) * 100]:
-        tahun = sorted({int(t["th_id"]) for t in daftar_halaman({"model": "th", "var": v["var_id"]})})
-        baris += ambil_variabel(v, tahun)
+    mulai = time.time()
+    with ThreadPoolExecutor(max_workers=PEKERJA) as pool:
+        hasil = list(pool.map(ambil_semua_tahun, semua[n * 100:(n + 1) * 100]))
+    baris = [b for h in hasil for b in h]
+    print(f"   ⏱️  {nama}: {(time.time() - mulai) / 60:.1f} menit")
     if baris:
         simpan(baris, lokal / nama)
     else:
@@ -175,7 +185,6 @@ for n in range(total):
     dikerjakan += 1
     upload()
 
-upload()
 selesai = len(sudah) + dikerjakan
 print(f"\n📊 Progres: {selesai}/{total} bagian ({selesai / total:.0%})")
 if selesai >= total:
