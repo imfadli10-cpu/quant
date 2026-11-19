@@ -52,6 +52,8 @@ INFO = {
     "raw/histori/lme":            ("Histori harga resmi LME + stok gudang 6 logam sejak 2008 (semua.parquet)", "Westmetall (data LME)", "Sekali (awal)"),
     "raw/harian/finra_short":     ("Volume short harian ~12.000 saham AS (short, short dikecualikan, total), 10 hari terakhir", "FINRA Reg SHO", "Harian"),
     "raw/histori/finra_short":    ("Histori volume short harian semua saham AS sejak Agustus 2018, 1 file per tahun", "FINRA Reg SHO", "Sekali (awal)"),
+    "raw/fundamental_idx/info":   ("Foto ringkasan fundamental ~950 saham IDX: kapitalisasi, saham beredar, PER, PBV, ROE, utang, dividen, target harga & rekomendasi analis, kepemilikan", "Yahoo Finance", "Mingguan Sabtu (hanya ke depan)"),
+    "raw/fundamental_idx/laporan": ("Foto laporan keuangan ~950 saham IDX (laba rugi, neraca, arus kas; kuartalan & tahunan), format panjang", "Yahoo Finance", "Mingguan Sabtu (hanya ke depan)"),
     "bersih":                     ("DATA SIAP PAKAI: harga saham IDX & AS (histori + harian digabung, tanpa dobel)", "Gabungan", "Mingguan (Minggu)"),
 
     "ref":                        ("File referensi: daftar saham IDX, katalog makro & cuaca, laporan validasi", "Berbagai", "Sesekali"),

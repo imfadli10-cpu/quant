@@ -99,6 +99,14 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
 - Sawit harian: `CPO=F` (USD Malaysian Crude Palm Oil, CME) masuk daftar GLOBAL `kumpul_harga_harian.py` & `ambil_harga.py`
   → histori `raw/harga/SAWIT.parquet` (sejak Mei 2010). Kontrak jarang ditransaksikan (87% hari volume 0) tapi harga berubah
   tiap hari; vs IMF sawit: rasio 0,995, korelasi perubahan bulanan 0,92.
+- `kumpul_fundamental_idx.py` (workflow `fundamental_idx.yml`, tiap SABTU 02:47 UTC, ~25-30 menit): foto fundamental ~944 saham
+  IDX dari Yahoo → `raw/fundamental_idx/info/<tanggal>` (kapitalisasi, saham beredar, PER, PBV, ROE, utang, dividen, target &
+  rekomendasi analis, kepemilikan) + `raw/fundamental_idx/laporan/<tanggal>` (laba rugi, neraca, arus kas; kuartalan & tahunan,
+  format panjang). Data "HANYA KE DEPAN": Yahoo cuma simpan ~6 kuartal / 4-5 tahun. Foto berurutan = tahu KAPAN laporan
+  pertama muncul (cegah look-ahead) + simpan versi sebelum revisi. Foto pertama 19 Nov 2026 (dari laptop): info 797 saham,
+  laporan 636 saham (sebagian korban rate limit Yahoo; sejak itu: 3 paralel, tunggu 60 dtk saat dibatasi, putaran kedua).
+  JEBAKAN: sebagian emiten lapor dalam USD (`financialCurrency`) sedangkan harga IDR → PBV/PER dari Yahoo bisa ngawur
+  (contoh AADI PBV 19.979). Hitung ulang rasio sendiri dengan kurs.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:

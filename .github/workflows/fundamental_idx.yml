@@ -1,0 +1,38 @@
+name: Foto fundamental IDX (mingguan)
+
+on:
+  schedule:
+    - cron: "47 2 * * 6"    # setiap Sabtu jam 09:47 WIB (02:47 UTC), bursa tutup
+  workflow_dispatch:         # tombol untuk menjalankan manual
+
+jobs:
+  foto:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install library
+        run: pip install -r requirements.txt
+
+      - name: Foto fundamental semua saham IDX (Yahoo)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python kumpul_fundamental_idx.py   # gagal (< 700 saham) = email alarm
+
+      - name: Upload ke Hugging Face (hanya folder ini, file lama tidak dihapus)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python upload_satu.py data/raw/fundamental_idx
+
+      - name: Perbarui katalog
+        continue-on-error: true
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python buat_katalog.py
