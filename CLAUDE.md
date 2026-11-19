@@ -176,9 +176,20 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     info masa depan, dampak kecil; nilai transaksi tidak terpengaruh); biaya 0,4% belum memasukkan spread/tick
     (saham murah: 1 tick bisa 0,5–1%), jadi hasil nyata kemungkinan sedikit lebih buruk.
   - Kesimpulan: bukan strategi tunggal; momentum 12-1 adalah kandidat TERKUAT sejauh ini untuk model gabungan.
+- **Riset #3 SELESAI: komoditas bulan m → saham produsennya bulan m+1** (`riset_03_komoditas.py`). HASIL NEGATIF.
+  Pasangan (tetap): nikel→INCO/ANTM, timah→TINS, batu bara→PTBA/ITMG/ADRO/BUMI/INDY/HRUM, sawit→AALI/LSIP/SGRO/SIMP/BWPT,
+  Brent→MEDC/ENRG. Sinyal = perubahan rata-rata bulanan IMF/FRED; beli tutup hari bursa pertama m+1, tahan 1 bulan.
+  - Cek kewajaran (bulan yang sama) OK: nikel t 5,9, timah 4,9, batu bara 4,0, sawit 7,4; minyak hanya 1,6 (MEDC/ENRG lemah terhadap Brent).
+  - Prediksi bulan depan: SEMUA kemiringan positif tapi TIDAK ADA yang lolos: nikel t 1,7, timah 2,3, batu bara 0,9,
+    sawit 0,2, minyak 2,5. Strategi "beli kelompok yang komoditasnya naik" vs pegang semua: +0,48%/bln, t = 0,8.
+  - Kode lolos `--tes-kosong`/`--tes-tiruan` (pola 0,3 ditemukan, strategi t 4,7; TAPI kelompok 1 saham seperti timah
+    daya ujinya rendah). Hapus data 2019+ → hasil IDENTIK. Data uji tidak dibuka.
+  - Jeda terbit IMF di FRED tidak teratur (1-2 bulan, kadang >1 tahun; arsip ALFRED baru sejak Nov 2015). Uji memakai prinsip
+    "informasi sudah publik di bursa LME/ICE akhir bulan m". Untuk dijalankan sungguhan butuh sumber harga HARIAN nikel/timah/batu bara/sawit.
+  - "Pegang semua kelompok" +2,5%/bln di 2001-2018 = boom komoditas + survivorship bias, BUKAN sinyal.
+  - Kesimpulan: bukan strategi; arah positif konsisten tapi lemah. Kalau nanti ada harga harian, bisa diuji ulang di horizon mingguan.
 - **Daftar ide berikutnya** (urutan rekomendasi):
-  #3 komoditas (nikel→INCO/ANTM, timah→TINS, batu bara→PTBA/ADRO,
-  sawit→AALI) mendahului saham → #4 USD/IDR & DXY → IHSG → #5 saham "tidur" telat bereaksi → #6 posisi COT ekstrem → berbalik →
+  #4 USD/IDR & DXY → IHSG → #5 saham "tidur" telat bereaksi → #6 posisi COT ekstrem → berbalik →
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan).
 - Calon sumber data berikutnya: transaksi orang dalam SEC Form 4, Polymarket, lelang Treasury AS.
