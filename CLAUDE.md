@@ -146,6 +146,8 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   `raw/harian/berita/<tanggal UTC>.parquet` (foto-foto di hari yang sama DIGABUNG, dobel dibuang menurut tautan; gagal
   membaca file hari ini → berhenti). `kode_disebut` = kode saham IDX di judul/ringkasan. Mulai 20 Nov 2026 (hanya ke depan).
   TIDAK dipakai: CNBC Indonesia & IDX Channel (robots.txt MELARANG), Bisnis.com (403). Kontan cuma ~7 jam → wajib tiap 4 jam.
+  TERKONFIRMASI 20 Nov 2026 (file `status_<tanggal>.parquet`): Kontan MENOLAK server GitHub (HTTP 403), dari laptop diterima
+  → pemblokiran per alamat server; JANGAN ditembus. Dari server praktis 4 sumber (Antara x2, Tempo, Liputan6).
   Tidak ada di `validasi_harian.py` (jam tidak sinkron); workflow berita gagal sendiri = email.
 - `kumpul_intraday_idx.py` (harian): bar 1 MENIT semua saham & ETF IDX, 3 hari bursa terakhir → `raw/harian/intraday_idx`
   (~284 ribu bar/hari, ~1,9 MB, ~2,5 menit; mulai 20 Nov 2026). Yahoo hanya menyimpan 1 menit ~8 hari, 5 menit ~60 hari, 1 jam
@@ -159,6 +161,10 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   JEBAKAN format: SOI lebar tetap 6 karakter (nilai kosong '-999.9' menempel); kode kosong beda tiap file (-999.9/-999.00/-9999).
   Riset nanti: pakai versi yang SUDAH TERBIT saat itu (ONI/SOI/MEI terbit ~awal-pertengahan bulan berikutnya & bisa direvisi).
   Per 20 Nov 2026: El Nino KUAT sedang berlangsung (ONI ASO +2,46; Nino 3.4 mingguan +3,2).
+- `kumpul_udara.py` (harian): KUALITAS UDARA per jam 12 kota (6 kota besar RI + 4 kota rawan asap kebakaran + Singapura & KL)
+  → `raw/harian/udara` (7 hari) + `raw/histori/udara/semua.parquet` (`--histori`, sejak 2022-09; sebelum itu KOSONG di Open-Meteo).
+  Semua kota dalam SATU permintaan. Cek kewajaran OK: PM2.5 bulanan tertinggi Palembang = Okt 2023 & Sep–Okt 2026 (tahun El Nino,
+  asap kebakaran). Dasar riset: polusi ↓ suasana hati investor (Levy-Yagil 2011; Heyes dkk. 2016). Histori pendek → data ke depan.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
