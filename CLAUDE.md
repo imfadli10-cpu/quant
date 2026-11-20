@@ -12,7 +12,7 @@ Baca SELURUHNYA sebelum bekerja. Jangan mengulang keputusan yang sudah diambil t
   dijadikan angka, termasuk data "aneh" yang kelihatannya tidak berhubungan dengan pasar (cuaca, gempa, aktivitas matahari,
   perhatian publik, dll.), lalu analisis dengan statistik untuk mengambil keputusan trading.
 - Prinsip pengguna sejak awal: **data sebanyak mungkin**, walaupun belum tentu berguna. **Jangan disimpan di laptop**
-  (kapasitas terbatas). **Gratis, tanpa kartu kredit** (pengguna hanya punya kartu BRI, DANA, ShopeePay, GoPay).
+  (kapasitas terbatas). **Gratis, tanpa kartu kredit** (pengguna tidak punya kartu kredit).
 - Pengguna ingin **terus menambah sumber data** bahkan saat sudah masuk tahap riset. Pola yang disepakati:
   **bergantian** antara menambah satu sumber baru dan satu langkah pengolahan/riset.
 - Pemahaman yang disepakati soal Renaissance: tiru **cara berpikirnya**, bukan skalanya:
@@ -26,12 +26,12 @@ Baca SELURUHNYA sebelum bekerja. Jangan mengulang keputusan yang sudah diambil t
 - SELALU pakai **Bahasa Indonesia** santai. Pengguna **pemula** pemrograman: jelaskan istilah baru dengan sederhana dan contoh.
 - Berikan **file/kode LENGKAP** (ganti seluruh isi file), JANGAN potongan yang harus disisipkan manual: pengguna sering
   salah tempel, dan itu memicu error berantai. Kalau bisa, edit file dan jalankan perintahnya sendiri.
-- **UJI dulu** sebelum menyerahkan. Pengguna sangat frustrasi kalau diberi kode yang salah berkali-kali
-  ("JANGAN MAIN MAIN YA, HARUS SERIUS"). Uji dengan data yang meniru format ASLI (tipe tanggal, zona waktu, nama kolom).
+- **UJI dulu** sebelum menyerahkan. Kode yang salah berkali-kali sangat mengganggu pengguna:
+  proyek ini SERIUS. Uji dengan data yang meniru format ASLI (tipe tanggal, zona waktu, nama kolom).
 - Pengguna mau **serius dan jujur**: jangan membesar-besarkan hasil. Hasil riset negatif disampaikan apa adanya.
 - Kalau pengguna bilang "ngikut kau" / "bagusnya yang mana": **ambil keputusan** dan jelaskan alasannya singkat.
 - Tugas analitis (menyusun daftar ide riset, merancang uji) adalah tugas Claude, JANGAN dilempar ke pengguna.
-  Pengguna cukup memilih/menyetujui. (Pengguna pernah kesal saat diminta menulis jurnal ide sendiri.)
+  Pengguna cukup memilih/menyetujui.
 - Berikan **link langsung** (GitHub Actions, Hugging Face, dll.) saat menyuruh membuka sesuatu.
 - Kebiasaan yang perlu diingatkan: tekan Ctrl+S sebelum menjalankan; `git status` sebelum `git add`
   (pastikan tidak ada file `kunci_*`); jangan mengetik kode Python di terminal; aktifkan venv (`(.venv)`).
@@ -45,7 +45,7 @@ Baca SELURUHNYA sebelum bekerja. Jangan mengulang keputusan yang sudah diambil t
 | Kode | GitHub private `imfadli10-cpu/quant` | 2FA aktif |
 | Data | Hugging Face dataset **private** `fadli-sparks/quant-data` | `raw/` = mentah, `bersih/` = siap pakai, `ref/` = referensi. Halaman depan = katalog otomatis (README) |
 | Otomatisasi | GitHub Actions | Jatah repo private: 2.000 menit/bulan (= $12 "included"; $0,006/menit). Billing tidak pernah menagih (tanpa kartu), Actions berhenti kalau habis |
-| Data publik raksasa | BigQuery Sandbox, project `potent-duality-512213-u4`, service account `quant-collector` (role BigQuery User) | Jatah 1 TB dibaca/bulan. Pemakaian rutin ~80 GB/bulan. Pagar pengaman 5 GB per query (dry run dulu) |
+| Data publik raksasa | BigQuery Sandbox (ID project & service account ada di `kunci_gcp.json` / secret `GCP_KEY_JSON`, role BigQuery User) | Jatah 1 TB dibaca/bulan. Pemakaian rutin ~80 GB/bulan. Pagar pengaman 5 GB per query (dry run dulu) |
 | Kunci API gratis | FRED, Hugging Face, BPS, GCP | Lihat bagian Rahasia |
 
 Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan besar dijalankan di GitHub Actions.
@@ -380,7 +380,15 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Dengan harga harian LME & sawit, riset #3 bisa diuji ulang di horizon MINGGUAN (nikel/timah sejak 2008, sawit sejak 2010).
   Prioritaskan data "hanya ke depan" (tidak bisa diambil mundur).
 - Pantau: email alarm, jatah menit GitHub (github.com/settings/billing, "$x used / $12.00"), jatah BigQuery.
-- **Jatah GitHub Actions (keputusan 20 Nov 2026):** repo TETAP PRIVATE. Pengguna minta DIKABARI kalau mendekati batas.
+- **REPO PUBLIK (keputusan pengguna 20 Nov 2026, menggantikan keputusan 'tetap private'):** menit Actions tak terbatas.
+  Konsekuensi: (1) semua kode, CLAUDE.md, log Actions & hasil riset (termasuk strategi S2) bisa dibaca siapa pun -> JANGAN
+  tulis data pribadi pengguna di file repo (simpan di memori Claude); (2) GitHub MEMATIKAN jadwal otomatis setelah 60 hari
+  tanpa aktivitas repo -> pastikan ada commit minimal tiap ~50 hari (workflow penjaga otomatis `jaga_aktif.yml` BELUM dibuat:
+  pembuatannya ditolak pengaman Claude Code karena memberi Actions izin menulis ke repo; menunggu keputusan pengguna); (3) gudang Hugging Face TETAP private.
+  Riwayat git sudah dicek bersih (60 commit, 20 Nov 2026): tanpa kunci/token/email asli. Versi lama CLAUDE.md di riwayat masih
+  memuat catatan pribadi ringan (jenis e-wallet, kutipan, ID project GCP) - risiko rendah, riwayat SENGAJA tidak ditulis ulang
+  supaya bukti waktu pra-registrasi riset (commit 1a1d878, a7e92f7) tetap utuh.
+- (Catatan lama) **Jatah GitHub Actions (keputusan 20 Nov 2026):** repo TETAP PRIVATE. Pengguna minta DIKABARI kalau mendekati batas.
   Per 20 Nov: $4,62 (~770 menit) terpakai; run harian ~42,5 menit; perkiraan bulan penuh ~1.500–1.600 dari 2.000 menit.
   Pengguna: "nggak usah mikirin menit" → menit BUKAN pertimbangan memilih data/riset & jangan dibahas; cukup pantau
   diam-diam. HANYA kalau perkiraan > ~1.800 menit/bulan atau Compute > ~$10:
