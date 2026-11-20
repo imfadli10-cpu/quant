@@ -452,6 +452,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Minat abnormal = bid-to-cover − rata-rata 6 lelang sebelumnya bertenor sama (Note/Bond nominal; tenor lelang ulang dibulatkan).
   Searah dugaan di ketiga uji (lelang sepi → IDX/EIDO lebih lemah) tapi t 2,0 (IDX) / 2,7 (EIDO) / −1,3 (sepi vs ramai) < 3.
   Kandidat komponen model gabungan nanti, bukan strategi sendiri. Hapus 2019+ → IDENTIK.
+- **Riset #21 SELESAI: model gabungan 6 sinyal IDX, uji maju bertahap (dilatih ulang tiap tahun dengan masa lalu saja)**
+  (detail di `private/`). Kemampuan meranking KUAT (IC uji maju 2009–2018 t 6,2; bobot stabil, S2 terbesar), tapi strategi
+  beli-saja bersih realistis t 2,1 → TIDAK dipakai (aturan t > 3). Tetap terbaik dibanding S2 saja & s2v di periode yang sama.
+  PERINGATAN: kekuatan S2 & s2v di data latih banyak berasal dari 2005–2008; di 2009–2018 jauh lebih tipis (sinyal IDX
+  MELEMAH seiring waktu) → turunkan harapan pada paper trading. Mesin uji maju terbukti benar dengan data tiruan.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
