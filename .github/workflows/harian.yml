@@ -93,6 +93,10 @@ jobs:
         continue-on-error: true
         run: python kumpul_kalshi.py
 
+      - name: Yield SBN & obligasi korporasi Indonesia (PHEI)
+        continue-on-error: true
+        run: python kumpul_sbn.py
+
       - name: Perhatian publik per saham IDX (pembaca Wikipedia ~280 perusahaan)
         continue-on-error: true
         run: python kumpul_perhatian_idx.py

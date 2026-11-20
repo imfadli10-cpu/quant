@@ -130,6 +130,12 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   2.100 pasar volume 24 jam terbesar + 2.100 likuiditas terbesar (dobel dibuang, ~3.500 pasar, ~$22 juta volume/hari).
   `harga_ya` = peluang hasil pertama. API: maks 100 per halaman, offset maks ~2.100 (lebih dalam butuh /markets/keyset yang
   berisi puluhan ribu pasar kecil: keyset > 10 menit, TIDAK dipakai). `--tes` = cek tanpa simpan.
+- `kumpul_sbn.py` (harian, detik): YIELD OBLIGASI INDONESIA dari PHEI (Penilai Harga Efek Indonesia; robots.txt mengizinkan /Data)
+  → `raw/harian/sbn` (mulai 20 Nov 2026, hanya ke depan; histori gratis tidak ada). Format panjang: kurva IGSYC tenor 0,1–30 thn,
+  benchmark SUN (FR) & sukuk (PBS) dengan harga & kupon, seri ritel (ORI/SBR/ST/SR), korporasi per tenor × peringkat (IGS/AAA/AA/A/BBB).
+  Halaman memuat 'hari ini' & 'kemarin' (kolom `hari`; `tanggal_data` = tanggal 'hari ini' dari judul kurva). Angka berformat Indonesia
+  (`read_html(decimal=",", thousands=".")`). Tabel dikenali dari NAMA kolom. 20 Nov 2026: 1 thn 6,87%, 10 thn 7,75%.
+  Kurva tenor ≥ 16 thn datar (sesuai halaman). BELUM TERBUKTI server PHEI menerima akses dari GitHub → cek run harian pertama.
 - `kumpul_kalshi.py` (harian, ~5 menit): foto SEMUA pasar prediksi Kalshi (bursa prediksi teregulasi CFTC) yang terbuka, KECUALI
   kategori Sports (>120 ribu pasar) & parlay `KXMVE` → `raw/harian/kalshi` (mulai 20 Nov 2026, hanya ke depan). ~85 ribu pasar/hari:
   Elections, Financials (rentang S&P/Nasdaq/emas/platinum/kurs), Economics (CPI, NFP, PDB, Fed), Crypto, Commodities, cuaca, dll.
