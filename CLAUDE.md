@@ -73,7 +73,7 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
 
 Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, isinya beberapa hari terakhir, sengaja tumpang tindih):
 - `ambil_makro.py`: FRED 75 seri (suku bunga, inflasi, likuiditas Fed, tenaga kerja, kurs 15 mata uang, yield 5 negara,
-  energi, 13 komoditas IMF termasuk nikel/timah/sawit/batu bara/karet, 2 seri Indonesia) → `raw/makro/<KODE>.parquet` (ditimpa).
+  energi, 13 komoditas IMF termasuk nikel/timah/sawit/batu bara/karet, 3 seri Indonesia termasuk kurs akhir bulan OECD; total 76) → `raw/makro/<KODE>.parquet` (ditimpa).
 - `kumpul_harga_harian.py`: ~950 saham IDX + ~49 aset global (indeks 23 negara, futures, VIX, DXY, kurs, BTC), 7 hari → `raw/harian/harga`.
 - `kumpul_saham_as.py`: daftar semua kode AS dari NASDAQ Trader (~12.900, termasuk ETF) → `raw/harian/daftar_saham_as`
   (lacak delisting, data "hanya ke depan") + harga 7 hari ~11.800 kode → `raw/harian/saham_as`. ~17 menit.
@@ -165,6 +165,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   palsu −5,5. Data mentah dibiarkan; bersihkan saat dipakai (fungsi `bersihkan` di `riset_03b`: buang nilai < 10% atau
   > 10x median 21 hari). Aturan itu memakai median TERPUSAT (melihat 10 hari ke depan): boleh untuk riset historis,
   JANGAN untuk sinyal live. Pelajaran umum: kalau t robust dan t biasa sangat berbeda, curigai pencilan/data rusak.
+- Kurs Yahoo `IDR=X` (`raw/harga/USDIDR.parquet`) RUSAK: lonjakan 1 hari (2010-11-01 = 888, 2012-02-07 −90%), nilai nyangkut
+  9612,45 berulang Juli–Des 2013 (sampai 3 hari berturut-turut), dan BOLONG 2001–2003 (2003 cuma 106 hari). Untuk bulanan pakai
+  FRED `CCUSSP02IDM650N` (kurs akhir bulan OECD, s/d 2023-12, sudah masuk `ambil_makro.py` → 76 seri). Untuk harian: fungsi
+  `bersihkan` di `riset_04` (median TERPUSAT 9 hari, 4%, diulang; 21 titik dibuang) dan hanya sejak 2004. Pelajaran: SELALU
+  cek lompatan harian & bandingkan dengan sumber kedua sebelum memakai seri harga apa pun.
 - Saat menulis kode Python yang berisi tiga backtick di dalam string, buat lewat variabel (mis. `"`" * 3`) supaya tampilan chat tidak rusak.
 
 ## 9. Aturan riset (WAJIB)
@@ -218,8 +223,19 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   - Di data TIRUAN dengan pola 0,2 pun strategi bersih hanya t 1,5: strategi mingguan butuh efek sangat besar.
   - Kode lolos `--tes-kosong`/`--tes-tiruan`; hapus data 2019+ → IDENTIK. Data uji tidak dibuka.
   - Kesimpulan riset #3 + #3b: pasar IDX menyerap harga komoditas DALAM minggu yang sama. Tidak ada reaksi lambat yang bisa dipakai.
+- **Riset #4 SELESAI: kurs rupiah & DXY → keranjang 30 saham paling likuid IDX** (`riset_04_rupiah.py`). HASIL NEGATIF.
+  Keranjang = 30 saham nilai transaksi terbesar tiap akhir bulan (saringan riset #2), bobot sama. 5 uji ditetapkan di depan.
+  - Cek kewajaran bulan yang sama kuat: rupiah melemah ↔ keranjang turun (t −7,9), DXY (t −5,3).
+  - Bulan m → m+1: kurs t −0,6 (robust), DXY t −1,3. Strategi "rupiah melemah bulan lalu → kas (bunga BI)":
+    −0,19%/bln vs selalu pegang (t −0,5); Sharpe sedikit lebih baik (0,89 vs 0,68) hanya karena lebih sering di kas.
+    Mingguan (tambahan): kurs t −1,3, DXY t +0,3. Tidak ada yang lolos.
+  - Di data TIRUAN dengan pola −0,5 (t −3,8), strategi pindah-ke-kas pun hanya t 1,4: strategi timing butuh efek sangat besar.
+  - Kode lolos `--tes-kosong`/`--tes-tiruan`; hapus data 2019+ → IDENTIK. Data uji tidak dibuka.
+  - Catatan kejujuran: versi pertama memakai kurs Yahoo yang RUSAK (hasil H1 t 0,0 sempat terlihat). Sumber diganti
+    karena cek kualitas otomatis, bukan karena hasil; versi bersih juga negatif.
+  - Kesimpulan riset #1–#4: informasi makro/pasar yang JELAS (EIDO, komoditas, kurs) diserap IDX dalam hari/minggu yang sama.
 - **Daftar ide berikutnya** (urutan rekomendasi):
-  #4 USD/IDR & DXY → IHSG → #5 saham "tidur" telat bereaksi → #6 posisi COT ekstrem → berbalik →
+  #5 saham "tidur" telat bereaksi → #6 posisi COT ekstrem → berbalik →
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan).
 - Calon sumber data berikutnya: transaksi orang dalam SEC Form 4, Polymarket, lelang Treasury AS.

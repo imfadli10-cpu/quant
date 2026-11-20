@@ -93,6 +93,7 @@ SERI = {
     # ===== Indonesia =====
     "IDNCPIALLMINMEI":  "Inflasi Indonesia (CPI)",
     "IRSTCI01IDM156N":  "Suku bunga jangka pendek Indonesia",
+    "CCUSSP02IDM650N":  "Kurs rupiah per USD akhir bulan (OECD, sampai 2023; lebih bersih dari Yahoo IDR=X)",
 }
 
 folder = Path("data/raw/makro")
