@@ -6,4 +6,4 @@ yfinance
 openpyxl
 google-cloud-bigquery
 db-dtypes
-duckdb
+duckdbhijridate

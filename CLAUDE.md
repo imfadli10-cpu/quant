@@ -380,6 +380,14 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Stres = VIX ≥ 25 di akhir bulan (19 dari 155 bulan latih; cek STLFSI4 > 0). Keunggulan S2 vs semesta TETAP ada sesudah
   bulan stres (+1,01% vs +0,91% tenang); pindah ke kas saat stres tidak membantu (t −0,3; versi STLFSI t −1,9).
   Pelajaran: S2 tidak perlu dimatikan saat krisis. Pra-registrasi dicatat & dicadangkan sebelum dijalankan.
+- **Riset #15 SELESAI: efek Ramadan & libur Lebaran** (`riset_15_ramadan.py`). HASIL NEGATIF (daya uji rendah).
+  Keranjang 30 saham paling likuid (riset #4), return harian, latih 2002-05..2018-12 (17 Ramadan). Tanggal Ramadan dari pustaka
+  `hijridate` (Umm al-Qura, bisa beda 1 hari dari penetapan RI); libur Lebaran = jeda hari bursa terpanjang ±12 hari dari 1 Syawal.
+  - U1 Ramadan +0,076%/hari vs bukan Ramadan +0,085% (t −0,1) | U2 2 hari sebelum libur Lebaran +0,42%/hari vs biasa +0,09%
+    (t +1,7, searah dugaan, belum lolos) | U3 abnormal Ramadan per tahun bersih −0,51% (t −0,3; 2003 −18% NYATA: IHSG −2,8%
+    selama Ramadan padahal setahun +63%).
+  - Data tiruan: pola +0,15%/hari (≈ +3%/Ramadan) hanya t 2,8 (U1) / 1,9 (U3) → efek kalender butuh puluhan tahun untuk terbukti.
+  - Hapus data 2019+ → IDENTIK. Data uji tidak dibuka. Catatan: pra-Lebaran bisa diuji ulang setelah data uji makin panjang.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
