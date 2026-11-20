@@ -107,6 +107,10 @@ jobs:
         continue-on-error: true
         run: python kumpul_udara.py
 
+      - name: Harga pangan harian (PIHPS BI, nasional & 34 provinsi)
+        continue-on-error: true
+        run: python kumpul_pangan.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}

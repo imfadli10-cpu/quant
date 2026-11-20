@@ -165,6 +165,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   → `raw/harian/udara` (7 hari) + `raw/histori/udara/semua.parquet` (`--histori`, sejak 2022-09; sebelum itu KOSONG di Open-Meteo).
   Semua kota dalam SATU permintaan. Cek kewajaran OK: PM2.5 bulanan tertinggi Palembang = Okt 2023 & Sep–Okt 2026 (tahun El Nino,
   asap kebakaran). Dasar riset: polusi ↓ suasana hati investor (Levy-Yagil 2011; Heyes dkk. 2016). Histori pendek → data ke depan.
+- `kumpul_pangan.py` (harian): HARGA PANGAN harian PIHPS Bank Indonesia (alamat data publik halaman bi.go.id/hargapangan;
+  robots.txt MENGIZINKAN) → `raw/harian/pangan` (35 hari) + `raw/histori/pangan/<tahun>.parquet` (`--histori`, sejak 2017-07).
+  10 kategori (beras, daging ayam/sapi, telur, bawang merah/putih, cabai merah/rawit, minyak goreng, gula) + rincian = 31 baris;
+  NASIONAL 4 jenis harga (pasar tradisional/modern, pedagang besar, produsen) + 34 PROVINSI pasar tradisional.
+  JEBAKAN: dari laptop WARP HARUS MATI (dengan WARP server BI lambat 20 dtk lalu tidak merespons). Permintaan setengah tahun
+  ±10 dtk (setahun ±43 dtk). Jeda 2 dtk. Kode provinsi = angka (bug label 'Nasional' sudah diperbaiki; cek ≥ 30 wilayah).
+  BELUM TERBUKTI server BI menerima akses dari server GitHub (Kontan menolak) → cek hasil run harian pertama.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:

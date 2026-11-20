@@ -65,6 +65,8 @@ INFO = {
     "raw/harian/iklim":           ("Foto harian 36 bulan terakhir semua indeks iklim (melacak revisi & versi yang tersedia saat itu)", "NOAA CPC & PSL", "Harian"),
     "raw/harian/udara":           ("Kualitas udara per jam 12 kota (Jakarta, Surabaya, Bandung, Medan, Semarang, Makassar, Palembang, Pekanbaru, Pontianak, Balikpapan, Singapura, KL): PM2.5, PM10, CO, NO2, SO2, ozon, debu, AQI; 7 hari terakhir", "Open-Meteo Air Quality (CAMS)", "Harian"),
     "raw/histori/udara":          ("Histori kualitas udara per jam 12 kota sejak September 2022 (semua.parquet)", "Open-Meteo Air Quality (CAMS)", "Sekali (awal)"),
+    "raw/harian/pangan":          ("Harga pangan harian (beras, ayam, sapi, telur, bawang merah/putih, cabai merah/rawit, minyak goreng, gula + rinciannya): nasional 4 jenis harga + 34 provinsi pasar tradisional, 35 hari terakhir", "PIHPS Bank Indonesia", "Harian"),
+    "raw/histori/pangan":         ("Histori harga pangan harian sejak Juli 2017, 1 file per tahun", "PIHPS Bank Indonesia", "Sekali (awal)"),
     "raw/kurs_ecb":               ("Kurs RESMI harian ECB ~40 mata uang sejak 1999 (rupiah & tetangga Asia sejak 2005): per_eur & per_usd, histori lengkap ditimpa tiap hari. LEBIH BERSIH dari Yahoo IDR=X", "Bank Sentral Eropa (ECB)", "Harian (ditimpa)"),
     "raw/harian/kurs_ecb":        ("Kurs resmi ECB 30 hari terakhir (untuk validasi harian)", "Bank Sentral Eropa (ECB)", "Harian"),
     "raw/insider_sec":            ("Transaksi orang dalam perusahaan AS (Form 3/4/5) sejak 2006, 1 file per kuartal: tanggal lapor, kode, pemilik & jabatan, beli/jual, lembar, harga, penanda 10b5-1", "SEC EDGAR", "Bulanan (tgl 3)"),
