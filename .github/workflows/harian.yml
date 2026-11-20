@@ -27,6 +27,12 @@ jobs:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python ambil_makro.py
 
+      - name: Foto daftar saham IDX (Yahoo) + tambah kode IPO baru (harus SEBELUM harga harian)
+        continue-on-error: true
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python kumpul_daftar_idx.py
+
       - name: Ambil harga harian (IDX + global)
         continue-on-error: true
         env:

@@ -124,6 +124,12 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   2.100 pasar volume 24 jam terbesar + 2.100 likuiditas terbesar (dobel dibuang, ~3.500 pasar, ~$22 juta volume/hari).
   `harga_ya` = peluang hasil pertama. API: maks 100 per halaman, offset maks ~2.100 (lebih dalam butuh /markets/keyset yang
   berisi puluhan ribu pasar kecil: keyset > 10 menit, TIDAK dipakai). `--tes` = cek tanpa simpan.
+- `kumpul_daftar_idx.py` (harian, SEBELUM harga harian): foto screener Yahoo bursa JKT (~838 saham, 89 kolom: marketCap,
+  sharesOutstanding, BID/ASK, earningsTimestamp, rating analis...) → `raw/harian/daftar_idx` (mulai 20 Nov 2026, hanya ke depan).
+  Kode yang ada di Yahoo tapi belum di daftar → `ref/daftar_saham_tambahan.csv` (TIDAK pernah dikurangi). Daftar Yahoo TIDAK
+  lengkap (106 saham kita tidak ada, mis. ADHI) → hanya untuk MENAMBAH. Spread bid-ask median 1,00% (20 Nov, siang).
+- `daftar_saham.py` → `kode_idx()`: daftar_saham.xlsx + tambahan. DIPAKAI `kumpul_harga_harian.py`, `kumpul_fundamental_idx.py`,
+  `paper_trading.py` (dulu daftar statis → saham IPO baru tidak pernah terkumpul).
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:

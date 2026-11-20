@@ -60,15 +60,9 @@ LAPORAN = {"laba_rugi_kuartal": "quarterly_income_stmt", "neraca_kuartal": "quar
 
 
 def daftar_kode():
-    """Daftar saham IDX: file lokal kalau ada, kalau tidak dari gudang Hugging Face."""
-    lokal = Path("data/ref/daftar_saham.xlsx")
-    if not lokal.exists():
-        from huggingface_hub import hf_hub_download
-        token = os.environ.get("HF_TOKEN") or Path("kunci_hf.txt").read_text().strip()
-        lokal = Path(hf_hub_download(REPO, "ref/daftar_saham.xlsx", repo_type="dataset", token=token))
-    d = pd.read_excel(lokal, dtype=str, keep_default_na=False)
-    kolom = [c for c in d.columns if "kode" in str(c).lower()][0]
-    return sorted({f"{k.strip()}.JK" for k in d[kolom] if k.strip()})
+    """Daftar saham IDX = daftar awal + kode baru dari kumpul_daftar_idx.py (lihat daftar_saham.py)."""
+    from daftar_saham import kode_idx
+    return kode_idx()
 
 
 def ke_angka(x):

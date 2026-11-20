@@ -138,12 +138,8 @@ def unduh_harga():
     """~2 tahun harga harian semua saham IDX dari Yahoo (cukup untuk jendela 250 hari + momentum 12 bulan)."""
     import yfinance as yf
     logging.getLogger("yfinance").setLevel(logging.CRITICAL)
-    from huggingface_hub import hf_hub_download
-    token = os.environ.get("HF_TOKEN") or Path("kunci_hf.txt").read_text().strip()
-    f = hf_hub_download(REPO, "ref/daftar_saham.xlsx", repo_type="dataset", token=token)
-    d = pd.read_excel(f, dtype=str, keep_default_na=False)
-    kolom = [c for c in d.columns if "kode" in str(c).lower()][0]
-    kode = sorted({f"{k.strip()}.JK" for k in d[kolom] if k.strip()})
+    from daftar_saham import kode_idx            # daftar awal + kode baru (IPO) dari kumpul_daftar_idx.py
+    kode = kode_idx()
     bagian = {x: [] for x in ["Adj Close", "Close", "Volume", "High", "Low"]}
     for i in range(0, len(kode), 100):
         df = yf.download(kode[i:i + 100], period="2y", interval="1d", auto_adjust=False, progress=False,

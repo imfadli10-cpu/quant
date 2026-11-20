@@ -10,12 +10,9 @@ from huggingface_hub import hf_hub_download
 REPO = "fadli-sparks/quant-data"
 token = os.environ.get("HF_TOKEN") or Path("kunci_hf.txt").read_text().strip()
 
-# 1. Ambil daftar saham IDX dari gudang Hugging Face
-file_daftar = hf_hub_download(REPO, "ref/daftar_saham.xlsx",
-                              repo_type="dataset", token=token)
-daftar = pd.read_excel(file_daftar)
-kolom_kode = [c for c in daftar.columns if "kode" in str(c).lower()][0]
-kode_idx = [f"{k}.JK" for k in daftar[kolom_kode].dropna().astype(str).str.strip()]
+# 1. Daftar saham IDX = daftar awal + kode baru yang ditemukan kumpul_daftar_idx.py (lihat daftar_saham.py)
+from daftar_saham import kode_idx as ambil_kode_idx
+kode_idx = ambil_kode_idx()
 
 # Aset global yang juga dipantau
 GLOBAL = [

@@ -63,6 +63,7 @@ cek("finra_short",      "tanggal",     5,         50000,     ["kode"],          
 cek("lme",              "tanggal",     5,         60,        ["logam"],           6)
 cek("kurs_ecb",         "tanggal",     5,         200,       ["mata_uang"],       25)
 cek("polymarket",       "waktu_ambil", 2,         1000,      ["id"],              1000)
+cek("daftar_idx",       "waktu_ambil", 2,         600,       ["kode"],            600)
 
 # Makro: semua 18 seri harus ada, dan suku bunga harian The Fed harus segar
 file_makro = list(Path("data/raw/makro").glob("*.parquet"))
