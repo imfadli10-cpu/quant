@@ -420,6 +420,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   kalau naik' 1 minggu −0,79%/mg (t −1,5), 4 minggu −0,55%/mg (t −1,0) vs beli-dan-tahan. Pelajaran: aset dengan tren naik kuat
   → strategi timing (sering di kas) harus SANGAT kuat untuk menang. Daya uji rendah (data tiruan pola 0,15 → t 2,0).
   Ulangi setelah data uji (2019+) bisa dipakai untuk ide lain / data kripto lebih panjang. Hapus 2019+ → IDENTIK.
+- **Riset #9 SELESAI: badai geomagnetik → saham ('latihan uji jujur')** (skrip di `private/`). HASIL NEGATIF, sesuai dugaan.
+  Klaim Krivelyova-Robotti 2003 (return turun ~6 hari setelah badai). Badai = Ap ≥ 48 (94 hari di 2001–2018), jendela 6 hari
+  bursa mulai tanggal ≥ d+2. IDX keranjang 30: −0,014%/hari vs +0,093% (t −1,2); SPY (sejak 1993): +0,031% vs +0,042% (t −0,2);
+  strategi kas pasca-badai −0,8%/thn (t −0,5). Disiplin uji menolak klaim menarik yang lemah. Hapus 2019+ → IDENTIK.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
