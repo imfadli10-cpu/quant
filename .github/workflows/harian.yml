@@ -111,6 +111,10 @@ jobs:
         continue-on-error: true
         run: python kumpul_pangan.py
 
+      - name: Hasil lelang surat utang pemerintah AS (fiscaldata)
+        continue-on-error: true
+        run: python kumpul_lelang_as.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}

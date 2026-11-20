@@ -69,6 +69,7 @@ cek("intraday_idx",     "waktu",       5,         50000,     ["kode"],          
 cek("iklim",            "tanggal",     21,        500,       ["seri"],            4)
 cek("udara",            "waktu",       3,         1000,      ["kota"],            10)
 cek("pangan",           "tanggal",     5,         10000,     ["wilayah"],         30)
+cek("lelang_as",        "auction_date", 60,       50,        ["security_type"],   3)
 
 # Makro: semua 18 seri harus ada, dan suku bunga harian The Fed harus segar
 file_makro = list(Path("data/raw/makro").glob("*.parquet"))

@@ -177,6 +177,10 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   JEBAKAN: dari laptop WARP HARUS MATI (dengan WARP server BI lambat 20 dtk lalu tidak merespons). Permintaan setengah tahun
   ±10 dtk (setahun ±43 dtk). Jeda 2 dtk. Kode provinsi = angka (bug label 'Nasional' sudah diperbaiki; cek ≥ 30 wilayah).
   BELUM TERBUKTI server BI menerima akses dari server GitHub (Kontan menolak) → cek hasil run harian pertama.
+- `kumpul_lelang_as.py` (harian): SEMUA lelang Treasury AS sejak 1979 (11.154 lelang, 114 kolom) → `raw/lelang_as/semua.parquet`
+  (ditimpa) + `raw/harian/lelang_as` (90 hari, melacak kapan hasil terisi). API fiscaldata TERLAMBAT ~1 bulan & memuat lelang
+  yang baru diumumkan (kolom hasil kosong). JEBAKAN: kolom 'ref_cpi_on_*_date' & 'index_ratio_on_issue_date' berisi ANGKA
+  (indeks inflasi TIPS) walau namanya '_date' → tipe ditentukan dari ISI, bukan nama kolom.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
@@ -447,7 +451,7 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
-- Calon sumber data berikutnya: lelang Treasury AS. (SEC Form 4, kurs ECB, arsip WIKI, Polymarket SUDAH ditambahkan 20 Nov 2026.)
+- Calon sumber data berikutnya: (daftar lama habis; cari baru, prioritas data 'hanya ke depan' & terkait IDX). (SEC Form 4, kurs ECB, arsip WIKI, Polymarket SUDAH ditambahkan 20 Nov 2026.)
   (Volume short FINRA, logam LME + stok, dan sawit harian SUDAH ditambahkan 19 Nov 2026.)
   Dengan harga harian LME & sawit, riset #3 bisa diuji ulang di horizon MINGGUAN (nikel/timah sejak 2008, sawit sejak 2010).
   Prioritaskan data "hanya ke depan" (tidak bisa diambil mundur).
