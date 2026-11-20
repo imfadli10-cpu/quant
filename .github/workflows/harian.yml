@@ -99,6 +99,10 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python kumpul_intraday_idx.py
 
+      - name: Indeks iklim global (El Nino/La Nina, SOI, MEI, IOD, Nino mingguan)
+        continue-on-error: true
+        run: python kumpul_iklim.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}

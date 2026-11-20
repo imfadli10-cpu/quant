@@ -151,6 +151,14 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   (~284 ribu bar/hari, ~1,9 MB, ~2,5 menit; mulai 20 Nov 2026). Yahoo hanya menyimpan 1 menit ~8 hari, 5 menit ~60 hari, 1 jam
   ~2 tahun → data HANYA KE DEPAN. `--histori` (sekali, 20 Nov 2026) → `raw/histori/intraday_idx/5m_*.parquet` & `1h_*.parquet`.
   Waktu = WIB tanpa zona. Bar hanya ada di menit yang ada transaksi. Bar terakhir ~15:49; harga penutupan resmi di data harian.
+- `kumpul_iklim.py` (harian): indeks iklim NOAA → `raw/iklim/<seri>.parquet` (ditimpa) + `raw/harian/iklim` (foto 36 bulan,
+  melacak revisi). Seri: `oni` (El Nino ≥ +0,5 / La Nina ≤ −0,5, rata-rata 3 bulan ditandai bulan TENGAH, sejak 1950), `soi`
+  (tabel STANDARDIZED, negatif = El Nino), `mei` (v2, musim 2 bulan ditandai bulan kedua, sejak 1979), `dmi` (IOD, positif =
+  Indonesia lebih kering, sejak 1870, TERLAMBAT ~6 bulan!), `nino_mg` (suhu & anomali mingguan Nino 1+2/3/3.4/4, sejak 1981,
+  paling segar). Cek kewajaran OK: ONI 1997-12 +2,37, 2015-12 +2,59, La Nina 2010-12 −1,48; IOD+ 1997 & 2019.
+  JEBAKAN format: SOI lebar tetap 6 karakter (nilai kosong '-999.9' menempel); kode kosong beda tiap file (-999.9/-999.00/-9999).
+  Riset nanti: pakai versi yang SUDAH TERBIT saat itu (ONI/SOI/MEI terbit ~awal-pertengahan bulan berikutnya & bisa direvisi).
+  Per 20 Nov 2026: El Nino KUAT sedang berlangsung (ONI ASO +2,46; Nino 3.4 mingguan +3,2).
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
