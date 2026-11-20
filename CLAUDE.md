@@ -357,6 +357,14 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     contrarian tapi tidak ada yang mendekati 3. Paruh: IC t −1,5 / −0,7.
   - ETF kopi/kakao/kapas/ternak (JO, NIB, BAL, COW) sudah ditutup → hilang (survivorship).
   - Lolos `--tes-kosong`/`--tes-tiruan`; hapus data 2019+ → IDENTIK. Data uji tidak dibuka.
+- **Riset #14 SELESAI: lonjakan perhatian Wikipedia → saham IDX** (`riset_14_perhatian.py`). HASIL NEGATIF (daya uji rendah).
+  Lonjakan = log(pembaca id+en) − log(median 8 minggu / 6 bulan sebelumnya). Semesta = punya artikel & lolos saringan riset #2
+  (median 59 saham, umumnya saham besar). Latih 2015-08..2018-12 (164 minggu, 32 bulan).
+  - U1 (H1 tekanan beli) IC mingguan +0,011 t 0,9 | U2 beli 20% lonjakan: kotor +0,20%/mg, bersih −0,02% t −0,2 (ganti 55%/mg)
+    | U3 (H2 balik) IC bulan→3 bulan −0,033, t +0,1 (hanya 11 titik tanpa tumpang tindih). Arah H1 sesuai literatur tapi lemah.
+  - Lolos `--tes-kosong`/`--tes-tiruan` (pola → IC t 6,6; tapi U2 bersih tetap negatif karena ganti 79%/mg); hapus 2019+ → IDENTIK.
+  - Catatan: perhatian Wikipedia paling berguna untuk saham kecil, tapi saham kecil jarang punya artikel. Uji ulang setelah
+    data maju menumpuk (sinyal perhatian bisa jadi komponen model gabungan, bukan strategi sendiri).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
