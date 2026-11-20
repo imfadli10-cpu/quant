@@ -148,6 +148,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 ## 7. Keterbatasan data yang diketahui
 
 - Survivorship bias: daftar saham IDX & crypto hanya yang masih aktif saat diambil. SEC & daftar AS harian mencakup yang mati.
+- **HARGA SAHAM AS (`bersih/saham_as.parquet`) = SURVIVORSHIP 100%**: dari 12.740 kode, 0 berhenti sebelum 2026 (Lehman,
+  Bear Stearns, Twitter tidak ada). Kode dipakai ulang: `WM` = Waste Management sejak 1988 (dulu Washington Mutual).
+  60% transaksi beli orang dalam SEC 2006–2018 emitennya tidak punya harga Yahoo. SEMUA riset saham AS harus melaporkan
+  porsi hilang & membandingkan dengan kelompok pembanding. PRIORITAS DATA: cari harga gratis yang memuat saham delisting.
 - Histori saham IDX di Yahoo umumnya baru sejak ~2000 (indeks IHSG sejak 1990).
 - SET Thailand & PSEi Filipina di Yahoo hanya 1 hari histori (terbentuk perlahan dari collector harian).
 - Kode AS "NA" hilang dari histori (dibaca pandas sebagai kosong), sudah diperbaiki untuk data harian.
@@ -264,12 +268,20 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   - IDE BARU (muncul SETELAH lihat data, wajib riset terpisah dengan dugaan tertulis baru, hitung sebagai uji tambahan):
     pembalikan mingguan keranjang LIKUID → long-only "pindah keranjang" (setelah LIKUID naik pegang TIDUR, setelah turun
     pegang LIKUID). Efek kecil (~0,1 × gerak mingguan) vs biaya pindah 0,4% → peluang tipis.
+- **Riset #11 SELESAI: pembelian orang dalam (SEC Form 4) → saham AS** (`riset_11_orang_dalam.py`). TIDAK MEYAKINKAN.
+  Desain di-commit SEBELUM data lengkap (1a1d878, 10:40 WIB 20 Nov 2026). P oleh Director/Officer, bukan 10b5-1, bulan lapor;
+  kode dicek via harga beli vs Yahoo (faktor split). Semesta: harga ≥ $5, nilai transaksi ≥ $1 juta/hari. Latih 2006-02..2018-11.
+  - Angka utama: U1 H=1 t 1,7 | U2 H=3 +0,37%/bln t 3,1 | U3 H=6 +0,39% t 3,6 | U4 H=3 BERSIH +0,28% t 2,3 (gagal).
+    Paruh 1 t 1,4, paruh 2 t 3,7. Cek kode ketat H=3 t 3,1.
+  - TAPI: portofolio JUAL orang dalam juga +0,20%/bln (t 2,6) → bias bersama. BELI−JUAL (diagnosis): H=3 +0,17% t 1,4,
+    H=6 +0,14% t 1,6. Survivorship berat & ASIMETRIS: beli tanpa harga Yahoo 53–80%/thn vs jual 38–60%.
+  - Lolos `--tes-kosong`/`--tes-tiruan` (pembuat data tiruan sempat meleset 1 bulan; program riset benar tidak menangkap bulan
+    sebelum lapor). Hapus data 2019+ → IDENTIK. Data uji TIDAK dibuka.
+  - Kesimpulan: belum bisa dipercaya dengan data harga sekarang. Ulangi kalau sudah ada harga AS yang memuat saham delisting.
 - **Daftar ide berikutnya** (urutan rekomendasi):
   #6 posisi COT ekstrem → berbalik →
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
-  → #11 PEMBELIAN orang dalam (SEC, kode P, bukan 10b5-1) → saham AS 1–6 bulan ke depan (histori 2006+, tanpa survivorship;
-  bisa dibeli lewat broker saham AS; latih s/d 2018, uji 2019+).
 - Calon sumber data berikutnya: Polymarket, lelang Treasury AS. (SEC Form 4 & kurs ECB SUDAH ditambahkan 20 Nov 2026.)
   (Volume short FINRA, logam LME + stok, dan sawit harian SUDAH ditambahkan 19 Nov 2026.)
   Dengan harga harian LME & sawit, riset #3 bisa diuji ulang di horizon MINGGUAN (nikel/timah sejak 2008, sawit sejak 2010).
