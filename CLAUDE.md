@@ -69,6 +69,11 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
 - `gabung.yml`: setiap Minggu 03:23 UTC: `gabung.py` → `bersih/`.
 - `fundamental_idx.yml`: setiap Sabtu 02:47 UTC: foto fundamental IDX (lihat bagian 6).
 - `insider_sec.yml`: tanggal 3 setiap bulan 03:29 UTC + manual: transaksi orang dalam SEC (lihat bagian 6).
+- `paper_trading.yml`: Senin–Jumat 22:41 UTC (05:41 WIB, SEBELUM bursa buka) + manual: `paper_trading.py` →
+  `raw/paper_trading/` (s2_pilihan, s2_semesta, s2_kinerja). Pilihan akhir bulan dicatat SEKALI per bulan, sebelum hari beli
+  (`dicatat_sebelum_beli`=True = sah). Catatan lama TIDAK PERNAH diubah; kalau gagal membaca catatan lama → berhenti.
+  Rumus terbukti IDENTIK dengan riset #12 (`--cek-riset`, 3 bulan). JANGAN ubah aturan S2; versi baru = portofolio baru.
+  Portofolio resmi pertama: sinyal akhir Nov 2026, beli tutup 1 Des 2026.
 - `histori_as.yml`, `histori_bps.yml`: manual, sudah selesai 100%. `histori_finra.yml`: manual, SUDAH selesai
   19 Nov 2026 (17 menit; 9 file, 20,1 juta baris, 2.087 hari bursa, hari kosong = persis hari libur bursa AS). `PYTHONUNBUFFERED=1` wajib untuk pekerjaan panjang.
 

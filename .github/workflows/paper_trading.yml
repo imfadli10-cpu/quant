@@ -1,0 +1,33 @@
+name: Paper trading S2 (harian)
+
+on:
+  schedule:
+    - cron: "41 22 * * 0-4"   # Senin-Jumat 05:41 WIB (Minggu-Kamis 22:41 UTC): SEBELUM bursa buka 09:00 WIB,
+                              # supaya pilihan akhir bulan tercatat sebelum hari beli & tidak ada harga sementara hari ini
+  workflow_dispatch:
+
+jobs:
+  paper:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install library
+        run: pip install -r requirements.txt
+
+      - name: Hitung & catat paper trading S2 (catatan lama tidak pernah diubah)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python paper_trading.py
+
+      - name: Upload catatan ke Hugging Face (hanya folder paper_trading)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python upload_satu.py data/raw/paper_trading
