@@ -258,6 +258,9 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   cek lompatan harian & bandingkan dengan sumber kedua sebelum memakai seri harga apa pun.
 - Uji yang memakai return "besok"/"minggu depan": filter harus berdasarkan tanggal TARGET (d+1) ≤ 2018-12-31, bukan
   tanggal sinyal. Cek hapus-data-2019+ WAJIB dijalankan tiap riset (menangkap kebocoran 1 hari di riset #5).
+- JANGAN menambah baris ke `requirements.txt` dengan `echo >>` (file tanpa pindah baris di akhir → 20 Nov 2026 'duckdb' + 'hijridate'
+  menempel jadi 'duckdbhijridate' → SEMUA workflow gagal install). Tulis ulang file dengan Python, lalu cek
+  `python -m pip install --dry-run -r requirements.txt` sebelum push.
 - Saat menulis kode Python yang berisi tiga backtick di dalam string, buat lewat variabel (mis. `"`" * 3`) supaya tampilan chat tidak rusak.
 
 ## 9. Aturan riset (WAJIB)
