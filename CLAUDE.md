@@ -308,8 +308,14 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     PERINGATAN BESAR: versi 50 saham paling likuid +0,11%/bln t 0,2 = efek HANYA ada di saham kurang likuid →
     risiko nyata: spread/tick > asumsi, saham terkunci ARA (tidak bisa dibeli), kapasitas kecil, survivorship IDX
     (daftar saham = yang masih tercatat; saham kecil paling sering delisting). BELUM siap uang sungguhan.
-    LANGKAH BERIKUTNYA: (1) uji eksekusi realistis (perkiraan spread dari tick size, cek hari ARA saat beli, kapasitas
-    Rp), (2) paper trading MAJU mulai sekarang dengan data harian (ujian paling jujur), (3) baru pertimbangkan modal kecil.
+  - **Uji eksekusi realistis (`riset_12c_eksekusi.py`, strategi TIDAK diubah):** spread Corwin-Schultz saham pilihan
+    median 0,69% (latih) / 0,89% (uji); tick/harga 0,44%. Biaya nyata ~0,62%/bln (bukan 0,16–0,20%). Terkunci ARA saat
+    beli 0,1–0,2% (bukan masalah); ARB saat jual 0,6–1,5%. BERSIH REALISTIS: latih +0,87%/bln t 2,5 (~+11%/thn),
+    uji +0,99%/bln t 2,4 (~+12,6%/thn). Kapasitas (5% nilai transaksi harian): median Rp 1,7–3,4 miliar per transaksi.
+    Kesimpulan: konsisten untung di 2 periode terpisah tapi t ~2,5 setelah gesekan nyata = kandidat, bukan jaminan.
+  - LANGKAH BERIKUTNYA: PAPER TRADING MAJU (catat pilihan S2 tiap akhir bulan, pantau hasil nyata 6–12 bulan).
+    JANGAN memodifikasi S2 lalu menilainya di 2019–2026 (data uji S2 sudah terpakai). Ide pengurang biaya (mis. aturan
+    penyangga/buffer, tahan 2–3 bulan) hanya boleh dirancang di data LATIH lalu dinilai lewat paper trading.
 - **Daftar ide berikutnya** (urutan rekomendasi):
   #6 posisi COT ekstrem → berbalik →
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
