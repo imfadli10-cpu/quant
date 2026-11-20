@@ -130,6 +130,12 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   2.100 pasar volume 24 jam terbesar + 2.100 likuiditas terbesar (dobel dibuang, ~3.500 pasar, ~$22 juta volume/hari).
   `harga_ya` = peluang hasil pertama. API: maks 100 per halaman, offset maks ~2.100 (lebih dalam butuh /markets/keyset yang
   berisi puluhan ribu pasar kecil: keyset > 10 menit, TIDAK dipakai). `--tes` = cek tanpa simpan.
+- `kumpul_kalshi.py` (harian, ~5 menit): foto SEMUA pasar prediksi Kalshi (bursa prediksi teregulasi CFTC) yang terbuka, KECUALI
+  kategori Sports (>120 ribu pasar) & parlay `KXMVE` → `raw/harian/kalshi` (mulai 20 Nov 2026, hanya ke depan). ~85 ribu pasar/hari:
+  Elections, Financials (rentang S&P/Nasdaq/emas/platinum/kurs), Economics (CPI, NFP, PDB, Fed), Crypto, Commodities, cuaca, dll.
+  Cara: `/series` (peta kategori, 16.757 seri) + `/events?with_nested_markets=true&status=open` (200 per halaman, ~115 halaman).
+  Data pasar publik TANPA kunci. Situs kalshi.com (bukan API) memasang Vercel checkpoint → jangan disentuh, pakai API saja.
+  Pasar ekonomi Kalshi = PERKIRAAN PASAR untuk rilis data (CPI, NFP) → bahan riset "kejutan" rilis makro nanti.
 - `kumpul_daftar_idx.py` (harian, SEBELUM harga harian): foto screener Yahoo bursa JKT (~838 saham, 89 kolom: marketCap,
   sharesOutstanding, BID/ASK, earningsTimestamp, rating analis...) → `raw/harian/daftar_idx` (mulai 20 Nov 2026, hanya ke depan).
   Kode yang ada di Yahoo tapi belum di daftar → `ref/daftar_saham_tambahan.csv` (TIDAK pernah dikurangi). Daftar Yahoo TIDAK

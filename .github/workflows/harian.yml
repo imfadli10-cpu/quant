@@ -89,6 +89,10 @@ jobs:
         continue-on-error: true
         run: python kumpul_polymarket.py
 
+      - name: Foto pasar prediksi Kalshi (~85 ribu pasar non-olahraga)
+        continue-on-error: true
+        run: python kumpul_kalshi.py
+
       - name: Perhatian publik per saham IDX (pembaca Wikipedia ~280 perusahaan)
         continue-on-error: true
         run: python kumpul_perhatian_idx.py
