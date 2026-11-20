@@ -383,8 +383,8 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - **REPO PUBLIK (keputusan pengguna 20 Nov 2026, menggantikan keputusan 'tetap private'):** menit Actions tak terbatas.
   Konsekuensi: (1) semua kode, CLAUDE.md, log Actions & hasil riset (termasuk strategi S2) bisa dibaca siapa pun -> JANGAN
   tulis data pribadi pengguna di file repo (simpan di memori Claude); (2) GitHub MEMATIKAN jadwal otomatis setelah 60 hari
-  tanpa aktivitas repo -> pastikan ada commit minimal tiap ~50 hari (workflow penjaga otomatis `jaga_aktif.yml` BELUM dibuat:
-  pembuatannya ditolak pengaman Claude Code karena memberi Actions izin menulis ke repo; menunggu keputusan pengguna); (3) gudang Hugging Face TETAP private.
+  tanpa aktivitas repo -> workflow `jaga_aktif.yml` (dibuat atas izin pengguna) commit
+  `.github/aktif.txt` tiap tanggal 1 (izin `contents: write`, hanya file itu); (3) gudang Hugging Face TETAP private.
   Riwayat git sudah dicek bersih (60 commit, 20 Nov 2026): tanpa kunci/token/email asli. Versi lama CLAUDE.md di riwayat masih
   memuat catatan pribadi ringan (jenis e-wallet, kutipan, ID project GCP) - risiko rendah, riwayat SENGAJA tidak ditulis ulang
   supaya bukti waktu pra-registrasi riset (commit 1a1d878, a7e92f7) tetap utuh.
