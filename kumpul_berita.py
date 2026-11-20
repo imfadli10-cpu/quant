@@ -49,19 +49,26 @@ def waktu(s):
         return pd.NaT
 
 
-baris, gagal = [], []
+baris, gagal, status = [], [], []
 for sumber, url in FEED.items():
+    kode_http, alasan = None, ""
     for percobaan in range(3):
         try:
             r = requests.get(url, headers=UA, timeout=30)
+            kode_http = r.status_code
             r.raise_for_status()
             item = ET.fromstring(r.content).findall(".//item")
+            alasan = ""
             break
         except Exception as e:
             item = None
+            alasan = f"{type(e).__name__}: {str(e)[:120]}"
             time.sleep(5 * (percobaan + 1))
+    status.append({"waktu_ambil": SEKARANG, "sumber": sumber, "kode_http": kode_http,
+                   "jumlah": len(item) if item is not None else 0, "alasan": alasan})
     if item is None:
         gagal.append(sumber)
+        print(f"   ⚠️  {sumber}: HTTP {kode_http} | {alasan}")
         continue
     for i in item:
         baris.append({"sumber": sumber, "judul": bersih(i.findtext("title")),
@@ -117,4 +124,16 @@ gabung = gabung.sort_values("waktu_ambil").drop_duplicates("tautan", keep="first
 folder = Path("data/raw/harian/berita")
 folder.mkdir(parents=True, exist_ok=True)
 gabung.to_parquet(folder / nama, index=False)
+# Catatan status tiap sumber per jalan (supaya kegagalan, mis. diblokir dari server, bisa dicek tanpa membuka log)
+f_status = folder / f"status_{SEKARANG.date().isoformat()}.parquet"
+st = pd.DataFrame(status)
+st["waktu_ambil"] = pd.to_datetime(st["waktu_ambil"]).astype("datetime64[ns]")
+jalur_status = f"raw/harian/berita/{f_status.name}"
+if api.file_exists(REPO, jalur_status, repo_type="dataset"):
+    try:
+        st = pd.concat([pd.read_parquet(hf_hub_download(REPO, jalur_status, repo_type="dataset", token=token,
+                                                        force_download=True)), st], ignore_index=True)
+    except Exception as e:
+        print(f"⚠️  status lama tidak terbaca ({type(e).__name__}); hanya status jalan ini yang disimpan")
+st.to_parquet(f_status, index=False)
 print(f"✅ berita: {len(gabung)} berita unik hari ini ({len(gabung) - (len(lama) if lama is not None else 0)} baru) -> {folder / nama}")
