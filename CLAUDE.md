@@ -120,6 +120,10 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   tanggal, mata_uang, per_eur, per_usd. **PAKAI INI untuk kurs harian, BUKAN Yahoo IDR=X** (USD/IDR ECB vs OECD akhir bulan:
   korelasi 0,96, rasio 0,9995; hanya 2 lompatan > 5%, krisis 2008 = nyata). Kurs ECB ditetapkan ~20:15 WIB = setelah IDX tutup.
   Situs Bank Indonesia (JISDOR) tidak merespons dari laptop (20 Nov 2026, WARP menyala) → belum dipakai.
+- `kumpul_polymarket.py`: foto HARIAN pasar prediksi Polymarket (data "hanya ke depan", mulai 20 Nov 2026) → `raw/harian/polymarket`.
+  2.100 pasar volume 24 jam terbesar + 2.100 likuiditas terbesar (dobel dibuang, ~3.500 pasar, ~$22 juta volume/hari).
+  `harga_ya` = peluang hasil pertama. API: maks 100 per halaman, offset maks ~2.100 (lebih dalam butuh /markets/keyset yang
+  berisi puluhan ribu pasar kecil: keyset > 10 menit, TIDAK dipakai). `--tes` = cek tanpa simpan.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
@@ -325,7 +329,7 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   #6 posisi COT ekstrem → berbalik →
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
-- Calon sumber data berikutnya: Polymarket, lelang Treasury AS. (SEC Form 4 & kurs ECB SUDAH ditambahkan 20 Nov 2026.)
+- Calon sumber data berikutnya: lelang Treasury AS. (SEC Form 4, kurs ECB, arsip WIKI, Polymarket SUDAH ditambahkan 20 Nov 2026.)
   (Volume short FINRA, logam LME + stok, dan sawit harian SUDAH ditambahkan 19 Nov 2026.)
   Dengan harga harian LME & sawit, riset #3 bisa diuji ulang di horizon MINGGUAN (nikel/timah sejak 2008, sawit sejak 2010).
   Prioritaskan data "hanya ke depan" (tidak bisa diambil mundur).
