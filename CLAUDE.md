@@ -53,9 +53,9 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
 ## 4. Rahasia (JANGAN PERNAH di-commit atau ditampilkan)
 
 - File lokal (diabaikan `.gitignore` lewat pola `kunci_*.txt`, `kunci_*.json`): `kunci_fred.txt`, `kunci_hf.txt`,
-  `kunci_gcp.json`, `kunci_sec.txt`, `kunci_bps.txt`, `kunci_nasdaq.txt` (Nasdaq Data Link, akun gratis
+  `kunci_gcp.json`, `kunci_sec.txt`, `kunci_bps.txt`, `kunci_firms.txt` (NASA FIRMS, 20 Nov 2026), `kunci_nasdaq.txt` (Nasdaq Data Link, akun gratis
   dibuat 20 Nov 2026; hanya dipakai di laptop, belum perlu GitHub Secret karena WIKI sudah membeku).
-- GitHub Secrets: `FRED_API_KEY`, `HF_TOKEN`, `GCP_KEY_JSON`, `SEC_USER_AGENT` (nama+email, wajib untuk SEC), `BPS_KEY`.
+- GitHub Secrets: `FRED_API_KEY`, `HF_TOKEN`, `GCP_KEY_JSON`, `SEC_USER_AGENT` (nama+email, wajib untuk SEC), `BPS_KEY`, `FIRMS_MAP_KEY`.
 - Pola kode: `os.environ.get("NAMA") or Path("kunci_x.txt").read_text().strip()` (server pakai Secrets, laptop pakai file).
 - `.gitignore` juga mengabaikan: `.venv/`, `data/`, `*.csv`, `*.png`, `*.xlsx`, `__pycache__/`.
 - Jangan memasukkan data pribadi pengguna ke User-Agent atau permintaan ke pihak luar tanpa izin (SEC sudah diizinkan).
@@ -130,6 +130,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   2.100 pasar volume 24 jam terbesar + 2.100 likuiditas terbesar (dobel dibuang, ~3.500 pasar, ~$22 juta volume/hari).
   `harga_ya` = peluang hasil pertama. API: maks 100 per halaman, offset maks ~2.100 (lebih dalam butuh /markets/keyset yang
   berisi puluhan ribu pasar kecil: keyset > 10 menit, TIDAK dipakai). `--tes` = cek tanpa simpan.
+- `kumpul_api.py` (harian): TITIK API kebakaran satelit NASA FIRMS di kotak Indonesia+Malaysia (bujur 94–142, lintang −11..7), 10 hari
+  → `raw/harian/api` (MODIS_NRT + VIIRS_NOAA20_NRT + VIIRS_NOAA21_NRT; ~17 ribu titik/10 hari di musim hujan). `--histori`
+  (workflow MANUAL `histori_api.yml`, ~3–4 jam, upload tiap tahun, bisa dilanjutkan) → `raw/histori/api/<sumber>_<tahun>.parquet`:
+  MODIS_SP sejak 2000-11 (1 km, seri panjang konsisten) & VIIRS_SNPP_SP sejak 2012 (375 m). API area: maks 5 hari per permintaan,
+  batas 5.000 transaksi/10 menit. Kunci: `kunci_firms.txt` / secret `FIRMS_MAP_KEY` (gratis, email; dibuat 20 Nov 2026).
+  JEBAKAN: VIIRS S-NPP NRT KOSONG di 2026 (satelit tua) → pakai NOAA-20/21. `confidence` MODIS = angka 0–100, VIIRS = huruf l/n/h.
+  Cek kewajaran: 15–19 Sep 2015 (kebakaran besar) 8.372 titik MODIS / 40.862 VIIRS. Kegunaan: emiten sawit/kertas, asap, El Nino.
 - `kumpul_sbn.py` (harian, detik): YIELD OBLIGASI INDONESIA dari PHEI (Penilai Harga Efek Indonesia; robots.txt mengizinkan /Data)
   → `raw/harian/sbn` (mulai 20 Nov 2026, hanya ke depan; histori gratis tidak ada). Format panjang: kurva IGSYC tenor 0,1–30 thn,
   benchmark SUN (FR) & sukuk (PBS) dengan harga & kupon, seri ritel (ORI/SBR/ST/SR), korporasi per tenor × peringkat (IGS/AAA/AA/A/BBB).
