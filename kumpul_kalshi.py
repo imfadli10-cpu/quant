@@ -34,9 +34,11 @@ MIN_PASAR_OK = 20000          # kurang dari ini (di mode penuh) = ada masalah ->
 def minta(jalur, params):
     for percobaan in range(6):
         try:
-            r = requests.get(URL + jalur, params=params, headers=HEADER, timeout=90)
+            r = requests.get(URL + jalur, params=params, headers=HEADER, timeout=(15, 60))
             if r.status_code == 429:
-                time.sleep(int(r.headers.get("Retry-After", 10)))
+                tunggu = int(r.headers.get("Retry-After", 10) or 10)
+                print(f"   ⏳ 429 rate limit, tunggu {tunggu} detik")
+                time.sleep(tunggu)
                 continue
             r.raise_for_status()
             return r.json()
@@ -90,7 +92,7 @@ while True:
                 "buka": waktu(m.get("open_time")), "tutup": waktu(m.get("close_time")), "status": m.get("status"),
             })
     cur = j.get("cursor")
-    if hal % 20 == 0:
+    if hal % 10 == 0:
         print(f"   halaman {hal}: {len(baris):,} pasar ({time.time() - mulai:.0f} detik)")
     if not cur or (TES and hal >= 5):
         break
