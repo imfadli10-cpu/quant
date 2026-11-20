@@ -338,9 +338,17 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   - V2 tahan 3 bulan (3 kelompok bertumpuk): 34 saham, putar 22%, biaya 0,28%, bersih +0,81% t 2,8.
   - KEPUTUSAN: ❌ tidak ada (V1 t lebih tinggi tapi rata-rata sedikit lebih rendah). S2 asli tetap satu-satunya paper trading.
     Aturan TIDAK diubah setelah melihat hasil. Pelajaran: kriteria keputusan sebaiknya SATU ukuran (mis. t) agar tidak ambigu.
+- **Riset #6 SELESAI: posisi spekulan COT → 21 ETF komoditas/mata uang/obligasi/S&P** (`riset_06_cot.py`). HASIL NEGATIF.
+  Dua teori bertentangan (tekanan lindung nilai = positif; contrarian = negatif) → semua uji dua arah. Sinyal = persentil
+  (noncomm long−short)/OI dalam 156 minggu (laporan legacy), dipakai setelah pasti terbit. Pasar dicocokkan via KODE CFTC
+  (nama berganti: mis. 'NATURAL GAS' → 'NAT GAS NYME' Feb 2022; mencocokkan nama = kehilangan 30 thn data).
+  - Latih 2006-04..2018-10 (151 bln, median 21 ETF): U1 IC −0,035 t −1,6 | U2 atas−bawah −0,21%/bln t −0,7 |
+    U3 beli sepertiga atas bersih −0,14% t −0,8 | U4 ekstrem ≥0,9 vs ≤0,1 (4 minggu) −0,43%/bln t −1,5. Semua condong
+    contrarian tapi tidak ada yang mendekati 3. Paruh: IC t −1,5 / −0,7.
+  - ETF kopi/kakao/kapas/ternak (JO, NIB, BAL, COW) sudah ditutup → hilang (survivorship).
+  - Lolos `--tes-kosong`/`--tes-tiruan`; hapus data 2019+ → IDENTIK. Data uji tidak dibuka.
 - **Daftar ide berikutnya** (urutan rekomendasi):
-  #6 posisi COT ekstrem → berbalik →
-  #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
+    #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
 - Calon sumber data berikutnya: lelang Treasury AS. (SEC Form 4, kurs ECB, arsip WIKI, Polymarket SUDAH ditambahkan 20 Nov 2026.)
   (Volume short FINRA, logam LME + stok, dan sawit harian SUDAH ditambahkan 19 Nov 2026.)
