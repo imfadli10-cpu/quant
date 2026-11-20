@@ -56,6 +56,8 @@ INFO = {
     "raw/paper_trading":          ("PAPER TRADING strategi S2 (dekat puncak 52 minggu): pilihan tiap akhir bulan dicatat SEBELUM hari beli (tidak pernah diubah), semesta pembanding, kinerja berjalan", "Hitungan sendiri dari harga Yahoo", "Harian 05:41 WIB (Senin-Jumat)"),
     "raw/harian/polymarket":      ("Foto harian ~3.500 pasar prediksi (2.100 volume terbesar + 2.100 likuiditas terbesar): pertanyaan, peluang (harga Ya), tawar/minta, volume, likuiditas, tanggal akhir", "Polymarket (gamma-api)", "Harian (hanya ke depan)"),
     "raw/harian/daftar_idx":      ("Foto harian daftar saham IDX menurut Yahoo (~840 saham, 89 kolom): kapitalisasi, saham beredar, BID/ASK (spread nyata), tanggal rilis laporan, rating analis", "Yahoo Finance (screener JKT)", "Harian (hanya ke depan)"),
+    "raw/harian/wikipedia_idx":   ("Perhatian publik per saham IDX: pembaca harian artikel Wikipedia (id & en) ~280 perusahaan, 30 hari terakhir", "Wikimedia + Wikidata", "Harian"),
+    "raw/histori/wikipedia_idx":  ("Histori pembaca Wikipedia per saham IDX sejak Juli 2015 (semua.parquet)", "Wikimedia + Wikidata", "Sekali (awal)"),
     "raw/kurs_ecb":               ("Kurs RESMI harian ECB ~40 mata uang sejak 1999 (rupiah & tetangga Asia sejak 2005): per_eur & per_usd, histori lengkap ditimpa tiap hari. LEBIH BERSIH dari Yahoo IDR=X", "Bank Sentral Eropa (ECB)", "Harian (ditimpa)"),
     "raw/harian/kurs_ecb":        ("Kurs resmi ECB 30 hari terakhir (untuk validasi harian)", "Bank Sentral Eropa (ECB)", "Harian"),
     "raw/insider_sec":            ("Transaksi orang dalam perusahaan AS (Form 3/4/5) sejak 2006, 1 file per kuartal: tanggal lapor, kode, pemilik & jabatan, beli/jual, lembar, harga, penanda 10b5-1", "SEC EDGAR", "Bulanan (tgl 3)"),

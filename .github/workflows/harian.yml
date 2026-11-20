@@ -89,6 +89,10 @@ jobs:
         continue-on-error: true
         run: python kumpul_polymarket.py
 
+      - name: Perhatian publik per saham IDX (pembaca Wikipedia ~280 perusahaan)
+        continue-on-error: true
+        run: python kumpul_perhatian_idx.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}

@@ -130,6 +130,16 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   lengkap (106 saham kita tidak ada, mis. ADHI) → hanya untuk MENAMBAH. Spread bid-ask median 1,00% (20 Nov, siang).
 - `daftar_saham.py` → `kode_idx()`: daftar_saham.xlsx + tambahan. DIPAKAI `kumpul_harga_harian.py`, `kumpul_fundamental_idx.py`,
   `paper_trading.py` (dulu daftar statis → saham IPO baru tidak pernah terkumpul).
+- `kumpul_perhatian_idx.py` (harian): PERHATIAN PUBLIK per saham IDX = pembaca harian artikel Wikipedia (id & en, agen 'user')
+  → `raw/harian/wikipedia_idx` (30 hari) + `raw/histori/wikipedia_idx/semua.parquet` (`--histori`, sejak 2015-07).
+  Peta kode → artikel dari WIKIDATA (`daftar_saham.wikidata_idx()`, BEI = Q1661737, BUKAN Q1144893): ~1.012 kode, ~279 artikel id,
+  ~74 en → `ref/wikidata_idx.parquet`. Artikel yang ganti judul kehilangan histori sebelum ganti judul.
+  Wikidata TIDAK mencatat tanggal delisting (hanya 2 dari 1.048) & Yahoo TIDAK menyimpan harga saham IDX yang sudah delisting
+  (1 dari 37 kandidat) → survivorship IDX tetap tidak bisa ditambal.
+- `kumpul_daftar_idx.py` juga memakai Wikidata sebagai sumber KEDUA kode terlewat: kode Wikidata yang belum di daftar tapi punya
+  harga Yahoo 10 hari terakhir → tambahan dengan kolom `jenis` (saham/etf, dari quoteType Yahoo). 20 Nov 2026: TELE (saham) +
+  31 ETF IDX (XIIT, XBLQ, XISI...). `kode_idx()` bawaan = SAHAM saja (paper trading & fundamental: semesta S2 tetap);
+  `kode_idx(termasuk_etf=True)` = saham + ETF (collector harga harian). ETF IDX = instrumen indeks yang BISA dibeli.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:

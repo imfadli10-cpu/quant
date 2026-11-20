@@ -12,7 +12,7 @@ token = os.environ.get("HF_TOKEN") or Path("kunci_hf.txt").read_text().strip()
 
 # 1. Daftar saham IDX = daftar awal + kode baru yang ditemukan kumpul_daftar_idx.py (lihat daftar_saham.py)
 from daftar_saham import kode_idx as ambil_kode_idx
-kode_idx = ambil_kode_idx()
+kode_idx = ambil_kode_idx(termasuk_etf=True)     # saham + ETF yang tercatat di IDX (mis. XIIT)
 
 # Aset global yang juga dipantau
 GLOBAL = [

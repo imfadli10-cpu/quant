@@ -80,8 +80,41 @@ if len(df) < MIN_SAHAM:
 
 # Kode baru (ada di Yahoo, belum ada di daftar gabungan) -> tambahan
 sudah = set(kode_idx(akhiran=""))
-baru = df[~df["kode"].isin(sudah) & (df.get("quoteType", "EQUITY") == "EQUITY")]
-print(f"🆕 kode baru dibanding daftar gabungan: {len(baru)} {sorted(baru['kode'])[:20]}")
+baru = df[~df["kode"].isin(sudah) & (df.get("quoteType", "EQUITY") == "EQUITY")][["kode", "longName"]]
+print(f"🆕 kode baru dari screener Yahoo: {len(baru)} {sorted(baru['kode'])[:20]}")
+
+# Sumber kedua: kode dari Wikidata (perusahaan tercatat di BEI) yang belum ada di daftar TAPI masih punya harga Yahoo
+# dalam 10 hari terakhir (= masih aktif). Contoh 20 Nov 2026: TELE aktif tapi tidak ada di daftar awal maupun screener.
+try:
+    from daftar_saham import wikidata_idx
+    wd = wikidata_idx()
+    kandidat = sorted(set(wd["kode"]) - sudah - set(baru["kode"]))
+    aktif = []
+    if kandidat:
+        h = yf.download([k + ".JK" for k in kandidat], period="10d", interval="1d", auto_adjust=False,
+                        progress=False, group_by="ticker", threads=True)
+        for k in kandidat:
+            try:
+                if h[k + ".JK"]["Close"].dropna().size > 0:
+                    aktif.append(k)
+            except KeyError:
+                pass
+    nama_wd = wd.set_index("kode")["nama"]
+    jenis = {}
+    for k in aktif:                          # saham atau ETF? (ETF IDX mis. XIIT tidak boleh masuk semesta S2)
+        try:
+            jenis[k] = "etf" if yf.Ticker(k + ".JK").info.get("quoteType") == "ETF" else "saham"
+        except Exception:
+            jenis[k] = "etf" if k.startswith("X") else "saham"
+        time.sleep(0.5)
+    baru = pd.concat([baru.assign(jenis="saham"),
+                      pd.DataFrame({"kode": aktif, "longName": [nama_wd.get(k, "") for k in aktif],
+                                    "jenis": [jenis[k] for k in aktif]})], ignore_index=True)
+    print(f"   jenis: {pd.Series(jenis).value_counts().to_dict()}")
+    print(f"🆕 kode aktif dari Wikidata (belum di daftar, punya harga 10 hari terakhir): {len(aktif)} {aktif[:20]} "
+          f"(dari {len(kandidat)} kandidat)")
+except Exception as e:                       # Wikidata hanya pelengkap: jangan gagalkan foto harian
+    print(f"⚠️  cek Wikidata dilewati: {type(e).__name__}: {str(e)[:80]}")
 
 if "--tes" in sys.argv:
     print(df[["kode", "longName", "marketCap", "sharesOutstanding", "bid", "ask", "earningsTimestamp"]].head(8).to_string())
@@ -101,7 +134,8 @@ if len(baru):
         print(f"❌ gagal membaca daftar tambahan lama ({type(e).__name__}) -> tidak menulis supaya tidak tertimpa")
         sys.exit(1)
     tambah = pd.DataFrame({"kode": baru["kode"], "pertama_terlihat": SEKARANG.date().isoformat(),
-                           "nama": baru.get("longName", baru.get("shortName", ""))})
+                           "nama": baru["longName"].fillna("").astype(str),
+                           "jenis": baru["jenis"].fillna("saham") if "jenis" in baru else "saham"})
     gabung = pd.concat([lama, tambah], ignore_index=True) if lama is not None else tambah
     ref.parent.mkdir(parents=True, exist_ok=True)
     gabung.drop_duplicates("kode").to_csv(ref, index=False)
