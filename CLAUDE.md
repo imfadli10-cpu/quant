@@ -69,6 +69,7 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
 - `gabung.yml`: setiap Minggu 03:23 UTC: `gabung.py` → `bersih/`.
 - `fundamental_idx.yml`: setiap Sabtu 02:47 UTC: foto fundamental IDX (lihat bagian 6).
 - `insider_sec.yml`: tanggal 3 setiap bulan 03:29 UTC + manual: transaksi orang dalam SEC (lihat bagian 6).
+- `berita.yml`: tiap 4 jam (00:11, 04:11, ... UTC), paket minimal: `kumpul_berita.py` → `raw/harian/berita` (bagian 6).
 - `paper_trading.yml`: Senin–Jumat 22:41 UTC (05:41 WIB, SEBELUM bursa buka) + manual: `paper_trading.py` →
   `raw/paper_trading/` (s2_pilihan, s2_semesta, s2_kinerja). Pilihan akhir bulan dicatat SEKALI per bulan, sebelum hari beli
   (`dicatat_sebelum_beli`=True = sah). Catatan lama TIDAK PERNAH diubah; kalau gagal membaca catatan lama → berhenti.
@@ -140,6 +141,12 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   harga Yahoo 10 hari terakhir → tambahan dengan kolom `jenis` (saham/etf, dari quoteType Yahoo). 20 Nov 2026: TELE (saham) +
   31 ETF IDX (XIIT, XBLQ, XISI...). `kode_idx()` bawaan = SAHAM saja (paper trading & fundamental: semesta S2 tetap);
   `kode_idx(termasuk_etf=True)` = saham + ETF (collector harga harian). ETF IDX = instrumen indeks yang BISA dibeli.
+- `kumpul_berita.py` (workflow `berita.yml`, tiap 4 jam): judul + ringkasan berita RSS RESMI media yang robots.txt-nya
+  MENGIZINKAN: Kontan Investasi, Antara Bursa & Ekonomi, Tempo Bisnis, Liputan6 Bisnis (~165 berita per foto) →
+  `raw/harian/berita/<tanggal UTC>.parquet` (foto-foto di hari yang sama DIGABUNG, dobel dibuang menurut tautan; gagal
+  membaca file hari ini → berhenti). `kode_disebut` = kode saham IDX di judul/ringkasan. Mulai 20 Nov 2026 (hanya ke depan).
+  TIDAK dipakai: CNBC Indonesia & IDX Channel (robots.txt MELARANG), Bisnis.com (403). Kontan cuma ~7 jam → wajib tiap 4 jam.
+  Tidak ada di `validasi_harian.py` (jam tidak sinkron); workflow berita gagal sendiri = email.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:

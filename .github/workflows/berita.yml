@@ -1,0 +1,32 @@
+name: Judul berita Indonesia (tiap 4 jam)
+
+on:
+  schedule:
+    - cron: "11 */4 * * *"    # 00:11, 04:11, ... UTC (07:11, 11:11, ... WIB). Kontan hanya menyimpan ~7 jam berita.
+  workflow_dispatch:
+
+jobs:
+  berita:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install library (hanya yang dibutuhkan, supaya hemat menit)
+        run: pip install pandas pyarrow requests huggingface_hub openpyxl
+
+      - name: Ambil & gabung judul berita hari ini (gagal = email alarm)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python kumpul_berita.py
+
+      - name: Upload (hanya folder berita)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python upload_satu.py data/raw/harian/berita
