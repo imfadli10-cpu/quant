@@ -424,6 +424,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Klaim Krivelyova-Robotti 2003 (return turun ~6 hari setelah badai). Badai = Ap ≥ 48 (94 hari di 2001–2018), jendela 6 hari
   bursa mulai tanggal ≥ d+2. IDX keranjang 30: −0,014%/hari vs +0,093% (t −1,2); SPY (sejak 1993): +0,031% vs +0,042% (t −0,2);
   strategi kas pasca-badai −0,8%/thn (t −0,5). Disiplin uji menolak klaim menarik yang lemah. Hapus 2019+ → IDENTIK.
+- **Riset #18 SELESAI: lonjakan volume transaksi → saham IDX bulan depan** (detail & angka di `private/`).
+  Sinyal NYATA secara statistik (IC kuat, stabil, korelasi rendah dengan S2) TAPI TIDAK bisa dijalankan sendiri: perputaran
+  sangat tinggi → biaya realistis (spread) menghapus keuntungan. Kandidat KOMPONEN pendamping S2 (riset terpisah nanti).
+  Pelajaran desain (ditemukan tes tiruan): lonjakan 'nilai transaksi' tercampur kenaikan harga → pakai JUMLAH LEMBAR.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
