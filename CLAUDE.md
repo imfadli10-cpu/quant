@@ -302,6 +302,14 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     biaya 0,4%, dibanding semesta). Periode: semua bulan 2019+. LOLOS kalau rata-rata bersih > 0 DAN t > 2
     (sampel uji lebih pendek). Laporkan juga versi 50 saham paling likuid & biaya 0,8% (informasi, bukan kriteria).
     Data uji untuk ide ini HANYA dibuka SEKALI; kalau gagal, S2 dibuang sebagai strategi tunggal.
+  - **DATA UJI DIBUKA 20 Nov 2026 (`riset_12b_uji_s2.py`, HANYA S2; sinyal lain & gabungan TIDAK disentuh): ✅ LOLOS.**
+    2019-01..2026-09 (93 bln): bersih +1,43%/bln, t 3,4, ~+18,6%/thn, menang 70% bulan, IC t 5,3. Biaya 0,8%: t 3,1.
+    Per tahun: 2019 +1,34% | 2020 −1,19% (COVID) | 2021 +3,08% | 2022 +2,50% | 2023 +0,92% | 2024 +1,92% | 2025 +1,19%.
+    PERINGATAN BESAR: versi 50 saham paling likuid +0,11%/bln t 0,2 = efek HANYA ada di saham kurang likuid →
+    risiko nyata: spread/tick > asumsi, saham terkunci ARA (tidak bisa dibeli), kapasitas kecil, survivorship IDX
+    (daftar saham = yang masih tercatat; saham kecil paling sering delisting). BELUM siap uang sungguhan.
+    LANGKAH BERIKUTNYA: (1) uji eksekusi realistis (perkiraan spread dari tick size, cek hari ARA saat beli, kapasitas
+    Rp), (2) paper trading MAJU mulai sekarang dengan data harian (ujian paling jujur), (3) baru pertimbangkan modal kecil.
 - **Daftar ide berikutnya** (urutan rekomendasi):
   #6 posisi COT ekstrem → berbalik →
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
