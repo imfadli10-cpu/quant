@@ -179,6 +179,8 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   FRED `CCUSSP02IDM650N` (kurs akhir bulan OECD, s/d 2023-12, sudah masuk `ambil_makro.py` → 76 seri). Untuk harian: fungsi
   `bersihkan` di `riset_04` (median TERPUSAT 9 hari, 4%, diulang; 21 titik dibuang) dan hanya sejak 2004. Pelajaran: SELALU
   cek lompatan harian & bandingkan dengan sumber kedua sebelum memakai seri harga apa pun.
+- Uji yang memakai return "besok"/"minggu depan": filter harus berdasarkan tanggal TARGET (d+1) ≤ 2018-12-31, bukan
+  tanggal sinyal. Cek hapus-data-2019+ WAJIB dijalankan tiap riset (menangkap kebocoran 1 hari di riset #5).
 - Saat menulis kode Python yang berisi tiga backtick di dalam string, buat lewat variabel (mis. `"`" * 3`) supaya tampilan chat tidak rusak.
 
 ## 9. Aturan riset (WAJIB)
@@ -243,8 +245,20 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   - Catatan kejujuran: versi pertama memakai kurs Yahoo yang RUSAK (hasil H1 t 0,0 sempat terlihat). Sumber diganti
     karena cek kualitas otomatis, bukan karena hasil; versi bersih juga negatif.
   - Kesimpulan riset #1–#4: informasi makro/pasar yang JELAS (EIDO, komoditas, kurs) diserap IDX dalam hari/minggu yang sama.
+- **Riset #5 SELESAI: saham "tidur" telat bereaksi** (`riset_05_saham_tidur.py`). HASIL NEGATIF untuk dugaan utama.
+  Keranjang bulanan: LIKUID = peringkat nilai transaksi 1–30, TIDUR = 31–130 (saringan riset #2, ≥ Rp1 miliar).
+  Butuh ≥ 80 saham lolos → sampel baru mulai 2010-08 (409 minggu latih). 4 uji ditetapkan di depan.
+  - U1 LIKUID minggu w → TIDUR minggu w+1: t −0,6 (TIDUR TIDAK menyusul). Cek harga basi sama (−0,6).
+  - U2 → (TIDUR − LIKUID) minggu w+1: t robust +3,2 (t biasa 3,9), TAPI diagnosis: berasal dari LIKUID yang BERBALIK
+    minggu depan (kemiringan −0,14, t −2,1), bukan TIDUR menyusul (−0,04). Butuh short → tidak bisa dijalankan.
+  - U3 strategi (TIDUR hanya setelah LIKUID naik, else kas): −9%/thn vs selalu pegang (t −1,9). U4 harian (diagnosis): t 2,9.
+  - Kode lolos `--tes-kosong`/`--tes-tiruan` (pola 0,3 → t 5,8). Cek hapus-data-2019+ MENEMUKAN kebocoran 1 hari di U4
+    (hari terakhir 2018 memakai return 2 Jan 2019) → diperbaiki → IDENTIK. Data uji tidak dibuka.
+  - IDE BARU (muncul SETELAH lihat data, wajib riset terpisah dengan dugaan tertulis baru, hitung sebagai uji tambahan):
+    pembalikan mingguan keranjang LIKUID → long-only "pindah keranjang" (setelah LIKUID naik pegang TIDUR, setelah turun
+    pegang LIKUID). Efek kecil (~0,1 × gerak mingguan) vs biaya pindah 0,4% → peluang tipis.
 - **Daftar ide berikutnya** (urutan rekomendasi):
-  #5 saham "tidur" telat bereaksi → #6 posisi COT ekstrem → berbalik →
+  #6 posisi COT ekstrem → berbalik →
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
   → #11 PEMBELIAN orang dalam (SEC, kode P, bukan 10b5-1) → saham AS 1–6 bulan ke depan (histori 2006+, tanpa survivorship;
