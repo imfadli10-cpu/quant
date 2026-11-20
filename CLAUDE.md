@@ -66,6 +66,8 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
   `validasi_harian.py` (gagal = GitHub mengirim email alarm ke pengguna).
 - `fundamental.yml`: tanggal 2 setiap bulan, 02:41 UTC: `kumpul_sec.py` + `kumpul_bps.py` (mode bulanan) → upload.
 - `gabung.yml`: setiap Minggu 03:23 UTC: `gabung.py` → `bersih/`.
+- `fundamental_idx.yml`: setiap Sabtu 02:47 UTC: foto fundamental IDX (lihat bagian 6).
+- `insider_sec.yml`: tanggal 3 setiap bulan 03:29 UTC + manual: transaksi orang dalam SEC (lihat bagian 6).
 - `histori_as.yml`, `histori_bps.yml`: manual, sudah selesai 100%. `histori_finra.yml`: manual, SUDAH selesai
   19 Nov 2026 (17 menit; 9 file, 20,1 juta baris, 2.087 hari bursa, hari kosong = persis hari libur bursa AS). `PYTHONUNBUFFERED=1` wajib untuk pekerjaan panjang.
 
@@ -110,6 +112,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
+- `kumpul_insider_sec.py` (workflow `insider_sec.yml`): transaksi ORANG DALAM perusahaan AS (SEC Form 3/4/5 "Insider
+  Transactions Data Sets") → `raw/insider_sec/<2006q1..>.parquet`, 1 baris = 1 transaksi saham biasa. Sejak 2006q1 (sebelumnya
+  tidak ada), ~60–170 ribu transaksi/kuartal, termasuk perusahaan yang sudah mati. Kolom kunci: `tanggal_lapor` (= saat
+  PUBLIK, pakai ini di riset), `kode_transaksi` (P=beli pasar, S=jual, A/M/F/G = hibah/opsi/pajak/hadiah = bukan sinyal),
+  `rencana_10b5_1` ("1"/"0", kosong sebelum ~2023; 61% penjualan 2026q3 terjadwal), `hubungan`/`jabatan`.
+  Tautan dibaca dari halaman indeks SEC (lokasi file PINDAH sejak 2026q2). Kuartal yang sudah ada dilewati, 2 terbaru ditimpa.
+  Kolom AFF10B5ONE tidak ada di arsip lama → diisi kosong. Alamat pelapor sengaja TIDAK disimpan (data pribadi).
 - `kumpul_sec.py`: SEC companyfacts.zip (~1,4 GB), 25 konsep keuangan, ~20.588 perusahaan (termasuk yang sudah mati),
   ~16 juta baris → `raw/fundamental/sec/bagian_xx` + `tiker.parquet` (CIK → kode saham).
 - `kumpul_bps.py`: BPS 1.767 variabel nasional, 3 tahun terakhir, 6 permintaan paralel → `raw/bps/terbaru`.
@@ -237,15 +246,18 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - **Daftar ide berikutnya** (urutan rekomendasi):
   #5 saham "tidur" telat bereaksi → #6 posisi COT ekstrem → berbalik →
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
-  → #10 volatilitas tersirat opsi (tunggu data beberapa bulan).
-- Calon sumber data berikutnya: transaksi orang dalam SEC Form 4, Polymarket, lelang Treasury AS.
+  → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
+  → #11 PEMBELIAN orang dalam (SEC, kode P, bukan 10b5-1) → saham AS 1–6 bulan ke depan (histori 2006+, tanpa survivorship;
+  bisa dibeli lewat broker saham AS; latih s/d 2018, uji 2019+).
+- Calon sumber data berikutnya: Polymarket, lelang Treasury AS. (SEC Form 4 SUDAH ditambahkan 20 Nov 2026.)
   (Volume short FINRA, logam LME + stok, dan sawit harian SUDAH ditambahkan 19 Nov 2026.)
   Dengan harga harian LME & sawit, riset #3 bisa diuji ulang di horizon MINGGUAN (nikel/timah sejak 2008, sawit sejak 2010).
   Prioritaskan data "hanya ke depan" (tidak bisa diambil mundur).
 - Pantau: email alarm, jatah menit GitHub (github.com/settings/billing, "$x used / $12.00"), jatah BigQuery.
 - **Jatah GitHub Actions (keputusan 20 Nov 2026):** repo TETAP PRIVATE. Pengguna minta DIKABARI kalau mendekati batas.
   Per 20 Nov: $4,62 (~770 menit) terpakai; run harian ~42,5 menit; perkiraan bulan penuh ~1.500–1.600 dari 2.000 menit.
-  Setiap menambah collector/workflow: hitung ulang perkiraan & sebutkan. Kalau > ~1.800 menit/bulan atau Compute > ~$10:
+  Pengguna: "nggak usah mikirin menit" → menit BUKAN pertimbangan memilih data/riset & jangan dibahas; cukup pantau
+  diam-diam. HANYA kalau perkiraan > ~1.800 menit/bulan atau Compute > ~$10:
   kabari, tawarkan (1) hemat `kumpul_saham_as.py` (~17 menit/hari) atau (2) jadikan publik SETELAH merapikan catatan pribadi
   di CLAUDE.md (repo publik = menit tak terbatas, tapi jadwal mati setelah 60 hari tanpa aktivitas & log Actions publik).
   Riwayat git sudah dicek bersih dari kunci/token (39 commit). Repo `sim-runs` publik, tidak memotong jatah.
