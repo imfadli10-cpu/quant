@@ -65,6 +65,7 @@ cek("kurs_ecb",         "tanggal",     5,         200,       ["mata_uang"],     
 cek("polymarket",       "waktu_ambil", 2,         1000,      ["id"],              1000)
 cek("daftar_idx",       "waktu_ambil", 2,         600,       ["kode"],            600)
 cek("wikipedia_idx",    "tanggal",     3,         3000,      ["kode"],            150)
+cek("intraday_idx",     "waktu",       5,         50000,     ["kode"],            300)
 
 # Makro: semua 18 seri harus ada, dan suku bunga harian The Fed harus segar
 file_makro = list(Path("data/raw/makro").glob("*.parquet"))

@@ -147,6 +147,10 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   membaca file hari ini → berhenti). `kode_disebut` = kode saham IDX di judul/ringkasan. Mulai 20 Nov 2026 (hanya ke depan).
   TIDAK dipakai: CNBC Indonesia & IDX Channel (robots.txt MELARANG), Bisnis.com (403). Kontan cuma ~7 jam → wajib tiap 4 jam.
   Tidak ada di `validasi_harian.py` (jam tidak sinkron); workflow berita gagal sendiri = email.
+- `kumpul_intraday_idx.py` (harian): bar 1 MENIT semua saham & ETF IDX, 3 hari bursa terakhir → `raw/harian/intraday_idx`
+  (~284 ribu bar/hari, ~1,9 MB, ~2,5 menit; mulai 20 Nov 2026). Yahoo hanya menyimpan 1 menit ~8 hari, 5 menit ~60 hari, 1 jam
+  ~2 tahun → data HANYA KE DEPAN. `--histori` (sekali, 20 Nov 2026) → `raw/histori/intraday_idx/5m_*.parquet` & `1h_*.parquet`.
+  Waktu = WIB tanpa zona. Bar hanya ada di menit yang ada transaksi. Bar terakhir ~15:49; harga penutupan resmi di data harian.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
