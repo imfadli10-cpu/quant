@@ -504,6 +504,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Recession c +0,05 t +0,3. Volatilitas sangat lengket (b 0,44–0,60): perhatian tidak menambah informasi. DAYA UJI RENDAH: RV mingguan
   dari 5–7 return harian berderau; data tiruan c 0,3 hanya t 0,6–2,1, c 1,0 → t 6–9 (kode benar, `--tes-tiruan-kuat`).
   Hapus data 2019+ → IDENTIK. Data uji tidak dibuka. Ulangi nanti dengan RV dari data per jam (`crypto_jam`, hanya ke depan).
+- **Riset #23 SELESAI: cuaca kota bursa → return hari itu (Hirshleifer-Shumway 2003)** (`riset_23_cuaca.py`). HASIL NEGATIF.
+  Pra-registrasi di-commit sebelum dijalankan (6cc738f). Cuaca = Open-Meteo reanalisis; z sinar matahari per bulan kalender (statistik
+  dari data latih saja). U1 keranjang 30 IDX ← sinar Jakarta −0,006%/z t −0,3 (3.922 hari, 2002–2018) | U2 hujan lebat ≥ 20 mm
+  +0,16% vs +0,08% t +0,7 (132 hari) | U3 SPY ← sinar New York +0,006%/z t +0,4 (1993–2018). Daya uji CUKUP (tiruan 0,05%/z → t 2,9–3,4)
+  → efek suasana hati cuaca, kalau ada, < ~0,03%/hari. Sesuai literatur baru (efek hilang setelah publikasi). Hapus 2019+ → IDENTIK.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
