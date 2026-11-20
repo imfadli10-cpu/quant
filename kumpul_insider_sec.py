@@ -74,7 +74,11 @@ def baca_tsv(z, nama, kolom):
 
 
 def tanggal(s):
-    return pd.to_datetime(s.str.strip().str.title(), format="%d-%b-%Y", errors="coerce").astype("datetime64[ns]")
+    """Laporan SEC kadang salah ketik tahun ('18-JUN-0025', '01-JAN-0001'). Tahun di luar 1990-2035 = kosong
+    (dulu membuat 23 kuartal gagal: OutOfBoundsDatetime saat diubah ke presisi nanodetik)."""
+    t = pd.to_datetime(s.str.strip().str.title(), format="%d-%b-%Y", errors="coerce")
+    t = t.where((t.dt.year >= 1990) & (t.dt.year <= 2035))
+    return t.astype("datetime64[ns]")
 
 
 def olah(isi_zip):

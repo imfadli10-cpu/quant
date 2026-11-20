@@ -124,6 +124,8 @@ Bulanan:
   `rencana_10b5_1` ("1"/"0", kosong sebelum ~2023; 61% penjualan 2026q3 terjadwal), `hubungan`/`jabatan`.
   Tautan dibaca dari halaman indeks SEC (lokasi file PINDAH sejak 2026q2). Kuartal yang sudah ada dilewati, 2 terbaru ditimpa.
   Kolom AFF10B5ONE tidak ada di arsip lama → diisi kosong. Alamat pelapor sengaja TIDAK disimpan (data pribadi).
+  Tanggal salah ketik di laporan SEC ('18-JUN-0025', '01-JAN-0001') → tahun di luar 1990–2035 dikosongkan (dulu bikin
+  23 kuartal gagal OutOfBoundsDatetime). Upload per 10 kuartal + tunggu 2 menit saat Hugging Face 429 (batas jumlah commit).
 - `kumpul_sec.py`: SEC companyfacts.zip (~1,4 GB), 25 konsep keuangan, ~20.588 perusahaan (termasuk yang sudah mati),
   ~16 juta baris → `raw/fundamental/sec/bagian_xx` + `tiker.parquet` (CIK → kode saham).
 - `kumpul_bps.py`: BPS 1.767 variabel nasional, 3 tahun terakhir, 6 permintaan paralel → `raw/bps/terbaru`.
