@@ -53,7 +53,8 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
 ## 4. Rahasia (JANGAN PERNAH di-commit atau ditampilkan)
 
 - File lokal (diabaikan `.gitignore` lewat pola `kunci_*.txt`, `kunci_*.json`): `kunci_fred.txt`, `kunci_hf.txt`,
-  `kunci_gcp.json`, `kunci_sec.txt`, `kunci_bps.txt`.
+  `kunci_gcp.json`, `kunci_sec.txt`, `kunci_bps.txt`, `kunci_nasdaq.txt` (Nasdaq Data Link, akun gratis
+  dibuat 20 Nov 2026; hanya dipakai di laptop, belum perlu GitHub Secret karena WIKI sudah membeku).
 - GitHub Secrets: `FRED_API_KEY`, `HF_TOKEN`, `GCP_KEY_JSON`, `SEC_USER_AGENT` (nama+email, wajib untuk SEC), `BPS_KEY`.
 - Pola kode: `os.environ.get("NAMA") or Path("kunci_x.txt").read_text().strip()` (server pakai Secrets, laptop pakai file).
 - `.gitignore` juga mengabaikan: `.venv/`, `data/`, `*.csv`, `*.png`, `*.xlsx`, `__pycache__/`.
@@ -132,6 +133,10 @@ Bulanan:
   `--histori` → `raw/histori/bps` (18 bagian, SUDAH lengkap, jutaan baris). Format panjang:
   var_id, judul, satuan, wilayah (banyak per provinsi/kota), kategori, tahun, periode, bulan, nilai.
 
+- `raw/histori/wiki_prices/semua.parquet` (529 MB): arsip WIKI Nasdaq Data Link (gratis, BEKU 2018-03-27), 3.199 saham AS,
+  15,4 juta baris sejak 1962. Kolom: harga ASLI (buka/tertinggi/terendah/tutup) + versi `_adj`, `rasio_split`, `dividen`.
+  Memuat 705 saham yang mati 2014–2017 (diakuisisi: Dell, EMC, Yahoo, Whole Foods...), TAPI 0 yang mati sebelum 2014
+  (Lehman, Bear Stearns, Merrill tidak ada). Diunduh sekali dari laptop (bulk export) + `upload_satu.py`.
 Histori sekali jalan (sudah selesai): `ambil_semua_idx.py` (`raw/harga_idx`, 918 saham), `ambil_harga.py` (`raw/harga`, 52 aset),
 `ambil_cuaca.py` (`raw/cuaca`, 15 kota sejak 1990), `isi_histori_as.py` (`raw/histori/saham_as`, 129 bagian, ~35 juta baris),
 `isi_histori_bigquery.py` (Bitcoin sejak 2009, Ethereum & GDELT sejak 2015, per tahun), `isi_histori_crypto.py`
@@ -151,7 +156,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - **HARGA SAHAM AS (`bersih/saham_as.parquet`) = SURVIVORSHIP 100%**: dari 12.740 kode, 0 berhenti sebelum 2026 (Lehman,
   Bear Stearns, Twitter tidak ada). Kode dipakai ulang: `WM` = Waste Management sejak 1988 (dulu Washington Mutual).
   60% transaksi beli orang dalam SEC 2006–2018 emitennya tidak punya harga Yahoo. SEMUA riset saham AS harus melaporkan
-  porsi hilang & membandingkan dengan kelompok pembanding. PRIORITAS DATA: cari harga gratis yang memuat saham delisting.
+  porsi hilang & membandingkan dengan kelompok pembanding.
+  Pencarian sumber gratis (20 Nov 2026): WIKI menambal 2014–2017 saja (saham besar); Tiingo gratis = 500 saham/bulan &
+  delisting condong 2017+ (2008 cuma 6); Stooq memblokir program (JANGAN ditembus); EODHD/FMP gratis terlalu kecil;
+  CRSP/Norgate berbayar (~$630+/thn). KESIMPULAN: 2006–2013 TIDAK BISA ditambal gratis. Data ke depan otomatis bebas
+  survivorship karena collector harian memotret ~11.800 saham AS tiap hari sejak Nov 2026.
 - Histori saham IDX di Yahoo umumnya baru sejak ~2000 (indeks IHSG sejak 1990).
 - SET Thailand & PSEi Filipina di Yahoo hanya 1 hari histori (terbentuk perlahan dari collector harian).
 - Kode AS "NA" hilang dari histori (dibaca pandas sebagai kosong), sudah diperbaiki untuk data harian.

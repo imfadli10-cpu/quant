@@ -52,6 +52,7 @@ INFO = {
     "raw/histori/lme":            ("Histori harga resmi LME + stok gudang 6 logam sejak 2008 (semua.parquet)", "Westmetall (data LME)", "Sekali (awal)"),
     "raw/harian/finra_short":     ("Volume short harian ~12.000 saham AS (short, short dikecualikan, total), 10 hari terakhir", "FINRA Reg SHO", "Harian"),
     "raw/histori/finra_short":    ("Histori volume short harian semua saham AS sejak Agustus 2018, 1 file per tahun", "FINRA Reg SHO", "Sekali (awal)"),
+    "raw/histori/wiki_prices":    ("Arsip WIKI (beku 2018-03): 3.199 saham AS sejak 1962, harga ASLI + disesuaikan, rasio split, dividen; memuat 705 saham mati 2014-2017", "Nasdaq Data Link (WIKI)", "Sekali (beku)"),
     "raw/kurs_ecb":               ("Kurs RESMI harian ECB ~40 mata uang sejak 1999 (rupiah & tetangga Asia sejak 2005): per_eur & per_usd, histori lengkap ditimpa tiap hari. LEBIH BERSIH dari Yahoo IDR=X", "Bank Sentral Eropa (ECB)", "Harian (ditimpa)"),
     "raw/harian/kurs_ecb":        ("Kurs resmi ECB 30 hari terakhir (untuk validasi harian)", "Bank Sentral Eropa (ECB)", "Harian"),
     "raw/insider_sec":            ("Transaksi orang dalam perusahaan AS (Form 3/4/5) sejak 2006, 1 file per kuartal: tanggal lapor, kode, pemilik & jabatan, beli/jual, lembar, harga, penanda 10b5-1", "SEC EDGAR", "Bulanan (tgl 3)"),
