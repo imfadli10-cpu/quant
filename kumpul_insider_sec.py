@@ -145,7 +145,25 @@ sudah = {Path(f).stem for f in api.list_repo_files(REPO, repo_type="dataset") if
 terbaru = set(list(kuartal)[-2:])                    # selalu diperbarui (SEC kadang menambah laporan telat)
 folder = Path("data/raw/insider_sec")
 folder.mkdir(parents=True, exist_ok=True)
-gagal = []
+PER_UPLOAD = 10            # Hugging Face membatasi jumlah commit (429): upload 10 kuartal sekaligus
+
+
+def upload_kelompok(daftar):
+    """Upload beberapa file kuartal dalam SATU commit; kalau dibatasi (429), tunggu 2 menit lalu coba lagi."""
+    for percobaan in range(6):
+        try:
+            api.upload_folder(folder_path=str(folder), path_in_repo=FOLDER_REPO, repo_id=REPO, repo_type="dataset",
+                              allow_patterns=[f"{q}.parquet" for q in daftar],
+                              commit_message=f"Insider SEC {daftar[0]}..{daftar[-1]}")
+            print(f"   ☁️  ter-upload: {daftar[0]} s/d {daftar[-1]} ({len(daftar)} kuartal)")
+            return True
+        except Exception as e:
+            print(f"   ⏳ upload gagal ({type(e).__name__}: {str(e)[:80]}), tunggu 2 menit... ({percobaan + 1}/6)")
+            time.sleep(120)
+    return False
+
+
+gagal, antre = [], []
 for q, url in kuartal.items():
     if q in sudah and q not in terbaru:
         continue
@@ -157,10 +175,15 @@ for q, url in kuartal.items():
         continue
     file = folder / f"{q}.parquet"
     df.to_parquet(file, index=False)
-    api.upload_file(path_or_fileobj=str(file), path_in_repo=f"{FOLDER_REPO}/{q}.parquet", repo_id=REPO,
-                    repo_type="dataset", commit_message=f"Insider SEC {q}")
-    print(f"✅ {q}: {ringkas(df)} ({file.stat().st_size / 1e6:.1f} MB) ☁️")
+    print(f"✅ {q}: {ringkas(df)} ({file.stat().st_size / 1e6:.1f} MB)")
+    antre.append(q)
+    if len(antre) >= PER_UPLOAD:
+        if not upload_kelompok(antre):
+            gagal += antre
+        antre = []
     time.sleep(1)                                    # sopan ke server SEC (batas 10 permintaan/detik)
+if antre and not upload_kelompok(antre):
+    gagal += antre
 if gagal:
     print(f"❌ {len(gagal)} kuartal gagal: {gagal}")
     sys.exit(1)
