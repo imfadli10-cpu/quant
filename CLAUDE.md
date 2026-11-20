@@ -372,6 +372,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   - Lolos `--tes-kosong`/`--tes-tiruan` (pola → IC t 6,6; tapi U2 bersih tetap negatif karena ganti 79%/mg); hapus 2019+ → IDENTIK.
   - Catatan: perhatian Wikipedia paling berguna untuk saham kecil, tapi saham kecil jarang punya artikel. Uji ulang setelah
     data maju menumpuk (sinyal perhatian bisa jadi komponen model gabungan, bukan strategi sendiri).
+- **Riset #8 SELESAI: filter rezim stres untuk S2** (detail di `private/`, ringkasan di sini). HASIL: filter TIDAK dipakai.
+  Stres = VIX ≥ 25 di akhir bulan (19 dari 155 bulan latih; cek STLFSI4 > 0). Keunggulan S2 vs semesta TETAP ada sesudah
+  bulan stres (+1,01% vs +0,91% tenang); pindah ke kas saat stres tidak membantu (t −0,3; versi STLFSI t −1,9).
+  Pelajaran: S2 tidak perlu dimatikan saat krisis. Pra-registrasi dicatat & dicadangkan sebelum dijalankan.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
