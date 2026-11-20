@@ -73,6 +73,7 @@ INFO = {
     "raw/harian/kurs_ecb":        ("Kurs resmi ECB 30 hari terakhir (untuk validasi harian)", "Bank Sentral Eropa (ECB)", "Harian"),
     "raw/insider_sec":            ("Transaksi orang dalam perusahaan AS (Form 3/4/5) sejak 2006, 1 file per kuartal: tanggal lapor, kode, pemilik & jabatan, beli/jual, lembar, harga, penanda 10b5-1", "SEC EDGAR", "Bulanan (tgl 3)"),
     "raw/fundamental_idx/info":   ("Foto ringkasan fundamental ~950 saham IDX: kapitalisasi, saham beredar, PER, PBV, ROE, utang, dividen, target harga & rekomendasi analis, kepemilikan", "Yahoo Finance", "Mingguan Sabtu (hanya ke depan)"),
+    "raw/aksi_idx":               ("Aksi korporasi semua saham & ETF IDX: dividen tunai (Rp/lembar) & stock split (rasio), seluruh histori, tanggal = tanggal EX; foto/ = salinan tiap minggu", "Yahoo Finance", "Mingguan Sabtu (semua.parquet ditimpa)"),
     "raw/fundamental_idx/laporan": ("Foto laporan keuangan ~950 saham IDX (laba rugi, neraca, arus kas; kuartalan & tahunan), format panjang", "Yahoo Finance", "Mingguan Sabtu (hanya ke depan)"),
     "bersih":                     ("DATA SIAP PAKAI: harga saham IDX & AS (histori + harian digabung, tanpa dobel)", "Gabungan", "Mingguan (Minggu)"),
 

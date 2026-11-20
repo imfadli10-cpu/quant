@@ -26,10 +26,20 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python kumpul_fundamental_idx.py   # gagal (< 700 saham) = email alarm
 
+      - name: Aksi korporasi IDX (dividen & split, seluruh histori)
+        continue-on-error: true
+        run: python kumpul_aksi_idx.py   # gagal (< 500 kode) = langkah merah, foto fundamental tetap diupload
+
       - name: Upload ke Hugging Face (hanya folder ini, file lama tidak dihapus)
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python upload_satu.py data/raw/fundamental_idx
+
+      - name: Upload aksi korporasi
+        continue-on-error: true
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: if [ -d data/raw/aksi_idx ]; then python upload_satu.py data/raw/aksi_idx; fi
 
       - name: Perbarui katalog
         continue-on-error: true
