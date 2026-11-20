@@ -396,6 +396,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     selama Ramadan padahal setahun +63%).
   - Data tiruan: pola +0,15%/hari (≈ +3%/Ramadan) hanya t 2,8 (U1) / 1,9 (U3) → efek kalender butuh puluhan tahun untuk terbukti.
   - Hapus data 2019+ → IDENTIK. Data uji tidak dibuka. Catatan: pra-Lebaran bisa diuji ulang setelah data uji makin panjang.
+- **Riset #16 SELESAI: El Nino → saham sawit IDX vs pasar, 6 bulan** (skrip di `private/`). HASIL NEGATIF.
+  ONI dipakai dengan jeda konservatif (berpusat m−2). Sawit (AALI/LSIP/SGRO/SIMP/BWPT) − pasar: −2,5% per +1 ONI (t −0,2);
+  saat El Nino −1,2% vs +3,3% (t −0,1). Mekanisme ONI → harga CPO searah teori (+5,1% per +1 ONI) tapi lemah (t +0,5).
+  PELAJARAN METODE: sinyal persisten (ONI) + jendela return tumpang tindih → t Newey-West TERLALU OPTIMIS (data tiruan tanpa
+  pola memberi t +2,5). Selalu laporkan juga t tanpa tumpang tindih & pakai yang terkecil. Hapus 2019+ → IDENTIK.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
