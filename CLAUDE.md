@@ -325,6 +325,13 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   - LANGKAH BERIKUTNYA: PAPER TRADING MAJU (catat pilihan S2 tiap akhir bulan, pantau hasil nyata 6–12 bulan).
     JANGAN memodifikasi S2 lalu menilainya di 2019–2026 (data uji S2 sudah terpakai). Ide pengurang biaya (mis. aturan
     penyangga/buffer, tahan 2–3 bulan) hanya boleh dirancang di data LATIH lalu dinilai lewat paper trading.
+- **Riset #13 SELESAI: S2 hemat biaya** (`riset_13_s2_hemat.py`, HANYA data latih). Aturan keputusan ditetapkan di depan:
+  varian jadi paper trading kedua hanya kalau rata-rata bersih ≥ V0 DAN t > V0.
+  - V0 S2 asli: 20 saham, putar 50%/bln, biaya 0,63%, bersih realistis +0,92%/bln t 2,7 (paruh 3,3 / 0,8) [cocok #12c].
+  - V1 penyangga (masuk 20% teratas, jual kalau keluar 40%): 29 saham, putar 28%, biaya 0,35%, bersih +0,84% t 3,3 (3,3/1,3).
+  - V2 tahan 3 bulan (3 kelompok bertumpuk): 34 saham, putar 22%, biaya 0,28%, bersih +0,81% t 2,8.
+  - KEPUTUSAN: ❌ tidak ada (V1 t lebih tinggi tapi rata-rata sedikit lebih rendah). S2 asli tetap satu-satunya paper trading.
+    Aturan TIDAK diubah setelah melihat hasil. Pelajaran: kriteria keputusan sebaiknya SATU ukuran (mis. t) agar tidak ambigu.
 - **Daftar ide berikutnya** (urutan rekomendasi):
   #6 posisi COT ekstrem → berbalik →
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
