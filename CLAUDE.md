@@ -407,6 +407,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   saat El Nino −1,2% vs +3,3% (t −0,1). Mekanisme ONI → harga CPO searah teori (+5,1% per +1 ONI) tapi lemah (t +0,5).
   PELAJARAN METODE: sinyal persisten (ONI) + jendela return tumpang tindih → t Newey-West TERLALU OPTIMIS (data tiruan tanpa
   pola memberi t +2,5). Selalu laporkan juga t tanpa tumpang tindih & pakai yang terkecil. Hapus 2019+ → IDENTIK.
+- **Riset #17 SELESAI: momentum mingguan kripto (BTC, ETH, LTC; Coinbase)** (skrip di `private/`). HASIL NEGATIF.
+  Latih 2015-08..2018-12 (BTC 175, ETH 132, LTC 119 minggu; koin lama yang bertahan → tanpa masalah koin mati). Masuk tutup Senin
+  (lewati 1 hari), biaya 0,6%. U1 return minggu ini → minggu depan +0,076 (searah Liu-Tsyvinski 2021) t 1,4 | strategi 'pegang
+  kalau naik' 1 minggu −0,79%/mg (t −1,5), 4 minggu −0,55%/mg (t −1,0) vs beli-dan-tahan. Pelajaran: aset dengan tren naik kuat
+  → strategi timing (sering di kas) harus SANGAT kuat untuk menang. Daya uji rendah (data tiruan pola 0,15 → t 2,0).
+  Ulangi setelah data uji (2019+) bisa dipakai untuk ide lain / data kripto lebih panjang. Hapus 2019+ → IDENTIK.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
