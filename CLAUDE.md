@@ -287,6 +287,21 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   - Lolos `--tes-kosong`/`--tes-tiruan` (pembuat data tiruan sempat meleset 1 bulan; program riset benar tidak menangkap bulan
     sebelum lapor). Hapus data 2019+ → IDENTIK. Data uji TIDAK dibuka.
   - Kesimpulan: belum bisa dipercaya dengan data harga sekarang. Ulangi kalau sudah ada harga AS yang memuat saham delisting.
+- **Riset #12 SELESAI: gabungan sinyal IDX** (`riset_12_gabung_sinyal.py`). Uji penentu GAGAL, tapi ada KANDIDAT.
+  4 sinyal dari literatur (S1 momentum 12-1, S2 dekat puncak 52 minggu = harga/tertinggi 250 hari, S3 volatilitas 120 hari
+  rendah, S4 bukan 'saham lotre' = max return harian 21 hari rendah), z-skor, bobot SAMA. Desain sama dengan riset #2.
+  - IC: S1 t 5,0 | S2 t 6,6 | S3 t 4,4 | S4 t 1,7 | GABUNGAN t 7,0. Korelasi S3–S4 0,54, S1–S2 0,38.
+  - U6 (penentu, ditetapkan di depan): beli 20% teratas GABUNGAN bersih +0,66%/bln t 2,1 → GAGAL (lebih buruk dari
+    momentum saja; S3/S4 mengencerkan). Pelajaran: IC tinggi ≠ strategi beli-saja bagus.
+  - KANDIDAT (angka ini BUKAN uji yang ditetapkan di depan): S2 beli 20% teratas bersih +1,35%/bln t 3,9 (ganti 49%/bln).
+    Cek ketahanan (ditambahkan SETELAH lihat hasil): potong ±30% t 4,5; biaya 0,8% t 3,4; TAPI 50 saham paling likuid
+    t 2,4 dan paruh kedua (2012–2018) lemah (t 1,5; likuid: −0,6). Efek terutama di saham kurang likuid & melemah.
+  - Lolos `--tes-kosong`/`--tes-tiruan`; hapus data 2019+ → IDENTIK. Data uji BELUM dibuka.
+  - RENCANA UJI S2 DI DATA UJI (ditetapkan 20 Nov 2026 SEBELUM dibuka; JANGAN diubah setelah melihat hasil):
+    strategi persis seperti di latih (semesta riset #2, S2 = harga/tertinggi 250 hari, beli 20% teratas, bulanan,
+    biaya 0,4%, dibanding semesta). Periode: semua bulan 2019+. LOLOS kalau rata-rata bersih > 0 DAN t > 2
+    (sampel uji lebih pendek). Laporkan juga versi 50 saham paling likuid & biaya 0,8% (informasi, bukan kriteria).
+    Data uji untuk ide ini HANYA dibuka SEKALI; kalau gagal, S2 dibuang sebagai strategi tunggal.
 - **Daftar ide berikutnya** (urutan rekomendasi):
   #6 posisi COT ekstrem → berbalik →
   #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
