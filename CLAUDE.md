@@ -440,6 +440,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   realistis > 3, data LATIH saja) → PAPER TRADING KEDUA dengan awalan `s2v` (`raw/paper_trading/s2v_*`). Aturannya RAHASIA:
   `private/paper_s2v.py`, diunduh dari gudang HF private oleh `paper_trading.yml` saat jalan. `paper_trading.main(pemilih, awalan)`
   = colokan umum di kode publik. Rumus terbukti identik dengan riset (`--cek-riset`).
+- **Riset #19 SELESAI: arus dana investor AS (TIC) → keranjang 30 saham likuid IDX bulan depan** (skrip di `private/`).
+  HASIL NEGATIF. Sinyal = data bulan m−2 (TIC terbit ~6–7 minggu kemudian) dibagi simpangan baku 36 bulan sebelumnya.
+  Latih 2002–2018: saham −0,42% per +1 std (t −1,4), semua efek −0,27% (t −0,9); strategi kas-kalau-arus-negatif −0,67%/bln
+  (t −2,0, merugi). Arah sedikit berlawanan teori (arus masuk → sedikit lebih buruk). Hapus 2019+ → IDENTIK.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
