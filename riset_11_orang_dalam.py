@@ -207,5 +207,15 @@ if not (TES_TIRUAN or TES_KOSONG):
     j = portofolio(3, set_peristiwa("S", "cocok"))
     print(f"   Pembanding arah: portofolio JUAL orang dalam (S, bukan 10b5-1), H=3 kotor: {j['kotor'].mean():+.2%} "
           f"(t {nilai_t(j['kotor']):+.1f})")
-    print(f"   Survivorship: rata-rata {d3['hilang'].mean():.1%} saham portofolio tanpa harga di bulan pegang "
-          f"(kemungkinan delisting; dibuang = hasil bisa terlalu bagus)")
+    print(f"   Survivorship: rata-rata {d3['hilang'].mean():.1%} saham portofolio tanpa harga di bulan pegang")
+    # TAMBAHAN DESAIN 2026-11-20 (SEBELUM melihat hasil): cek data harga AS menunjukkan 0 dari 12.740 kode berhenti
+    # sebelum 2026 = SEMUA saham delisting hilang (Lehman, Bear Stearns, Twitter tidak ada; kode WM dipakai ulang).
+    # Maka "hilang" di atas hampir pasti ~0 dan TIDAK informatif. Ukuran yang benar: porsi transaksi yang emitennya
+    # TIDAK punya harga Yahoo sama sekali, per tahun lapor, untuk BELI vs JUAL.
+    e = ev[ev["kode_transaksi"].isin(["P", "S"])].copy()
+    e["tahun"] = pd.to_datetime(e["tgl_lapor"]).dt.year
+    tab = e.groupby(["tahun", "kode_transaksi"])["ada_harga"].apply(lambda s: 1 - s.mean()).unstack()
+    tab = tab.loc[:2018] if not BUKA_DATA_UJI else tab.loc[2019:]
+    print("   Porsi transaksi yang emitennya TANPA harga Yahoo (delisting/ganti kode), per tahun lapor:")
+    print("   " + "  ".join(f"{t}: beli {r['P']:.0%} jual {r['S']:.0%}" for t, r in tab.iterrows()))
+    print("   (beli jauh lebih sering hilang daripada jual = bias survivorship menguntungkan strategi -> curigai hasil)")
