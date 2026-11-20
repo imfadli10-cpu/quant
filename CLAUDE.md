@@ -492,9 +492,15 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   U2 bersih realistis −1,14%/bln t −3,9 (keluar-masuk tiap bulan = biaya ~1% per siklus). Data tiruan: premi +2%/bln pun bersih ≈ 0
   → strategi musiman bulanan di IDX butuh efek sangat besar. Bug ditemukan tes tiruan (biaya jual bulan keluar tak terhitung) → diperbaiki
   sebelum data asli. Hapus dividen 2019+ → IDENTIK. Data uji tidak dibuka.
+- **Riset #7 SELESAI: lonjakan perhatian Wikipedia → volatilitas minggu depan** (`riset_07_perhatian_volatilitas.py`). HASIL NEGATIF.
+  Pra-registrasi di-commit sebelum dijalankan (2e7a59b). log RV(w+1) = a + b·log RV(w) + c·lonjakan(w); t = terkecil White/NW(4).
+  Latih: U1 BTC ← Bitcoin en+id c +0,013 t +0,1 (174 mg) | U2 ETH ← Ethereum c +0,12 t +1,0 (135 mg) | U3 SPY ← Stock_market_crash+
+  Recession c +0,05 t +0,3. Volatilitas sangat lengket (b 0,44–0,60): perhatian tidak menambah informasi. DAYA UJI RENDAH: RV mingguan
+  dari 5–7 return harian berderau; data tiruan c 0,3 hanya t 0,6–2,1, c 1,0 → t 6–9 (kode benar, `--tes-tiruan-kuat`).
+  Hapus data 2019+ → IDENTIK. Data uji tidak dibuka. Ulangi nanti dengan RV dari data per jam (`crypto_jam`, hanya ke depan).
 - **Daftar ide berikutnya** (urutan rekomendasi):
-    #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
-  → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
+    (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
+    perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
 - Calon sumber data berikutnya: (daftar lama habis; cari baru, prioritas data 'hanya ke depan' & terkait IDX). (SEC Form 4, kurs ECB, arsip WIKI, Polymarket SUDAH ditambahkan 20 Nov 2026.)
   (Volume short FINRA, logam LME + stok, dan sawit harian SUDAH ditambahkan 19 Nov 2026.)
   Dengan harga harian LME & sawit, riset #3 bisa diuji ulang di horizon MINGGUAN (nikel/timah sejak 2008, sawit sejak 2010).
