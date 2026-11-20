@@ -181,6 +181,12 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   (ditimpa) + `raw/harian/lelang_as` (90 hari, melacak kapan hasil terisi). API fiscaldata TERLAMBAT ~1 bulan & memuat lelang
   yang baru diumumkan (kolom hasil kosong). JEBAKAN: kolom 'ref_cpi_on_*_date' & 'index_ratio_on_issue_date' berisi ANGKA
   (indeks inflasi TIPS) walau namanya '_date' → tipe ditentukan dari ISI, bukan nama kolom.
+- `kumpul_aksi_idx.py` (workflow `fundamental_idx.yml`, tiap SABTU, ~11 menit): AKSI KORPORASI semua saham & ETF IDX dari Yahoo
+  (`Ticker.actions`) → `raw/aksi_idx/semua.parquet` (DITIMPA; kode, tanggal EX tanpa zona, dividen Rp/lembar, split rasio)
+  + `raw/aksi_idx/foto/<tanggal>` (salinan mingguan, lacak revisi). 20 Nov 2026: 6.205 aksi dari 656 kode (5.888 dividen,
+  368 split termasuk 27 reverse split < 1), sejak 2000. Cakupan dividen naik dari 74 kode (2003) ke 230 (2018) → data awal tidak lengkap.
+  Dari 248 titik rusak harga (bagian 8) hanya 6 yang dekat tanggal split (AKRA 2007: split 27-07, lonjakan 30-07) → kebanyakan nilai basi.
+  Saham tanpa split tidak punya kolom 'Stock Splits' (reindex kolom). Bisa dipakai membangun ulang harga transaksi ASLI.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
@@ -474,6 +480,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   KEPUTUSAN: S2 tetap paper trading resmi. `s2v` TETAP dicatat (aturan tidak diubah, gratis) tapi statusnya diturunkan jadi
   EKSPERIMEN: lolosnya berasal dari data rusak. Gambaran jujur: kemampuan MERANKING saham IDX nyata (IC t 4–5), tapi setelah
   biaya realistis keuntungan di 2005–2018 tipis & rawan "momentum crash" setelah dasar pasar. Turunkan harapan.
+- **Riset #22 SELESAI: "bulan dividen" (Hartzmark-Solomon 2013) → saham IDX** (`riset_22_bulan_dividen.py`). HASIL NEGATIF.
+  Pra-registrasi di-commit SEBELUM data dividen dilihat (248f985). Kelompok bulan m = saham semesta #12 yang ex-dividen di bulan (m−12).
+  Latih (data bersih): 69 bulan aktif (median 10 saham; ramai Mei–Jul). U1 kotor −0,37%/bln t −0,9 (arah BERLAWANAN literatur);
+  U2 bersih realistis −1,14%/bln t −3,9 (keluar-masuk tiap bulan = biaya ~1% per siklus). Data tiruan: premi +2%/bln pun bersih ≈ 0
+  → strategi musiman bulanan di IDX butuh efek sangat besar. Bug ditemukan tes tiruan (biaya jual bulan keluar tak terhitung) → diperbaiki
+  sebelum data asli. Hapus dividen 2019+ → IDENTIK. Data uji tidak dibuka.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)

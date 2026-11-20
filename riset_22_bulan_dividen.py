@@ -80,6 +80,8 @@ for i in np.where(pilih)[0]:
     if len(kel) >= MIN_KELOMPOK:
         baris["kotor"] = r[kel].mean() - r.mean()
         baris["bersih"] = baris["kotor"] - biaya
+    elif biaya > 0:
+        baris["bersih"] = -biaya                # bulan keluar dari kelompok: biaya jual tetap dibayar
     w_lama = w
     hasil.append(baris)
 h = pd.DataFrame(hasil).set_index("t")
@@ -87,12 +89,13 @@ aktif = h.dropna(subset=["kotor"])
 print(f"\n📊 DATA LATIH (data uji TIDAK disentuh): {len(aktif)} bulan aktif dari {len(h)} "
       f"({aktif.index.min():%Y-%m} s/d {aktif.index.max():%Y-%m}), median kelompok {aktif['n_kel'].median():.0f} saham")
 print(f"   U1 kelompok dividen - semesta (kotor): {aktif['kotor'].mean():+.2%}/bln  t {nilai_t(aktif['kotor']):+.1f}")
-print(f"   U2 BERSIH realistis (penentu)        : {aktif['bersih'].mean():+.2%}/bln  t {nilai_t(aktif['bersih']):+.1f}")
+u2 = h["bersih"].dropna()                   # bulan aktif + bulan keluar (biaya jual)
+print(f"   U2 BERSIH realistis (penentu)        : {u2.mean():+.2%}/bln  t {nilai_t(u2):+.1f} ({len(u2)} bulan dengan posisi/biaya)")
 tengah = aktif.index[len(aktif) // 2]
 print(f"   paruh: {nilai_t(aktif.loc[:tengah, 'kotor']):+.1f} / {nilai_t(aktif.loc[tengah:, 'kotor'].iloc[1:]):+.1f}")
 print("   per bulan kalender (kotor, rata-rata | jumlah bulan | median saham):")
 for bl, s in aktif.groupby(aktif.index.month):
     print(f"     {bl:2d}: {s['kotor'].mean():+.2%} | {len(s):2d} | {s['n_kel'].median():.0f}")
-t_u2 = nilai_t(aktif["bersih"])
+t_u2 = nilai_t(u2)
 print(f"\n   KEPUTUSAN (t bersih realistis > 3): {t_u2:+.1f} -> "
       f"{'✅ kandidat KOMPONEN model gabungan' if t_u2 > 3 else '❌ tidak dipakai'}")
