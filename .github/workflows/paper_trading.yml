@@ -27,6 +27,14 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python paper_trading.py
 
+      - name: Portofolio kedua (aturan di gudang PRIVATE, tidak ada di repo publik)
+        continue-on-error: true
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python -c "import os; from huggingface_hub import hf_hub_download; hf_hub_download('fadli-sparks/quant-data', 'private/paper_s2v.py', repo_type='dataset', local_dir='.', token=os.environ['HF_TOKEN'])"
+          python private/paper_s2v.py
+
       - name: Upload catatan ke Hugging Face (hanya folder paper_trading)
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}

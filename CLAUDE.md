@@ -74,7 +74,7 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
   `raw/paper_trading/` (s2_pilihan, s2_semesta, s2_kinerja). Pilihan akhir bulan dicatat SEKALI per bulan, sebelum hari beli
   (`dicatat_sebelum_beli`=True = sah). Catatan lama TIDAK PERNAH diubah; kalau gagal membaca catatan lama → berhenti.
   Rumus terbukti IDENTIK dengan riset #12 (`--cek-riset`, 3 bulan). JANGAN ubah aturan S2; versi baru = portofolio baru.
-  Portofolio resmi pertama: sinyal akhir Nov 2026, beli tutup 1 Des 2026.
+  Portofolio resmi pertama: sinyal akhir Nov 2026, beli tutup 1 Des 2026. Portofolio kedua `s2v` (aturan private) menyusul sama.
 - `histori_as.yml`, `histori_bps.yml`: manual, sudah selesai 100%. `histori_finra.yml`: manual, SUDAH selesai
   19 Nov 2026 (17 menit; 9 file, 20,1 juta baris, 2.087 hari bursa, hari kosong = persis hari libur bursa AS). `PYTHONUNBUFFERED=1` wajib untuk pekerjaan panjang.
 
@@ -428,6 +428,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Sinyal NYATA secara statistik (IC kuat, stabil, korelasi rendah dengan S2) TAPI TIDAK bisa dijalankan sendiri: perputaran
   sangat tinggi → biaya realistis (spread) menghapus keuntungan. Kandidat KOMPONEN pendamping S2 (riset terpisah nanti).
   Pelajaran desain (ditemukan tes tiruan): lonjakan 'nilai transaksi' tercampur kenaikan harga → pakai JUMLAH LEMBAR.
+- **Riset #18b SELESAI: gabungan S2 + sinyal lain** (detail di `private/`). Lolos aturan keputusan satu ukuran (t bersih
+  realistis > 3, data LATIH saja) → PAPER TRADING KEDUA dengan awalan `s2v` (`raw/paper_trading/s2v_*`). Aturannya RAHASIA:
+  `private/paper_s2v.py`, diunduh dari gudang HF private oleh `paper_trading.yml` saat jalan. `paper_trading.main(pemilih, awalan)`
+  = colokan umum di kode publik. Rumus terbukti identik dengan riset (`--cek-riset`).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)

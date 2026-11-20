@@ -67,7 +67,7 @@ def siapkan(adj, tutup, volume):
     hari = aktif.index[(aktif.sum(axis=1) >= 10) & (aktif.index.day_of_week < 5)]
     adj, tutup, volume, aktif = (x.loc[hari] for x in (adj, tutup, volume, aktif))
     ret_h = adj.pct_change(fill_method=None)
-    b = {"hari": hari, "adj": adj, "tutup": tutup, "aktif": aktif,
+    b = {"hari": hari, "adj": adj, "tutup": tutup, "aktif": aktif, "volume": volume,
          "median_nilai": (tutup * volume).where(aktif).rolling(60, min_periods=40).median(),
          "porsi_aktif": aktif.rolling(250, min_periods=250).mean(),
          "lompat_maks": ret_h.abs().rolling(250, min_periods=200).max(),
@@ -177,7 +177,10 @@ def baca_catatan(api, nama):
     sys.exit(1)
 
 
-def main():
+def main(pemilih=None, awalan="s2"):
+    """pemilih(b, tgl_sinyal) -> (pilihan, semesta, skor). Bawaan = S2. Portofolio lain (mis. dari private/) memakai
+    awalan file berbeda; aturannya tidak perlu ada di repo publik."""
+    pemilih = pemilih or pilih_s2
     if "--cek-riset" in sys.argv:
         cek_riset()
     tes = "--tes" in sys.argv
@@ -197,7 +200,7 @@ def main():
         print("Belum ada akhir bulan yang lengkap")
         return
     tgl_sinyal = lengkap[-1]
-    atas, semesta, s = pilih_s2(b, tgl_sinyal)
+    atas, semesta, s = pemilih(b, tgl_sinyal)
     if atas is None:
         print(f"❌ Semesta {tgl_sinyal.date()} terlalu kecil")
         sys.exit(1)
@@ -211,8 +214,8 @@ def main():
 
     from huggingface_hub import HfApi
     api = HfApi(token=os.environ.get("HF_TOKEN") or Path("kunci_hf.txt").read_text().strip())
-    pilihan = baca_catatan(api, "s2_pilihan.parquet")
-    semesta_lama = baca_catatan(api, "s2_semesta.parquet")
+    pilihan = baca_catatan(api, f"{awalan}_pilihan.parquet")
+    semesta_lama = baca_catatan(api, f"{awalan}_semesta.parquet")
 
     # 1) Catat pilihan bulan ini KALAU bulan itu belum pernah dicatat (dicek per BULAN, bukan per tanggal, supaya data
     #    Yahoo yang telat tidak membuat satu bulan tercatat dua kali) DAN data cukup segar (<= 5 hari).
@@ -231,7 +234,7 @@ def main():
         tk = pd.Series(tick(b["tutup"].loc[tgl_sinyal, atas].values) / b["tutup"].loc[tgl_sinyal, atas].values, index=atas)
         spread = cs.loc[tgl_sinyal, atas]
         baru = pd.DataFrame({
-            "tanggal_sinyal": tgl_sinyal, "kode": atas, "nilai_s2": s[atas].values,
+            "tanggal_sinyal": tgl_sinyal, "kode": atas, ("nilai_s2" if awalan == "s2" else "skor"): s[atas].values,
             "harga_tutup_sinyal": b["tutup"].loc[tgl_sinyal, atas].values, "spread_cs": spread.values,
             "biaya_saham": (KOMISI + np.maximum(spread.fillna(tk), tk)).values,
             "baru": [k not in sebelumnya for k in atas], "dicatat_pada": sekarang,
@@ -271,9 +274,9 @@ def main():
     print(f"📊 Portofolio tercatat: {len(kinerja)} | selesai & sah: {len(resmi)}"
           + (f" | rata-rata bersih {resmi['bersih'].mean():+.2%}/bln" if len(resmi) else ""))
     FOLDER.mkdir(parents=True, exist_ok=True)
-    pilihan.to_parquet(FOLDER / "s2_pilihan.parquet", index=False)
-    semesta_lama.to_parquet(FOLDER / "s2_semesta.parquet", index=False)
-    kinerja.to_parquet(FOLDER / "s2_kinerja.parquet", index=False)
+    pilihan.to_parquet(FOLDER / f"{awalan}_pilihan.parquet", index=False)
+    semesta_lama.to_parquet(FOLDER / f"{awalan}_semesta.parquet", index=False)
+    kinerja.to_parquet(FOLDER / f"{awalan}_kinerja.parquet", index=False)
     print(f"💾 Tersimpan di {FOLDER}/ (diunggah oleh langkah upload)")
 
 
