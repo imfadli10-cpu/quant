@@ -63,6 +63,12 @@ def muat_data_asli():
         d = d[~d.index.duplicated(keep="last")]
         adj[f.stem], tutup[f.stem], volume[f.stem] = d["Adj Close"], d["Close"], d["Volume"]
     adj, tutup, volume = (pd.DataFrame(x).sort_index() for x in (adj, tutup, volume))
+    if __import__("os").environ.get("BERSIHKAN_IDX", "1") == "1":   # titik rusak Yahoo (bersih_idx.py); 0 = versi lama
+        from bersih_idx import bersihkan
+        adj2 = bersihkan(adj)
+        rusak = adj2.isna() & adj.notna()
+        print(f"🧹 {int(rusak.values.sum())} titik rusak dikosongkan (BERSIHKAN_IDX=0 untuk versi lama)")
+        adj, tutup = adj2, tutup.mask(rusak)
     aktif = volume.fillna(0) > 0
     hari = aktif.index[(aktif.sum(axis=1) >= 10) & (aktif.index.day_of_week < 5)]
     return adj.loc[hari], tutup.loc[hari], volume.loc[hari]

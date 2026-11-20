@@ -105,6 +105,12 @@ else:
         d = d[~d.index.duplicated(keep="last")]
         adj[f.stem], tutup[f.stem], volume[f.stem] = d["Adj Close"], d["Close"], d["Volume"]
     adj, tutup, volume = (pd.DataFrame(x).sort_index() for x in (adj, tutup, volume))
+    if __import__("os").environ.get("BERSIHKAN_IDX", "1") == "1":   # titik rusak Yahoo (bersih_idx.py)
+        from bersih_idx import bersihkan
+        adj2 = bersihkan(adj)
+        rusak = adj2.isna() & adj.notna()
+        print(f"🧹 {int(rusak.values.sum())} titik rusak dikosongkan (BERSIHKAN_IDX=0 untuk versi lama)")
+        adj, tutup = adj2, tutup.mask(rusak)
 
 # Hari bursa = hari kerja dengan minimal 10 saham bertransaksi (buang baris libur buatan yfinance)
 aktif = volume.fillna(0) > 0

@@ -270,6 +270,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - JANGAN menambah baris ke `requirements.txt` dengan `echo >>` (file tanpa pindah baris di akhir → 20 Nov 2026 'duckdb' + 'hijridate'
   menempel jadi 'duckdbhijridate' → SEMUA workflow gagal install). Tulis ulang file dengan Python, lalu cek
   `python -m pip install --dry-run -r requirements.txt` sebelum push.
+- **HARGA IDX YAHOO PUNYA TITIK RUSAK** (ditemukan 20 Nov 2026 lewat pembanding indeks NASDAQ Indonesia): ~266 titik di ~98 saham
+  menyimpang > 50% dari median 9 hari lalu KEMBALI (ANTM 2008-10-24 = 1757 vs ~576, nilai basi berulang bervolume 0; ELTY 2018-05 = 5000
+  vs 500; MAPI/TOWR 2018-05-02 turun ~90% satu hari). IDX punya batas ARA/ARB → lonjakan > 50% yang balik = salah data.
+  `bersih_idx.bersihkan()` mengosongkan titik itu (median TERPUSAT → HANYA riset historis; ≤ 2018 & 2019+ dibersihkan TERPISAH
+  supaya tidak bocor). Dipakai BAWAAN di `riset_02` & `riset_12` (dan semua skrip yang meng-exec-nya); `BERSIHKAN_IDX=0` = versi lama.
+  DAMPAK BESAR: lihat catatan koreksi di bagian 10. Pelajaran: satu bulan palsu (MAPI +900%) bisa menghasilkan "t 2,7".
 - Saat menulis kode Python yang berisi tiga backtick di dalam string, buat lewat variabel (mis. `"`" * 3`) supaya tampilan chat tidak rusak.
 
 ## 9. Aturan riset (WAJIB)
@@ -457,6 +463,17 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   beli-saja bersih realistis t 2,1 → TIDAK dipakai (aturan t > 3). Tetap terbaik dibanding S2 saja & s2v di periode yang sama.
   PERINGATAN: kekuatan S2 & s2v di data latih banyak berasal dari 2005–2008; di 2009–2018 jauh lebih tipis (sinyal IDX
   MELEMAH seiring waktu) → turunkan harapan pada paper trading. Mesin uji maju terbukti benar dengan data tiruan.
+- **KOREKSI DATA 20 Nov 2026 (titik rusak harga IDX, lihat bagian 8) — angka DATA LATIH di atas TERLALU OPTIMIS.**
+  Penyebab: (1) bulan sinyal 2018-04 berisi MAPI +900% & TOWR +361% palsu (harga beli 2 Mei 2018 salah ~10x) → S2 +24% palsu
+  dalam sebulan; (2) bulan krisis 2008-10, 2009-03, 2009-04 dulu TERBUANG (lonjakan palsu membuat jumlah saham 29 < 30); bulan itu
+  nyata: Mar–Apr 2009 = "momentum crash" (pasar memantul +41%, S2 tertinggal −31% & −24%). Angka BERSIH (data latih):
+  #2 momentum 12-1: IC t 4,0 (dulu 5,0), K5−K1 +1,43% t 1,8, K5 bersih +0,55% t 1,4 (paruh IC 2,8/3,0).
+  #12c/#13 S2 V0: bersih realistis +0,46–0,50%/bln t 1,1–1,3 (dulu 2,5–2,7). #18b s2v: t 2,3 (dulu 3,7) → TIDAK LOLOS aturan t > 3.
+  #21 uji maju 2009–2018: IC t 4,7 (masih kuat) tapi bersih realistis model −0,04% / S2 −0,13% / s2v +0,12% (semua t < 0,5).
+  #8: kesimpulan sama (filter tidak membantu). DATA UJI S2 (#12b/#12c, 2019+): TIDAK berubah (+1,00%/bln t 2,4 realistis) → kelulusan S2 tetap sah.
+  KEPUTUSAN: S2 tetap paper trading resmi. `s2v` TETAP dicatat (aturan tidak diubah, gratis) tapi statusnya diturunkan jadi
+  EKSPERIMEN: lolosnya berasal dari data rusak. Gambaran jujur: kemampuan MERANKING saham IDX nyata (IC t 4–5), tapi setelah
+  biaya realistis keuntungan di 2005–2018 tipis & rawan "momentum crash" setelah dasar pasar. Turunkan harapan.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     #7 lonjakan Wikipedia → volatilitas crypto → #8 rezim stres (VIX/STLFSI) sebagai filter → #9 badai geomagnetik (latihan uji jujur)
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
