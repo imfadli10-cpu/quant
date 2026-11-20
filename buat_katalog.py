@@ -52,6 +52,8 @@ INFO = {
     "raw/histori/lme":            ("Histori harga resmi LME + stok gudang 6 logam sejak 2008 (semua.parquet)", "Westmetall (data LME)", "Sekali (awal)"),
     "raw/harian/finra_short":     ("Volume short harian ~12.000 saham AS (short, short dikecualikan, total), 10 hari terakhir", "FINRA Reg SHO", "Harian"),
     "raw/histori/finra_short":    ("Histori volume short harian semua saham AS sejak Agustus 2018, 1 file per tahun", "FINRA Reg SHO", "Sekali (awal)"),
+    "raw/kurs_ecb":               ("Kurs RESMI harian ECB ~40 mata uang sejak 1999 (rupiah & tetangga Asia sejak 2005): per_eur & per_usd, histori lengkap ditimpa tiap hari. LEBIH BERSIH dari Yahoo IDR=X", "Bank Sentral Eropa (ECB)", "Harian (ditimpa)"),
+    "raw/harian/kurs_ecb":        ("Kurs resmi ECB 30 hari terakhir (untuk validasi harian)", "Bank Sentral Eropa (ECB)", "Harian"),
     "raw/insider_sec":            ("Transaksi orang dalam perusahaan AS (Form 3/4/5) sejak 2006, 1 file per kuartal: tanggal lapor, kode, pemilik & jabatan, beli/jual, lembar, harga, penanda 10b5-1", "SEC EDGAR", "Bulanan (tgl 3)"),
     "raw/fundamental_idx/info":   ("Foto ringkasan fundamental ~950 saham IDX: kapitalisasi, saham beredar, PER, PBV, ROE, utang, dividen, target harga & rekomendasi analis, kepemilikan", "Yahoo Finance", "Mingguan Sabtu (hanya ke depan)"),
     "raw/fundamental_idx/laporan": ("Foto laporan keuangan ~950 saham IDX (laba rugi, neraca, arus kas; kuartalan & tahunan), format panjang", "Yahoo Finance", "Mingguan Sabtu (hanya ke depan)"),

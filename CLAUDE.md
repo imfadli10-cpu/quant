@@ -109,6 +109,11 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   laporan 636 saham (sebagian korban rate limit Yahoo; sejak itu: 3 paralel, tunggu 60 dtk saat dibatasi, putaran kedua).
   JEBAKAN: sebagian emiten lapor dalam USD (`financialCurrency`) sedangkan harga IDR → PBV/PER dari Yahoo bisa ngawur
   (contoh AADI PBV 19.979). Hitung ulang rasio sendiri dengan kurs.
+- `kumpul_kurs_ecb.py`: kurs RESMI harian ECB, ~42 mata uang (sejak 1999; IDR, MYR, THB, PHP, CNY sejak 2005-04; INR 2009)
+  → `raw/kurs_ecb/semua.parquet` (histori lengkap, DITIMPA tiap hari) + `raw/harian/kurs_ecb` (30 hari). Format panjang:
+  tanggal, mata_uang, per_eur, per_usd. **PAKAI INI untuk kurs harian, BUKAN Yahoo IDR=X** (USD/IDR ECB vs OECD akhir bulan:
+  korelasi 0,96, rasio 0,9995; hanya 2 lompatan > 5%, krisis 2008 = nyata). Kurs ECB ditetapkan ~20:15 WIB = setelah IDX tutup.
+  Situs Bank Indonesia (JISDOR) tidak merespons dari laptop (20 Nov 2026, WARP menyala) → belum dipakai.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
@@ -263,7 +268,7 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   → #10 volatilitas tersirat opsi (tunggu data beberapa bulan)
   → #11 PEMBELIAN orang dalam (SEC, kode P, bukan 10b5-1) → saham AS 1–6 bulan ke depan (histori 2006+, tanpa survivorship;
   bisa dibeli lewat broker saham AS; latih s/d 2018, uji 2019+).
-- Calon sumber data berikutnya: Polymarket, lelang Treasury AS. (SEC Form 4 SUDAH ditambahkan 20 Nov 2026.)
+- Calon sumber data berikutnya: Polymarket, lelang Treasury AS. (SEC Form 4 & kurs ECB SUDAH ditambahkan 20 Nov 2026.)
   (Volume short FINRA, logam LME + stok, dan sawit harian SUDAH ditambahkan 19 Nov 2026.)
   Dengan harga harian LME & sawit, riset #3 bisa diuji ulang di horizon MINGGUAN (nikel/timah sejak 2008, sawit sejak 2010).
   Prioritaskan data "hanya ke depan" (tidak bisa diambil mundur).

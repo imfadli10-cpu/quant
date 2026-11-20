@@ -75,6 +75,10 @@ jobs:
         continue-on-error: true
         run: python kumpul_lme.py
 
+      - name: Ambil kurs resmi ECB (~40 mata uang termasuk rupiah)
+        continue-on-error: true
+        run: python kumpul_kurs_ecb.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
