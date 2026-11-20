@@ -380,6 +380,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Dengan harga harian LME & sawit, riset #3 bisa diuji ulang di horizon MINGGUAN (nikel/timah sejak 2008, sawit sejak 2010).
   Prioritaskan data "hanya ke depan" (tidak bisa diambil mundur).
 - Pantau: email alarm, jatah menit GitHub (github.com/settings/billing, "$x used / $12.00"), jatah BigQuery.
+- **ATURAN RAHASIA STRATEGI (keputusan pengguna 20 Nov 2026):** detail sinyal/strategi yang terbukti MENGUNTUNGKAN
+  (skrip, parameter, hasil lengkap) disimpan di folder `private/` (diabaikan git) + cadangan `python simpan_private.py`
+  ke gudang HF private (`--ambil` untuk memulihkan). Di repo publik & CLAUDE.md cukup ringkasan umum TANPA detail.
+  Riset yang hasilnya negatif/umum boleh tetap publik. S2 (literatur George-Hwang 2004) sudah publik sebelum aturan ini.
 - **REPO PUBLIK (keputusan pengguna 20 Nov 2026, menggantikan keputusan 'tetap private'):** menit Actions tak terbatas.
   Konsekuensi: (1) semua kode, CLAUDE.md, log Actions & hasil riset (termasuk strategi S2) bisa dibaca siapa pun -> JANGAN
   tulis data pribadi pengguna di file repo (simpan di memori Claude); (2) GitHub MEMATIKAN jadwal otomatis setelah 60 hari

@@ -13,3 +13,5 @@ data/
 
 # File sampah Python
 __pycache__/
+# Riset & catatan SENSITIF (sinyal menguntungkan): TIDAK PERNAH ke GitHub publik; cadangan di HF private/
+private/
