@@ -243,3 +243,9 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Dengan harga harian LME & sawit, riset #3 bisa diuji ulang di horizon MINGGUAN (nikel/timah sejak 2008, sawit sejak 2010).
   Prioritaskan data "hanya ke depan" (tidak bisa diambil mundur).
 - Pantau: email alarm, jatah menit GitHub (github.com/settings/billing, "$x used / $12.00"), jatah BigQuery.
+- **Jatah GitHub Actions (keputusan 20 Nov 2026):** repo TETAP PRIVATE. Pengguna minta DIKABARI kalau mendekati batas.
+  Per 20 Nov: $4,62 (~770 menit) terpakai; run harian ~42,5 menit; perkiraan bulan penuh ~1.500–1.600 dari 2.000 menit.
+  Setiap menambah collector/workflow: hitung ulang perkiraan & sebutkan. Kalau > ~1.800 menit/bulan atau Compute > ~$10:
+  kabari, tawarkan (1) hemat `kumpul_saham_as.py` (~17 menit/hari) atau (2) jadikan publik SETELAH merapikan catatan pribadi
+  di CLAUDE.md (repo publik = menit tak terbatas, tapi jadwal mati setelah 60 hari tanpa aktivitas & log Actions publik).
+  Riwayat git sudah dicek bersih dari kunci/token (39 commit). Repo `sim-runs` publik, tidak memotong jatah.
