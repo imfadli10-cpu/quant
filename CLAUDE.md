@@ -241,6 +241,11 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   batas langkah 40 menit. LBS (365 MB) & DEBT_SEC (147 MB) belum diambil. Survei BI (penjualan eceran dll.) TIDAK diambil: nama file PDF
   bulanan tidak konsisten, Excel hanya sesekali (sama seperti KSEI).
 - `ref/pelabuhan_portwatch.parquet`: database 2.071 pelabuhan PortWatch (koordinat, jumlah kapal per jenis, industri utama). 18 di kotak Kalimantan.
+- `kumpul_laba_idx.py` (workflow `fundamental_idx.yml`, SABTU, ~15 menit): PENGUMUMAN LABA semua saham IDX dari Yahoo
+  (`get_earnings_dates(limit=60)`) → `raw/laba_idx/semua.parquet` (kode, waktu_utc, waktu_wib, eps_perkiraan, eps_aktual, kejutan_pct;
+  baris lama DIPERTAHANKAN) + `foto/<tanggal>` (perkiraan analis bisa direvisi). Histori umumnya sejak 2013/2014 (sebagian 2004).
+  JEBAKAN: jam pengumuman Yahoo banyak berupa jam tempelan (04:00 New York) → riset pakai hari bursa ke-2 setelah TANGGAL; sebagian
+  emiten lapor USD (ADRO EPS 0,01) & sebagian perkiraan beda skala (SIDO kejutan +673%) → pakai peringkat/tertil, bukan angka mentah.
 - `kumpul_aksi_idx.py` (workflow `fundamental_idx.yml`, tiap SABTU, ~11 menit): AKSI KORPORASI semua saham & ETF IDX dari Yahoo
   (`Ticker.actions`) → `raw/aksi_idx/semua.parquet` (DITIMPA; kode, tanggal EX tanpa zona, dividen Rp/lembar, split rasio)
   + `raw/aksi_idx/foto/<tanggal>` (salinan mingguan, lacak revisi). 20 Nov 2026: 6.205 aksi dari 656 kode (5.888 dividen,
