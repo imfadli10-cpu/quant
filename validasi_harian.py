@@ -66,6 +66,8 @@ cek("polymarket",       "waktu_ambil", 2,         1000,      ["id"],            
 cek("kalshi",           "waktu_ambil", 2,         20000,     ["kategori"],        5)
 cek("sbn",              "tanggal_data", 5,        150,       ["kelompok"],        5)
 cek("api",              "acq_date",    3,         50,        ["sumber"],          2)
+cek("pelabuhan",        "date",        14,        10000,     ["portid"],          1000)
+cek("jalur_kapal",      "date",        14,        300,       ["portid"],          20)
 cek("daftar_idx",       "waktu_ambil", 2,         600,       ["kode"],            600)
 cek("wikipedia_idx",    "tanggal",     3,         3000,      ["kode"],            150)
 cek("intraday_idx",     "waktu",       5,         50000,     ["kode"],            300)

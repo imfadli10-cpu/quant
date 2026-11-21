@@ -151,6 +151,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   Halaman memuat 'hari ini' & 'kemarin' (kolom `hari`; `tanggal_data` = tanggal 'hari ini' dari judul kurva). Angka berformat Indonesia
   (`read_html(decimal=",", thousands=".")`). Tabel dikenali dari NAMA kolom. 20 Nov 2026: 1 thn 6,87%, 10 thn 7,75%.
   Kurva tenor ≥ 16 thn datar (sesuai halaman). BELUM TERBUKTI server PHEI menerima akses dari GitHub → cek run harian pertama.
+- `kumpul_pelabuhan.py` (harian, ~2 menit): IMF PortWatch (API resmi ArcGIS, terbuka; atribusi IMF PortWatch) → `raw/harian/pelabuhan`
+  (30 hari, ~2.071 pelabuhan dunia, 101 di Indonesia: kapal singgah per jenis + perkiraan impor/ekspor ton) & `raw/harian/jalur_kapal`
+  (28 jalur sempit: Selat Malaka ~224 kapal/hari). Data TELAT ~1 minggu. `--histori` (workflow MANUAL `histori_pelabuhan.yml`,
+  ~6 juta baris sejak 2019-01-01, upload per tahun, bisa dilanjutkan) → `raw/histori/pelabuhan/<tahun>` + `raw/histori/jalur_kapal/semua`.
+  Maks 1.000 baris/permintaan (pelabuhan) & 10.000 (jalur); urut ObjectId + resultOffset. Kolom `date` = DateOnly.
+  Kegunaan: ekspor batu bara (Balikpapan/Samarinda/Tanjung Redeb), nikel (Morowali/Kendari), sawit (Dumai/Belawan), kontainer Priok
+  = perdagangan fisik ~1 bulan SEBELUM data BPS. Histori 2019+ = semuanya di periode DATA UJI → riset butuh pembagian sendiri.
 - `kumpul_kalshi.py` (harian, ~5 menit): foto SEMUA pasar prediksi Kalshi (bursa prediksi teregulasi CFTC) yang terbuka, KECUALI
   kategori Sports (>120 ribu pasar) & parlay `KXMVE` → `raw/harian/kalshi` (mulai 20 Nov 2026, hanya ke depan). ~85 ribu pasar/hari:
   Elections, Financials (rentang S&P/Nasdaq/emas/platinum/kurs), Economics (CPI, NFP, PDB, Fed), Crypto, Commodities, cuaca, dll.

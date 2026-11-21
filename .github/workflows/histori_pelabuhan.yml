@@ -1,0 +1,25 @@
+name: Isi histori pelabuhan (IMF PortWatch)
+
+on:
+  workflow_dispatch:         # manual, sekali jalan (bisa diulang: tahun yang sudah ada di gudang dilewati)
+
+jobs:
+  isi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install library
+        run: pip install -r requirements.txt
+
+      - name: Isi histori pelabuhan sejak 2019 (upload tiap tahun) + jalur kapal
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python kumpul_pelabuhan.py --histori
