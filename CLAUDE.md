@@ -211,6 +211,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   TERKONFIRMASI 20 Nov 2026 (file `status_<tanggal>.parquet`): Kontan MENOLAK server GitHub (HTTP 403), dari laptop diterima
   → pemblokiran per alamat server; JANGAN ditembus. Dari server praktis 4 sumber (Antara x2, Tempo, Liputan6).
   Tidak ada di `validasi_harian.py` (jam tidak sinkron); workflow berita gagal sendiri = email.
+- `kumpul_emitennews.py` (harian, detik): BERITA EMITEN IDX dari SITEMAP EmitenNews (robots mengizinkan /news/ & mencantumkan sitemap; HANYA
+  sitemap dibaca, halaman artikel tidak) → `raw/harian/emitennews` (~2.000 terbaru) + `raw/histori/emitennews/semua.parquet` (`--histori`,
+  89.902 artikel 2017-03 s/d 2026-11; per tahun 1,1 rb (2017) → 16,3 rb (2022); **2020 cuma 1.111 = sitemap 2020 TIDAK LENGKAP**).
+  Kolom: url, slug, judul_slug, tanggal (= lastmod; divalidasi = tanggal terbit 7/7 artikel yg halamannya masih ada), sitemap. Judul asli memuat
+  kode dalam kurung ("Bakrie (BUMI)") → slug memuat kode huruf kecil; cocokkan dgn daftar kode & BUANG kode yang juga kata umum. Jam terbit
+  tidak ada → pakai hari bursa SESUDAH tanggal. Bahan riset "berita × dekat puncak 52 mg" (Kalsbach Bab 3): histori 2017+ = sebagian besar
+  periode UJI → butuh pembagian latih/uji sendiri.
 - `kumpul_intraday_idx.py` (harian): bar 1 MENIT semua saham & ETF IDX, 3 hari bursa terakhir → `raw/harian/intraday_idx`
   (~284 ribu bar/hari, ~1,9 MB, ~2,5 menit; mulai 20 Nov 2026). Yahoo hanya menyimpan 1 menit ~8 hari, 5 menit ~60 hari, 1 jam
   ~2 tahun → data HANYA KE DEPAN. `--histori` (sekali, 20 Nov 2026) → `raw/histori/intraday_idx/5m_*.parquet` & `1h_*.parquet`.

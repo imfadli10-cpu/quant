@@ -117,6 +117,10 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}     # membaca detail.parquet lama dari gudang
         run: python kumpul_ipo.py
 
+      - name: Berita emiten IDX (sitemap EmitenNews, ~2.000 artikel terbaru)
+        continue-on-error: true
+        run: python kumpul_emitennews.py
+
       - name: Perhatian publik per saham IDX (pembaca Wikipedia ~280 perusahaan)
         continue-on-error: true
         run: python kumpul_perhatian_idx.py
