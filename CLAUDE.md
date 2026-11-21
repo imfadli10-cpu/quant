@@ -797,6 +797,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   memprediksi, yang bekerja "membayar dividen atau tidak" (proksi kualitas). IDE BARU (muncul SETELAH lihat data → wajib pra-registrasi baru,
   hitung sbg uji tambahan): fitur "pembagi dividen" untuk model penampang ML / saringan semesta S2. Cek potong data: IC & return IDENTIK
   (biaya beda tipis, sebab sama dgn #46). Data uji tidak dibuka.
+- **Riset #48 DIBATALKAN sebelum data uji dibuka: "pembagi dividen" long-only vs semesta (ide #47)** (`riset_48_pembagi_dividen.py`).
+  Aturan uji data uji ditulis dulu, lalu ANALISIS DAYA UJI: premi tiruan +1%/bln → bersih hanya t 1,4 (160 bln) karena pembagi ≈ 72% semesta;
+  in-sample asli +0,20%/bln t 1,6. Data uji ~93 bln → hampir pasti gagal walau efek nyata → data uji TIDAK dibuka (tidak dihitung sbg uji).
+  PELAJARAN: sebelum membuka data uji, SELALU cek daya uji strategi yang akan dinilai. Ide disimpan sbg fitur ML / penyaring semesta.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
