@@ -147,6 +147,10 @@ jobs:
         continue-on-error: true
         run: python kumpul_dts.py
 
+      - name: Indeks volatilitas & sentimen opsi CBOE (32 indeks, termasuk VXEEM pasar berkembang)
+        continue-on-error: true
+        run: python kumpul_cboe.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}

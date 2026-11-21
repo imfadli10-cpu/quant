@@ -220,6 +220,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   likuiditas dolar (neraca Fed − TGA − RRP). Pajak harian: `federal_tax_deposits` & `short_term_cash_investments` BERHENTI 2023-02-13
   (format DTS berubah) → sesudahnya rincian pajak ada di `deposits_withdrawals_operating_cash` (kategori) + `inter_agency_tax_transfers`.
   Riset nanti harus menyambung dua format itu. Tipe kolom dari ISI (pola lelang_as).
+- `kumpul_cboe.py` (harian, ~30 dtk): CBOE (CSV publik cdn.cboe.com; robots www hanya melarang /book/ & laporan volume) →
+  `raw/cboe/indeks.parquet` (32 indeks, format panjang indeks/tanggal/buka/tertinggi/terendah/tutup, DITIMPA): VIX 1990+, VIX9D/3M/6M/1Y/1D,
+  VVIX, SKEW, SMILE, VXEEM (pasar berkembang, 2011+), VXFXI, VXEWZ, VXEFA, VXN, RVX, VXD, OVX, GVZ, VXSLV, VXGDX, VXTLT, VXHYG, COR1M/3M,
+  DSPX, VIXEQ, VX saham tunggal, SPX. + `raw/cboe/putcall_arsip.parquet` (put/call total/ekuitas/indeks/VIX/ETF 2006–2019-10; sesudahnya
+  tidak ada file). 20 Nov 2026: VIX 35,9 (puncak 40), VXEEM 45,9. JEBAKAN data sumber: VXHYG 2017–2018 RUSAK (−19,7 juta & lompatan acak),
+  DSPX ada nilai 0 (2018), VXD 2021-07-14 +472% & VXEEM 2021-04-22 +165% mencurigakan → bersihkan saat dipakai. Lompatan NYATA:
+  VIX 2018-02-05 +116% (Volmageddon), OVX 2020-04 (minyak negatif). Indeks EVZ, VXXLE, TYVIX, SRVIX, VOLI: 403 (tidak tersedia).
 - `kumpul_aksi_idx.py` (workflow `fundamental_idx.yml`, tiap SABTU, ~11 menit): AKSI KORPORASI semua saham & ETF IDX dari Yahoo
   (`Ticker.actions`) → `raw/aksi_idx/semua.parquet` (DITIMPA; kode, tanggal EX tanpa zona, dividen Rp/lembar, split rasio)
   + `raw/aksi_idx/foto/<tanggal>` (salinan mingguan, lacak revisi). 20 Nov 2026: 6.205 aksi dari 656 kode (5.888 dividen,
