@@ -621,7 +621,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   BELUM LOLOS (searah dugaan). Pra-registrasi di-commit sebelum dijalankan (c102383). Rasio Jumat (dibatasi 0,7–1,5, TANPA z bergulir).
   Latih 2009-09..2018 (median rasio 0,878; backwardation 9% minggu): U1 IDX +0,32% per +0,1 rasio t +1,3 | U2 EIDO +0,68% t +2,1 |
   U3 IDX setelah backwardation +0,40%/mg vs +0,19% t +0,3 (39 minggu). Semua positif (premi rasa takut) tapi < 3. Tes tiruan: +0,3% tepat.
-  Hapus 2019+ → IDENTIK. Data uji tidak dibuka. Kandidat KOMPONEN model gabungan makro mingguan (bersama #20 lelang Treasury, #27 likuiditas).
+  Hapus 2019+ → IDENTIK. Data uji tidak dibuka. (Gabungan dengan #20 GAGAL di data uji → riset #32; sinyal mingguan ini dibuang.)
+- **Riset #32 SELESAI: gabungan makro mingguan (#20 minat lelang Treasury + #31 VIX/VIX3M) → EIDO & IDX** (skrip di `private/`). ❌ GAGAL DI DATA UJI.
+  Karena kedua sinyal DIPILIH dari data latih, aturan gabungan (skor = rata-rata z statistik latih, dibatasi ±3) & kriteria (EIDO kemiringan > 0
+  DAN t > 2 di data uji) ditetapkan & dicadangkan SEBELUM dijalankan; data uji 2019+ dibuka SEKALI. Latih (in-sample): EIDO t 3,2.
+  UJI: EIDO +0,32%/skor t +0,6 (410 minggu), IDX t −0,0 → kedua sinyal DIBUANG sebagai sinyal mingguan. PELAJARAN: sinyal "searah tapi
+  t ~2" yang dikumpulkan dari banyak uji = kemungkinan besar KEBETULAN (multiple testing); gabungannya juga ikut kebetulan.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
