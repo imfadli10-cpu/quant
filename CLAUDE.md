@@ -536,6 +536,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Cek kewajaran data: tahun El Nino (2002/04/06/09/14/15) terbanyak (2015: 131 ribu), 2010/2016/2017 sepi; 2001 rendah (MODIS Aqua baru 2002).
   Tes tiruan: pola mingguan tertangkap t −3,9. Hapus 2019+ → IDENTIK. Data uji tidak dibuka. Kesimpulan riset #16 + #24: El Nino &
   kebakaran (yang publik & mencolok) tidak memberi keunggulan pada saham sawit; pasar sudah menyerapnya.
+- **Riset #25 SELESAI: gempa besar di Indonesia → keranjang 30 saham likuid IDX** (`riset_25_gempa.py`). HASIL NEGATIF.
+  Pra-registrasi di-commit sebelum dijalankan (b0e22a6). USGS M ≥ 6,5, kedalaman ≤ 70 km, kotak Indonesia, gempa susulan ≤ 7 hari dibuang;
+  d0 = hari bursa pertama yang tutup (16:00 WIB) sesudah gempa; abnormal = dikurangi rata-rata 250 hari sebelumnya.
+  Latih 2004–2018 (58 gempa, 22 ≥ M7): U1 reaksi d0 +0,23% t +0,9 (TIDAK turun) | U2 d0+1..5 −0,02% t −0,0 | U3 M ≥ 7 +0,90% t +1,3.
+  Tsunami Aceh 2004: d0 +1,15%. Nias 2005 (M8,6): d0 −4,35% lalu +1,6%. Tes tiruan: −1%/+1% ditemukan (t −8,0 / +3,7).
+  Hapus 2019+ → IDENTIK. Data uji tidak dibuka. Kesimpulan: gempa (umumnya jauh dari pusat ekonomi) tidak menggerakkan saham likuid IDX.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
