@@ -80,7 +80,9 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
   berlatih dgn data 2019+). `--cek-riset` IDENTIK 3 bulan. **WAJIB latih ulang tiap tahun**: model 2027 dilatih SETELAH target sinyal
   Okt 2026 terealisasi (awal Des 2026) & SEBELUM sinyal akhir Jan 2027 — `python private/paper_ml.py --latih 2027` lalu
   `python simpan_private.py`. CATATAN: `kerangka_riset()` membaca `data/raw/harga_idx` (histori statis Nov 2026) → sebelum melatih 2027,
-  perbarui histori harga (mis. dari `bersih/harga_idx`) atau model 2027 kekurangan data Nov–Okt. `paper_trading.main()` kini meneruskan
+  UNDUH ULANG histori penuh (`python ambil_semua_idx.py`, laptop) — JANGAN pakai `bersih/harga_idx`: Adj Close Yahoo menyesuaikan ulang
+  SELURUH histori tiap dividen baru, sedangkan `bersih` = histori lama + potongan harian 7 hari → return di sekitar ex-dividen setelah
+  histori diunduh KEHILANGAN dividen (bias kecil tapi sistematis). Tumpang tindih raw vs bersih s/d Nov 2026: identik (rasio 1,0000). `paper_trading.main()` kini meneruskan
   `b["cs"]` (spread Corwin-Schultz) ke pemilih. Tanpa model tahun berjalan → langkah `ml` gagal (continue-on-error), S2 tetap jalan.
   Portofolio KEEMPAT `s2p` (EKSPERIMEN, 21 Nov 2026, riset #40): S2, tapi saat BEARISH (IHSG 24 bulan < 0, Daniel-Moskowitz 2016)
   pegang SEMUA saham semesta bobot sama. Aturan di HF private (`private/paper_s2p.py`), `--cek-riset` IDENTIK (termasuk 2009-03 bearish).
@@ -389,6 +391,8 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Cek: pertumbuhan M2 Des 2018 6,3%, 2020 12,5%, 2023 3,5% (cocok angka resmi BI). Header CAMPURAN juga ada (TABEL1_4 'Th 2002-2017':
   tanggal s/d Feb 2015 lalu nama bulan) → `peta_kolom` berjalan kiri→kanan (tanggal langsung; nama bulan menyambung, tahun +1 saat bulan turun)
   + label tahun sebagai pemeriksa. Label total kadang berspasi: 'J U M L A H' (regex `j\s*u\s*m...`).
+- `bersih/harga_idx` (gabung.py) TIDAK konsisten penyesuaian dividennya untuk periode setelah histori diunduh (Adj Close Yahoo dihitung
+  ulang tiap dividen baru, file harian cuma 7 hari) → riset return jangka panjang setelah Nov 2026: unduh ulang histori penuh dulu.
 - Saat menulis kode Python yang berisi tiga backtick di dalam string, buat lewat variabel (mis. `"`" * 3`) supaya tampilan chat tidak rusak.
 
 ## 9. Aturan riset (WAJIB)
