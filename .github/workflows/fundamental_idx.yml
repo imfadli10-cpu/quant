@@ -8,7 +8,7 @@ on:
 jobs:
   foto:
     runs-on: ubuntu-latest
-    timeout-minutes: 150   # banyak collector mingguan (fundamental, aksi, SEKI, Pink Sheet, BIS, laba)
+    timeout-minutes: 180   # banyak collector mingguan (fundamental, aksi, SEKI, Pink Sheet, BIS, laba, saham beredar)
     env:
       PYTHONUNBUFFERED: "1"
     steps:
@@ -58,6 +58,14 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
           PYTHONUNBUFFERED: "1"
         run: python kumpul_laba_idx.py
+
+      - name: Histori jumlah saham beredar IDX (Yahoo get_shares_full; gabung dgn file lama, upload sendiri)
+        continue-on-error: true
+        timeout-minutes: 45
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}     # kode_idx() + membaca file lama dari gudang
+          PYTHONUNBUFFERED: "1"
+        run: python kumpul_saham_beredar.py && python upload_satu.py data/raw/saham_beredar
 
       - name: Upload ke Hugging Face (hanya folder ini, file lama tidak dihapus)
         env:

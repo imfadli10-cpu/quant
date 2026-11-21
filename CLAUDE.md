@@ -300,6 +300,12 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   `--histori` sekali (21 Nov 2026). JEBAKAN: menu filter halaman daftar memuat nama-nama status → urai teks SETELAH 'Tanggal Selesai';
   persen memakai TITIK desimal ('30.3') → pengurai `persen()` khusus. Angka kelebihan pemesanan ada di PDF 'Informasi Tambahan' (belum diurai).
   Indodax (kripto IDR) TIDAK dipakai: robots.txt `Disallow: /api`.
+- `kumpul_saham_beredar.py` (workflow `fundamental_idx.yml`, SABTU, ~4 menit): HISTORI JUMLAH SAHAM BEREDAR IDX dari Yahoo
+  (`get_shares_full`) → `raw/saham_beredar/semua.parquet` (kode, tanggal, saham_beredar, waktu_ambil; baris lama DIPERTAHANKAN, gagal baca
+  file lama → berhenti). 21 Nov 2026: 919 kode, 194.611 titik. Cakupan PADAT baru sejak **2018Q4** (~550 kode → ~900 di 2025; sebelumnya
+  ~1 titik/kode); kebanyakan kode BERHENTI ~Nov 2025 di Yahoo → foto mingguan menyambung ke depan. Cek: vs `daftar_idx` sharesOutstanding
+  rasio median 1,0000 (95% dalam 1%; beberapa beda 2–5x: BJBR, BJTM, BRMS → curigai); rights issue BBRI 2022 +25% terlihat. 74 titik
+  bolak-balik (TAXI, MKNT, BEKS...) → bersihkan dgn median. Angka BELUM disesuaikan split → bagi dengan faktor split `raw/aksi_idx`.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
