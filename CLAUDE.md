@@ -265,6 +265,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   tidak ada file). 20 Nov 2026: VIX 35,9 (puncak 40), VXEEM 45,9. JEBAKAN data sumber: VXHYG 2017–2018 RUSAK (−19,7 juta & lompatan acak),
   DSPX ada nilai 0 (2018), VXD 2021-07-14 +472% & VXEEM 2021-04-22 +165% mencurigakan → bersihkan saat dipakai. Lompatan NYATA:
   VIX 2018-02-05 +116% (Volmageddon), OVX 2020-04 (minyak negatif). Indeks EVZ, VXXLE, TYVIX, SRVIX, VOLI: 403 (tidak tersedia).
+- `kumpul_putcall.py` (harian, detik): CBOE daily market statistics (JSON publik cdn.cboe.com/data/us/options/market_statistics/daily/
+  <tgl>_daily_options; robots hanya melarang /book/ & volume_reports) → `raw/harian/putcall` (10 hari) + `raw/histori/putcall/semua.parquet`
+  (`--histori`, 1.793 hari 2019-10-07 s/d 2026-11-20). Format panjang: tanggal, produk (TOTAL/INDEX/EQUITY/ETP/VIX/SPX/MXEF...), ukuran
+  (RASIO / VOLUME / OPEN INTEREST), call, put, total, rasio. MENYAMBUNG `raw/cboe/putcall_arsip` (berakhir 2019-10-04) TANPA celah, tanpa
+  tumpang tindih (rata 60 hari indeks 1,26 → 1,29). Cek: rasio ekuitas = put/call volume (korelasi 1,0); hari kosong = libur bursa AS (67).
+  Rasio tepat 0 DIKOSONGKAN (0/0 saat produk tak diperdagangkan; mis. 2025-01-09 hanya sesi pendek opsi indeks). Rasio ekuitas tinggi akhir
+  2022 (s/d 2,40) = nyata (pasar bearish, volume normal). Median rasio total 2019–2026 0,90; 20 Nov 2026: 1,13.
 - `kumpul_pinksheet.py` (workflow `fundamental_idx.yml`, SABTU): World Bank Pink Sheet → `raw/worldbank/harga_bulanan.parquet` (71 komoditas
   sejak 1960, format panjang komoditas/satuan/bulan/harga) + `indeks_bulanan.parquet` (16 indeks, 2010=100) + `arsip/<tanggal terbit>.xlsx`
   (hanya terbitan BARU; terbit ~awal bulan, mis. 2026-11-03 berisi s/d Okt 2026 → point-in-time). Tautan Excel ber-ID yang berubah tiap
@@ -445,6 +452,24 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - Uji kode riset dulu dengan data tiruan yang diberi pola tersembunyi: program harus menemukan pola itu kembali.
 
 ## 10. Status riset & rencana berikutnya
+
+### ⏰ DAFTAR PERIKSA TERTUNDA (cek di awal tiap sesi; coret/hapus yang sudah selesai, tambahkan yang baru)
+- [ ] **Senin 23 Nov 2026** (setelah ~15:30 WIB): `spread_idx.yml` run pertama (4 foto: ~09:31/11:01/14:01/15:11 WIB) → file
+  `raw/harian/spread_idx/2026-11-23_*.parquet` ada & BID/ASK terisi (bukan 0/kosong) untuk ~800 saham; cek durasi langkah.
+- [ ] **Senin 23 Nov 2026** (setelah 07:30 WIB): `harian.yml` → langkah BARU `kumpul_jisdor.py` & `kumpul_putcall.py` (dan
+  `kumpul_emitennews.py`) berhasil: file `raw/harian/jisdor/`, `raw/harian/putcall/` hari itu ada; durasi langkah > 1 dtk (bukan crash);
+  `validasi_harian.py` hijau. Kalau BI/CBOE menolak server GitHub → catat, jangan ditembus.
+- [ ] **Sabtu 28 Nov 2026** (setelah ~13:00 WIB): `fundamental_idx.yml` → langkah BARU saham beredar, ALFRED (~13 mnt), OJK emisi
+  (hanya file baru) → cek durasi tiap langkah & file baru di HF (`raw/saham_beredar`, `raw/alfred/vintage`, `raw/ojk_emisi/arsip`);
+  job total < 240 menit.
+- [ ] **Pantau beberapa hari**: `kumpul_opsi.py` dari server (21 Nov semua 49 kode gagal) & Kontan RSS (403 dari server, sudah diketahui).
+- [ ] **Senin 30 Nov / Selasa 1 Des 2026**: paper trading — pilihan akhir Nov tercatat SEBELUM beli (`dicatat_sebelum_beli`=True) untuk
+  s2, s2v, ml, s2p; beli tutup 1 Des. Cek log `paper_trading.yml` 30 Nov 22:41 UTC.
+- [ ] **Awal Des 2026 – akhir Jan 2027**: latih model `ml` 2027 (lihat bagian 5: unduh ulang histori penuh `ambil_semua_idx.py` dulu,
+  lalu `python private/paper_ml.py --latih 2027`, `python simpan_private.py`) SEBELUM sinyal akhir Jan 2027.
+- [ ] **Pertengahan Des 2026** (≥ 3 minggu foto spread jam bursa): kalibrasi ulang model biaya B (faktor 1,2 × tick) → pra-registrasi dulu.
+- [ ] Ide tersimpan (perlu pra-registrasi sendiri): fitur "pembagi dividen" (#47/#48) untuk model penampang; riset kejutan rilis makro
+  (ALFRED rilis pertama + Kalshi, setelah data Kalshi beberapa bulan); #10 volatilitas tersirat opsi (data opsi beberapa bulan).
 
 - **Riset #1 SELESAI: EIDO (ETF Indonesia di bursa AS) semalam → IHSG besok** (`riset_01_eido.py`, `riset_01b_cek.py`).
   IHSG buka→tutup t = +10,5 (tampak kuat), TAPI sebagian besar ilusi harga buka indeks yang basi (saham penyusun kecil belum

@@ -159,6 +159,10 @@ jobs:
         continue-on-error: true
         run: python kumpul_cboe.py
 
+      - name: Put/call & volume opsi CBOE harian (per produk; menyambung arsip 2019)
+        continue-on-error: true
+        run: python kumpul_putcall.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
