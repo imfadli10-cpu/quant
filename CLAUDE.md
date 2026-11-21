@@ -165,6 +165,12 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   Cara: `/series` (peta kategori, 16.757 seri) + `/events?with_nested_markets=true&status=open` (200 per halaman, ~115 halaman).
   Data pasar publik TANPA kunci. Situs kalshi.com (bukan API) memasang Vercel checkpoint → jangan disentuh, pakai API saja.
   Pasar ekonomi Kalshi = PERKIRAAN PASAR untuk rilis data (CPI, NFP) → bahan riset "kejutan" rilis makro nanti.
+- `kumpul_spread_idx.py` (workflow `spread_idx.yml`, Senin–Jumat 4x: ~09:31, 11:01, 14:01, 15:11 WIB): foto BID/ASK semua saham IDX SAAT
+  JAM BURSA → `raw/harian/spread_idx/<tanggal>_<HHMM UTC>.parquet` (mulai 23 Nov 2026). Tujuan: mengukur BIAYA TRANSAKSI NYATA.
+  TEMUAN AWAL (21 Nov 2026, 2 foto daftar_idx DI LUAR jam bursa, 815 saham): spread ASLI vs model biaya riset (max(Corwin-Schultz, tick)):
+  >Rp20 M/hari 0,47% vs 1,38% | Rp5–20 M 0,70% vs 1,33% | Rp1–5 M 0,97% vs 1,80% | <Rp1 M 1,50% vs 1,85% → model ~1,9x terlalu mahal
+  untuk semesta riset; Corwin-Schultz di IDX lebih mencerminkan volatilitas. Korelasi peringkat asli vs CS hanya 0,39. BELUM final:
+  tunggu foto jam bursa beberapa minggu, lalu pra-registrasi ulang evaluasi biaya (#36/#37/S2). Aturan tick IDX berubah antar tahun.
 - `kumpul_daftar_idx.py` (harian, SEBELUM harga harian): foto screener Yahoo bursa JKT (~838 saham, 89 kolom: marketCap,
   sharesOutstanding, BID/ASK, earningsTimestamp, rating analis...) → `raw/harian/daftar_idx` (mulai 20 Nov 2026, hanya ke depan).
   Kode yang ada di Yahoo tapi belum di daftar → `ref/daftar_saham_tambahan.csv` (TIDAK pernah dikurangi). Daftar Yahoo TIDAK

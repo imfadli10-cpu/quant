@@ -1,0 +1,33 @@
+name: Foto bid/ask IDX saat jam bursa (4x sehari)
+
+on:
+  schedule:
+    - cron: "31 2 * * 1-5"    # ~09:31 WIB (sesi 1)
+    - cron: "1 4 * * 1-5"     # ~11:01 WIB (sesi 1; Jumat sesi 1 s/d 11:30)
+    - cron: "1 7 * * 1-5"     # ~14:01 WIB (sesi 2)
+    - cron: "11 8 * * 1-5"    # ~15:11 WIB (sesi 2)
+  workflow_dispatch:
+
+jobs:
+  foto:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install library (minimal)
+        run: pip install pandas pyarrow yfinance huggingface_hub
+
+      - name: Foto bid/ask semua saham IDX (screener Yahoo)
+        run: python kumpul_spread_idx.py
+
+      - name: Upload foto ini saja
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python upload_satu.py data/raw/harian/spread_idx
