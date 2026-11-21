@@ -687,6 +687,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   2004–2013 tick historis 0,84–0,98% ≈ model lama (spread memang lebar, fraksi Rp5/10/25/50); 2014–2018 tick 0,32–0,46% vs model
   0,65–0,88% (model ~1,9x terlalu mahal). KESIMPULAN KUAT: alpha kotor long-only IDX 2009–2018 hanya ~0,5%/bln → spread nol pun t ~1;
   masalahnya ALPHA KECIL di periode itu, BUKAN biaya salah hitung. (S2 di data uji 2019–2026 jauh lebih kuat: alpha berubah antar rezim.)
+- **Riset #39 SELESAI: masa pegang lebih panjang (portofolio bertumpuk 3/6 bulan; George-Hwang, Jegadeesh-Titman) untuk ML & S2,
+  biaya B** (detail di `private/`). TIDAK LOLOS: ML 6 bulan bersih +0,02%/bln t 0,1. ALPHA MEMUDAR CEPAT: kotor ML +0,57% (1 bln) →
+  +0,27% (3 bln) → +0,15% (6 bln). RANGKUMAN #36–#39 (BUKTI KONSISTEN): 4 konstruksi portofolio × 2 model biaya → long-only IDX
+  2009–2018 bersih ≈ 0. Kemampuan meranking nyata (IC t 5) tapi terlalu kecil & cepat pudar untuk long-only setelah biaya.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
