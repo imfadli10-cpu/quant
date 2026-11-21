@@ -667,6 +667,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   U1 tertil atas − bawah +1,44% per 20 hari t +2,8 (atas +0,82%, bawah −0,63%; paruh −0,1 / +4,0 = efek muncul 2012+) |
   U2 beli tertil atas bersih 0,8% +0,02% t 0,0. Tes tiruan ±2% ditemukan tepat. Hapus 2019+ → IDENTIK. Data uji tidak dibuka.
   Kandidat FITUR model penampang (hanya saham besar yang diliput analis).
+- **Riset #37 SELESAI: konstruksi portofolio sadar biaya untuk model ML #36 (penyangga sS 20/40 + bobot likuiditas, dari Novy-Marx &
+  Velikov)** (detail di `private/`). TIDAK LOLOS (t −0,4). Penyangga memangkas perputaran 43% → 21–25% TAPI alpha kotor turun lebih banyak
+  (+0,57% → +0,28%/+0,13%); bobot likuiditas paling merusak → keunggulan meranking IDX terkonsentrasi di saham KURANG likuid (= paling mahal).
+  PERTANYAAN PENENTU berikutnya: biaya eksekusi NYATA order kecil di IDX (model kita menganggap selalu bayar spread penuh + 0,4%). Kalau
+  limit order menghindari sebagian besar spread, biaya ≈ 0,4% × perputaran → bisa membalik kesimpulan. Ukur dari `raw/harian/intraday_idx`
+  (bid/ask & bar 1 menit, ke depan) + `daftar_idx` (bid/ask). JANGAN menyimpulkan "tidak bisa untung" sebelum biaya nyata terukur.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
