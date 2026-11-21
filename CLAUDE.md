@@ -516,6 +516,13 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   dari data latih saja). U1 keranjang 30 IDX ← sinar Jakarta −0,006%/z t −0,3 (3.922 hari, 2002–2018) | U2 hujan lebat ≥ 20 mm
   +0,16% vs +0,08% t +0,7 (132 hari) | U3 SPY ← sinar New York +0,006%/z t +0,4 (1993–2018). Daya uji CUKUP (tiruan 0,05%/z → t 2,9–3,4)
   → efek suasana hati cuaca, kalau ada, < ~0,03%/hari. Sesuai literatur baru (efek hilang setelah publikasi). Hapus 2019+ → IDENTIK.
+- **Riset #24 SELESAI: titik api kebakaran (NASA FIRMS MODIS) → saham sawit IDX vs pasar** (`riset_24_titik_api.py`). HASIL NEGATIF.
+  Pra-registrasi di-commit SEBELUM histori diunduh (6392868). Titik api Sumatra+Kalimantan (confidence ≥ 30), anomali = log(1+jumlah) −
+  rata-rata periode musim yang sama 5 tahun sebelumnya. Sawit = AALI/LSIP/SGRO/SIMP/BWPT − keranjang 30 likuid. Latih 2001–2018:
+  U1 mingguan +0,09%/anomali t +0,8 (760 mg) | U2 bulanan −0,07% t −0,1 (180 bln) | U3 6 bulan +1,6% t NW +0,7, tanpa tumpang tindih +0,1.
+  Cek kewajaran data: tahun El Nino (2002/04/06/09/14/15) terbanyak (2015: 131 ribu), 2010/2016/2017 sepi; 2001 rendah (MODIS Aqua baru 2002).
+  Tes tiruan: pola mingguan tertangkap t −3,9. Hapus 2019+ → IDENTIK. Data uji tidak dibuka. Kesimpulan riset #16 + #24: El Nino &
+  kebakaran (yang publik & mencolok) tidak memberi keunggulan pada saham sawit; pasar sudah menyerapnya.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
