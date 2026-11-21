@@ -20,6 +20,10 @@ UJI (2; |t| > 3; t antar kuartal = rata-rata / (sb/akar n) -> peristiwa dalam ku
   U2 STRATEGI bisa dijalankan: beli TERTIL ATAS saja, abnormal 20 hari dikurangi biaya bolak-balik 0,8% (komisi 0,4% + spread).
 LATIH: peristiwa dengan hari KELUAR <= 2018-12-31. UJI 2019+ DIKUNCI (--buka-uji sekali kalau latih lolos).
 Uji kode: --tes-tiruan (abnormal +2% tertil atas, -2% bawah) & --tes-kosong.
+
+ADENDUM (21 Nov 2026, SEBELUM hasil dilihat; desain TIDAK diubah): Yahoo hanya punya data laba untuk ~114 dari 945 saham
+(yang diliput analis = umumnya saham besar), ~150-200 pengumuman/tahun sejak 2009 -> per kuartal ~35 peristiwa, tertil ~12
+saham -> daya uji lebih kecil dari rencana & hasil hanya berlaku untuk saham besar yang diliput analis.
 """
 import sys
 from pathlib import Path

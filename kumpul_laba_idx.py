@@ -88,7 +88,7 @@ print("   pengumuman per tahun: " + "  ".join(f"{t}:{n}" for t, n in lalu.groupb
 if TES:
     print("🧪 mode tes: tidak disimpan")
     sys.exit()
-if d["kode"].nunique() < 300:
+if d["kode"].nunique() < 80:      # Yahoo hanya punya data laba utk saham yg diliput analis: 114 dari 945 (21 Nov 2026)
     print("❌ terlalu sedikit saham -> berhenti")
     sys.exit(1)
 from huggingface_hub import HfApi, hf_hub_download
