@@ -227,6 +227,9 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   likuiditas dolar (neraca Fed − TGA − RRP). Pajak harian: `federal_tax_deposits` & `short_term_cash_investments` BERHENTI 2023-02-13
   (format DTS berubah) → sesudahnya rincian pajak ada di `deposits_withdrawals_operating_cash` (kategori) + `inter_agency_tax_transfers`.
   Riset nanti harus menyambung dua format itu. Tipe kolom dari ISI (pola lelang_as).
+- FRAKSI HARGA (tick) BEI BERUBAH: s/d 5 Jan 2014 Rp1/5/10/25/50 (batas 200/500/2.000/5.000); 6 Jan 2014–1 Mei 2016 Rp1/5/25 (batas
+  500/5.000); sejak 2 Mei 2016 Rp1/2/5/10/25. `paper_trading.tick()` = aturan 2016 (SALAH untuk 2005–2015) → pakai `biaya_idx.tick_historis`
+  + `harga_asli` (Close Yahoo disesuaikan split; dibalik pakai raw/aksi_idx).
 - `kumpul_cboe.py` (harian, ~30 dtk): CBOE (CSV publik cdn.cboe.com; robots www hanya melarang /book/ & laporan volume) →
   `raw/cboe/indeks.parquet` (32 indeks, format panjang indeks/tanggal/buka/tertinggi/terendah/tutup, DITIMPA): VIX 1990+, VIX9D/3M/6M/1Y/1D,
   VVIX, SKEW, SMILE, VXEEM (pasar berkembang, 2011+), VXFXI, VXEWZ, VXEFA, VXN, RVX, VXD, OVX, GVZ, VXSLV, VXGDX, VXTLT, VXHYG, COR1M/3M,
@@ -679,6 +682,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   PERTANYAAN PENENTU berikutnya: biaya eksekusi NYATA order kecil di IDX (model kita menganggap selalu bayar spread penuh + 0,4%). Kalau
   limit order menghindari sebagian besar spread, biaya ≈ 0,4% × perputaran → bisa membalik kesimpulan. Ukur dari `raw/harian/intraday_idx`
   (bid/ask & bar 1 menit, ke depan) + `daftar_idx` (bid/ask). JANGAN menyimpulkan "tidak bisa untung" sebelum biaya nyata terukur.
+- **Riset #38 SELESAI: evaluasi ulang #36/#37/S2 dengan MODEL BIAYA B = 0,4% + 1,2 × tick HISTORIS/harga ASLI** (`biaya_idx.py`;
+  detail di `private/`). TIDAK LOLOS: ML bobot sama +0,09%/bln t +0,3 (biaya lama +0,05%). TEMUAN DIAGNOSIS (dari aturan fraksi BEI):
+  2004–2013 tick historis 0,84–0,98% ≈ model lama (spread memang lebar, fraksi Rp5/10/25/50); 2014–2018 tick 0,32–0,46% vs model
+  0,65–0,88% (model ~1,9x terlalu mahal). KESIMPULAN KUAT: alpha kotor long-only IDX 2009–2018 hanya ~0,5%/bln → spread nol pun t ~1;
+  masalahnya ALPHA KECIL di periode itu, BUKAN biaya salah hitung. (S2 di data uji 2019–2026 jauh lebih kuat: alpha berubah antar rezim.)
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
