@@ -8,7 +8,7 @@ on:
 jobs:
   foto:
     runs-on: ubuntu-latest
-    timeout-minutes: 180   # banyak collector mingguan (fundamental, aksi, SEKI, Pink Sheet, BIS, laba, saham beredar)
+    timeout-minutes: 210   # banyak collector mingguan (fundamental, aksi, SEKI, Pink Sheet, BIS, laba, saham beredar, ALFRED)
     env:
       PYTHONUNBUFFERED: "1"
     steps:
@@ -66,6 +66,15 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}     # kode_idx() + membaca file lama dari gudang
           PYTHONUNBUFFERED: "1"
         run: python kumpul_saham_beredar.py && python upload_satu.py data/raw/saham_beredar
+
+      - name: ALFRED (vintage FRED = angka makro point-in-time + jadwal rilis; upload sendiri)
+        continue-on-error: true
+        timeout-minutes: 40
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          PYTHONUNBUFFERED: "1"
+        run: python kumpul_alfred.py && python upload_satu.py data/raw/alfred
 
       - name: Upload ke Hugging Face (hanya folder ini, file lama tidak dihapus)
         env:

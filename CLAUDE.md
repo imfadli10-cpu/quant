@@ -311,6 +311,14 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   ~1 titik/kode); kebanyakan kode BERHENTI ~Nov 2025 di Yahoo → foto mingguan menyambung ke depan. Cek: vs `daftar_idx` sharesOutstanding
   rasio median 1,0000 (95% dalam 1%; beberapa beda 2–5x: BJBR, BJTM, BRMS → curigai); rights issue BBRI 2022 +25% terlihat. 74 titik
   bolak-balik (TAXI, MKNT, BEKS...) → bersihkan dgn median. Angka BELUM disesuaikan split → bagi dengan faktor split `raw/aksi_idx`.
+- `kumpul_alfred.py` (workflow `fundamental_idx.yml`, SABTU, ~13 menit): ALFRED (arsip vintage FRED) = SEMUA versi angka tiap seri
+  `ambil_makro.py` + 12 seri rilis AS penting (GDPC1, PCE, PPI, upah, DGORDER, UMCSENT...) → `raw/alfred/vintage/<KODE>.parquet` (tanggal,
+  berlaku_mulai, berlaku_sampai [NaT = masih berlaku], nilai) + `seri_rilis.parquet` + `jadwal_rilis.parquet` (tanggal terbit historis &
+  TERJADWAL ke depan). 21 Nov 2026: 187 seri, 3,48 juta baris; 72 seri Indonesia (vintage umumnya sejak ~2018); 45 rilis, 39.752 tanggal
+  (285 terjadwal s/d 2027-05). Seri harian > 2.000 vintage (20 seri: yield, kurs harian) DILEWATI (batas API; data pasar tidak direvisi).
+  PAKAI INI untuk riset makro point-in-time (riset lama memakai angka TERREVISI). Contoh revisi nyata: NFP Jun 2025 rilis pertama 159.724 →
+  158.478 ribu. JEBAKAN: level PDB riil antar vintage beda TAHUN DASAR (Apr 2020: 17.206 [dolar 2012] vs 19.078 [dolar 2017]) → bandingkan
+  PERTUMBUHAN di dalam satu vintage. Jangan cetak emoji dari terminal Bash (charmap) → jalankan via PowerShell / PYTHONIOENCODING=utf-8.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
