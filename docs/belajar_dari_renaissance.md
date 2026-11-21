@@ -62,14 +62,29 @@ akademik terbaik, dan apa artinya untuk proyek ini (trader perorangan, IDX, tanp
 **Klaim Renaissance** (leverage 12,5–20x, 50,75%, ~66%/thn) bersumber dari buku Zuckerman & laporan media (sekunder);
   tidak ada dokumen resmi Renaissance. Return Medallion dari lampiran buku tersebut (dipakai Cornell 2019).
 
+## 3c. Paper biaya transaksi (DIBACA LANGSUNG dari PDF, 21 Nov 2026)
+**Novy-Marx & Velikov (2014/2016 RFS), "A Taxonomy of Anomalies and Their Trading Costs"** (NBER w20721):
+- "equal-weighted portfolio results ... are misleading and should be viewed skeptically"; biaya strategi bobot-sama 2–3x
+  strategi bobot-kapitalisasi. (SEMUA strategi kita bobot-sama!)
+- Biaya bolak-balik strategi bobot-kapitalisasi rata-rata > 50 bps; biaya mengurangi spread > 1% dari perputaran bulanan satu sisi.
+- "only two of the strategies that have more than 50% one-sided monthly turnover have significant net spreads". S2 kita ~48–50%.
+- Aturan penyangga sS (buy/hold spread): beli kalau masuk S% teratas, tahan selama masih di s% teratas (10%/20% untuk perputaran
+  sedang; 10%/50% untuk tinggi). Rata-rata 23 anomali: perputaran −41%, biaya −42%, return bersih NAIK. "the single most effective
+  simple cost mitigation strategy". Momentum (Tabel 5): bersih 0,51%/bln t 2,87 (penyangga) vs 0,31 t 1,82 (saham murah) vs 0,37
+  t 2,34 (rebalancing bertahap triwulanan); t bersih naik ~2,5 → ~4 saat penyangga diperlebar (Gambar 5).
+- PEMBALIKAN JANGKA PENDEK mati setelah biaya bahkan dengan penghematan: bersih −0,65%/bln (Tabel 7) → riset "reversal"
+  di IDX (biaya lebih mahal) DITURUNKAN prioritasnya. Musiman juga mati (−0,72%/bln). PEAD versi CAR3 bertahan (0,62% t 2,97).
+**Gârleanu & Pedersen (2013 JF), "Dynamic Trading with Predictable Returns and Transaction Costs"** (abstrak terverifikasi;
+  isi PDF tidak terbaca): "aim in front of the target", "trade partially towards the current aim"; prediktor yang lebih lambat
+  memudar mendapat bobot lebih besar.
+
 ## 4. Arah baru (prioritas)
 1. **Model penampang IDX versi 2 (ML)**: 40–80 fitur (momentum berbagai jendela, pembalikan 1 minggu/1 bulan, jarak ke
    puncak 52 mg, volatilitas, max return, volume & lonjakan volume, likuiditas, kejutan laba, perhatian Wikipedia, musiman,
    sektor, fundamental ke depan), target = peringkat return bulan depan; gradient boosting vs linear; uji maju bertahap
    (dilatih ulang tiap tahun, purge/embargo), dinilai SEBAGAI SATU UJI (bukan 80 uji). Portofolio long-only top-N dengan
    aturan penyangga (hemat biaya) & biaya realistis.
-2. **Pembalikan jangka pendek penampang IDX** (mingguan, banyak saham, bukan keranjang) dengan aturan "trade hanya kalau
-   perkiraan untung > biaya".
+2. ~~Pembalikan jangka pendek~~ DITURUNKAN: Novy-Marx & Velikov Tabel 7 = bersih negatif di AS walau biaya ditekan.
 3. **Model biaya & eksekusi** dari data intraday 1 menit (ke depan): spread nyata, dampak harga per ukuran order.
 4. Kurangi riset timing makro satu-keranjang (breadth rendah) kecuali sebagai fitur di model gabungan.
 5. Paper trading tetap hakim akhir (2019+ sudah terpakai untuk S2).
