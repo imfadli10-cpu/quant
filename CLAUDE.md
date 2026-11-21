@@ -199,7 +199,9 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   31 ETF IDX (XIIT, XBLQ, XISI...). `kode_idx()` bawaan = SAHAM saja (paper trading & fundamental: semesta S2 tetap);
   `kode_idx(termasuk_etf=True)` = saham + ETF (collector harga harian). ETF IDX = instrumen indeks yang BISA dibeli.
 - `kumpul_berita.py` (workflow `berita.yml`, tiap 4 jam): judul + ringkasan berita RSS RESMI media yang robots.txt-nya
-  MENGIZINKAN: Kontan Investasi, Antara Bursa & Ekonomi, Tempo Bisnis, Liputan6 Bisnis (~165 berita per foto) →
+  MENGIZINKAN: Kontan Investasi, Antara Bursa & Ekonomi, Tempo Bisnis, Liputan6 Bisnis + (21 Nov 2026) Detik Finance (100), Okezone
+  Ekonomi, Sindonews Ekbis, Republika Ekonomi, Kumparan (umum) (~365 berita per foto; Suara & JPNN robots MELARANG; Tempo Bisnis RSS BASI:
+  item terbaru 8 Nov 2026 saat dicek 21 Nov) →
   `raw/harian/berita/<tanggal UTC>.parquet` (foto-foto di hari yang sama DIGABUNG, dobel dibuang menurut tautan; gagal
   membaca file hari ini → berhenti). `kode_disebut` = kode saham IDX di judul/ringkasan. Mulai 20 Nov 2026 (hanya ke depan).
   TIDAK dipakai: CNBC Indonesia & IDX Channel (robots.txt MELARANG), Bisnis.com (403). Kontan cuma ~7 jam → wajib tiap 4 jam.

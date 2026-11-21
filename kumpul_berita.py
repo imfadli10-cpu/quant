@@ -31,7 +31,13 @@ FEED = {"kontan_investasi": "https://investasi.kontan.co.id/rss",
         "antara_bursa": "https://www.antaranews.com/rss/ekonomi-bursa.xml",
         "antara_ekonomi": "https://www.antaranews.com/rss/ekonomi.xml",
         "tempo_bisnis": "https://rss.tempo.co/bisnis",
-        "liputan6_bisnis": "https://feed.liputan6.com/rss/bisnis"}
+        "liputan6_bisnis": "https://feed.liputan6.com/rss/bisnis",
+        # tambahan 21 Nov 2026 (robots.txt MENGIZINKAN, dicek dgn urllib.robotparser; Suara & JPNN melarang -> tidak dipakai)
+        "detik_finance": "https://finance.detik.com/rss",
+        "okezone_ekonomi": "https://sindikasi.okezone.com/index.php/rss/11/RSS2.0",
+        "sindonews_ekbis": "https://ekbis.sindonews.com/rss",
+        "republika_ekonomi": "https://www.republika.co.id/rss/ekonomi",
+        "kumparan": "https://lapi.kumparan.com/v2.0/rss/"}
 SEKARANG = datetime.now(timezone.utc).replace(tzinfo=None)
 TES = "--tes" in sys.argv
 
