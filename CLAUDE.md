@@ -82,6 +82,8 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
   `python simpan_private.py`. CATATAN: `kerangka_riset()` membaca `data/raw/harga_idx` (histori statis Nov 2026) → sebelum melatih 2027,
   perbarui histori harga (mis. dari `bersih/harga_idx`) atau model 2027 kekurangan data Nov–Okt. `paper_trading.main()` kini meneruskan
   `b["cs"]` (spread Corwin-Schultz) ke pemilih. Tanpa model tahun berjalan → langkah `ml` gagal (continue-on-error), S2 tetap jalan.
+  Portofolio KEEMPAT `s2p` (EKSPERIMEN, 21 Nov 2026, riset #40): S2, tapi saat BEARISH (IHSG 24 bulan < 0, Daniel-Moskowitz 2016)
+  pegang SEMUA saham semesta bobot sama. Aturan di HF private (`private/paper_s2p.py`), `--cek-riset` IDENTIK (termasuk 2009-03 bearish).
 - `histori_as.yml`, `histori_bps.yml`: manual, sudah selesai 100%. `histori_finra.yml`: manual, SUDAH selesai
   19 Nov 2026 (17 menit; 9 file, 20,1 juta baris, 2.087 hari bursa, hari kosong = persis hari libur bursa AS). `PYTHONUNBUFFERED=1` wajib untuk pekerjaan panjang.
 
@@ -698,6 +700,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   biaya B** (detail di `private/`). TIDAK LOLOS: ML 6 bulan bersih +0,02%/bln t 0,1. ALPHA MEMUDAR CEPAT: kotor ML +0,57% (1 bln) →
   +0,27% (3 bln) → +0,15% (6 bln). RANGKUMAN #36–#39 (BUKTI KONSISTEN): 4 konstruksi portofolio × 2 model biaya → long-only IDX
   2009–2018 bersih ≈ 0. Kemampuan meranking nyata (IC t 5) tapi terlalu kecil & cepat pudar untuk long-only setelah biaya.
+- **Riset #40 SELESAI: proteksi momentum crash untuk S2 (Daniel & Moskowitz 2016: bearish = return pasar 24 bulan < 0)** (detail
+  `private/`). BELUM TERBUKTI (daya uji rendah, diakui di depan): 15 bulan bearish 2005–2018; S2 − semesta −1,64%/bln saat bearish vs
+  +1,42% normal (t −1,0; didominasi Mar–Apr 2009 −31%/−24%); proteksi − S2 +0,14%/bln t 0,5. Searah literatur (bukti eksternal AS sejak
+  1927 kuat). S2 resmi TIDAK diubah; dijadikan paper EKSPERIMEN `s2p` karena kondisi sekarang BEARISH (uji masa depan paling relevan).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
