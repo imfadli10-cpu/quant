@@ -24,6 +24,7 @@ GLOBAL = [
     "SI=F", "HG=F", "PL=F", "PA=F", "BZ=F", "NG=F", "RB=F", "HO=F",
     "ZC=F", "ZW=F", "ZS=F", "ZM=F", "ZL=F", "KC=F", "CC=F", "SB=F", "CT=F", "LE=F", "HE=F", "OJ=F",
     "CPO=F",   # sawit (CME, mengikuti harga sawit Malaysia), ditambahkan 19 Nov 2026
+    "^JKLQ45", "^JKII",   # indeks LQ45 & Jakarta Islamic Index, ditambahkan 21 Nov 2026 (sektor IDX tidak ada di Yahoo)
 ]
 semua_kode = kode_idx + GLOBAL
 print(f"Mengambil 7 hari terakhir untuk {len(semua_kode)} kode...\n")
