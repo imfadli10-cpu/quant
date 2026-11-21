@@ -182,6 +182,9 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   >Rp20 M/hari 0,47% vs 1,38% | Rp5–20 M 0,70% vs 1,33% | Rp1–5 M 0,97% vs 1,80% | <Rp1 M 1,50% vs 1,85% → model ~1,9x terlalu mahal
   untuk semesta riset; Corwin-Schultz di IDX lebih mencerminkan volatilitas. Korelasi peringkat asli vs CS hanya 0,39. BELUM final:
   tunggu foto jam bursa beberapa minggu, lalu pra-registrasi ulang evaluasi biaya (#36/#37/S2). Aturan tick IDX berubah antar tahun.
+  ESTIMATOR EDGE (Ardia-Guidotti-Kroencke 2022, pustaka `bidask`, dipakai Hanauer-Kalsbach) DIUJI 21 Nov 2026 (818 saham, 42 hari OHLC):
+  TIDAK lebih baik di IDX: rasio ke spread asli (saham >= Rp1 M/hari) EDGE 2,03 | CS 1,88 | **1 tick/harga 0,96 (galat median 0,04 pp)**;
+  korelasi peringkat EDGE 0,39 = CS 0,39 < tick 0,46. Di IDX spread ~ 1 tick (antrean tebal) → pakai model biaya B (tick historis), BUKAN EDGE/CS.
 - `kumpul_daftar_idx.py` (harian, SEBELUM harga harian): foto screener Yahoo bursa JKT (~838 saham, 89 kolom: marketCap,
   sharesOutstanding, BID/ASK, earningsTimestamp, rating analis...) → `raw/harian/daftar_idx` (mulai 20 Nov 2026, hanya ke depan).
   Kode yang ada di Yahoo tapi belum di daftar → `ref/daftar_saham_tambahan.csv` (TIDAK pernah dikurangi). Daftar Yahoo TIDAK
