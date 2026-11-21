@@ -783,6 +783,13 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   (putar 79%, biaya ~1%/bln). Tes tiruan (pola sb 2%) IC t +9,2 tapi bersih t +0,5 → sinyal berperputaran tinggi tak bisa jadi strategi
   long-only IDX; keputusan kedua (fitur ML, IC t > 3) juga GAGAL. Cek potong data: IC & return IDENTIK; biaya beda tipis (0,95 vs 0,98%)
   karena `harga_asli` butuh split SESUDAH 2018 untuk membalik penyesuaian Yahoo (sah, bukan kebocoran). Data uji tidak dibuka.
+- **Riset #47 SELESAI: dividend yield (value; Rouwenhorst 1999, Hanauer-Lauterbach 2019)** (`riset_47_dividend_yield.py`). TIDAK LOLOS.
+  Pra-registrasi di-commit sebelum dijalankan (742e42b). DY = dividen 12 bln (raw/aksi_idx) / Close; latih 2004-11..2018-10 (160 bln, median
+  99 saham, 71 pembagi). U2 (penentu) 20% DY teratas bersih +0,15%/bln t +0,4 (kotor +0,41%, putar 21%, biaya 0,27%) | U1 IC +0,060 t +4,7
+  (paruh 3,6/3,1) TAPI sumbernya PEMBAGI vs BUKAN PEMBAGI +1,02%/bln t 2,7; di antara pembagi, K5−K1 +0,08% t 0,1 → besarnya yield tidak
+  memprediksi, yang bekerja "membayar dividen atau tidak" (proksi kualitas). IDE BARU (muncul SETELAH lihat data → wajib pra-registrasi baru,
+  hitung sbg uji tambahan): fitur "pembagi dividen" untuk model penampang ML / saringan semesta S2. Cek potong data: IC & return IDENTIK
+  (biaya beda tipis, sebab sama dgn #46). Data uji tidak dibuka.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
