@@ -337,7 +337,9 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - SEKI (`seki.py`): lembar 'I.1' menaruh label TAHUN di kolom TERAKHIR tiap tahun (bukan pertama). Isi-ke-kanan biasa membuat
   Jan–Nov 2025 terbaca sebagai 2024 & MENIMPA angka 2024 (21 Nov 2026, sempat terlihat sebagai "lonjakan M1 +19%"). Sekarang kolom bulan
   dikelompokkan per blok (bulan turun = blok baru) dan tahun diambil dari label di dalam blok. Singkatan Agustus: 'Ags'/'Agt'/'Aug'.
-  Cek: pertumbuhan M2 Des 2018 6,3%, 2020 12,5%, 2023 3,5% (cocok angka resmi BI).
+  Cek: pertumbuhan M2 Des 2018 6,3%, 2020 12,5%, 2023 3,5% (cocok angka resmi BI). Header CAMPURAN juga ada (TABEL1_4 'Th 2002-2017':
+  tanggal s/d Feb 2015 lalu nama bulan) → `peta_kolom` berjalan kiri→kanan (tanggal langsung; nama bulan menyambung, tahun +1 saat bulan turun)
+  + label tahun sebagai pemeriksa. Label total kadang berspasi: 'J U M L A H' (regex `j\s*u\s*m...`).
 - Saat menulis kode Python yang berisi tiga backtick di dalam string, buat lewat variabel (mis. `"`" * 3`) supaya tampilan chat tidak rusak.
 
 ## 9. Aturan riset (WAJIB)
@@ -578,6 +580,18 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   U3 bulan M1 menguat +2,91% vs melemah +0,74% (t +2,0). Ketiganya POSITIF (sesuai teori likuiditas) tapi < 3. Catatan: angka SEKI = versi
   TERREVISI terbaru (bukan point-in-time; foto kita baru mulai 21 Nov 2026). Hapus 2019+ → IDENTIK. Data uji tidak dibuka.
   Kandidat KOMPONEN model gabungan makro (bersama lelang Treasury #20, pergantian bulan #26), bukan strategi sendiri.
+- **Riset #28 SELESAI: kinerja saham IPO setelah 5 hari (e-IPO 2021–2023-06, 134 IPO)** (`riset_28_ipo.py`). TIDAK LOLOS, pola "LOTRE".
+  Pra-registrasi di-commit SEBELUM data lengkap (e8119ce); pembagian SENDIRI: latih = pencatatan ≤ 2023-06-30, uji sesudahnya (DIKUNCI).
+  U1 (hari 5 → 125) − keranjang 30: RATA-RATA +13,7% (t +1,4) TAPI MEDIAN −15,8%, hanya 37% IPO mengalahkan pasar; buang 5% ekor
+  → −5,1%; potong ±100% → −4,7% t −1,0. Ekor kanan NYATA (BSML +736%, CHIP +573%, ADMR +325%, CUAN +309%; EURO +474% dengan 5 hari
+  pertama datar = curigai). U2 kecil +21,0% vs besar +6,4% t +0,7. Semua IPO punya harga Yahoo sejak hari pencatatan (0 hilang).
+  Kesimpulan: kebanyakan IPO tertinggal pasar, tapi segelintir melonjak berlipat → rata-rata tidak bisa dipakai (tidak bisa short,
+  menghindari IPO juga melewatkan ekor kanan). Cacat diagnosis: `Close` Yahoo disesuaikan split → return hari pertama vs harga final
+  salah untuk saham yang split (CUAN, RMKE tampak −80%); perbaiki dengan `raw/aksi_idx` kalau dipakai lagi.
+- **Riset #29 SELESAI: percepatan kredit bank (SEKI I.4) → saham bank vs pasar** (`riset_29_kredit_bank.py`). HASIL NEGATIF.
+  Pra-registrasi di-commit sebelum dijalankan (aae0018). Total kredit = jumlah 5 kelompok bank (cek vs baris 'J U M L A H' BI: beda maks 2,6%);
+  jeda 2 bulan. Latih 185 bulan: U1 12 saham bank − pasar +0,07%/pp t +0,5 | U2 4 bank Persero − pasar (kredit Persero) −0,06% t −0,5 |
+  U3 pasar −0,37% t −1,6. Tes tiruan: +0,3%/pp ditemukan tepat. Hapus 2019+ → IDENTIK. Data uji tidak dibuka.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
