@@ -103,6 +103,10 @@ jobs:
           FIRMS_MAP_KEY: ${{ secrets.FIRMS_MAP_KEY }}
         run: python kumpul_api.py
 
+      - name: Hasil lelang SUN & SBSN (DJPPR, dari beranda)
+        continue-on-error: true
+        run: python kumpul_lelang_sbn.py
+
       - name: Perhatian publik per saham IDX (pembaca Wikipedia ~280 perusahaan)
         continue-on-error: true
         run: python kumpul_perhatian_idx.py

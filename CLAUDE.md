@@ -137,6 +137,14 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   batas 5.000 transaksi/10 menit. Kunci: `kunci_firms.txt` / secret `FIRMS_MAP_KEY` (gratis, email; dibuat 20 Nov 2026).
   JEBAKAN: VIIRS S-NPP NRT KOSONG di 2026 (satelit tua) → pakai NOAA-20/21. `confidence` MODIS = angka 0–100, VIIRS = huruf l/n/h.
   Cek kewajaran: 15–19 Sep 2015 (kebakaran besar) 8.372 titik MODIS / 40.862 VIIRS. Kegunaan: emiten sawit/kertas, asap, El Nino.
+- `kumpul_lelang_sbn.py` (harian, detik): HASIL LELANG SUN & SBSN dari DJPPR Kemenkeu → `raw/harian/lelang_sbn/<tanggal>` (format panjang:
+  tanggal_lelang, jenis, seri, pos, teks, nilai; Rp dalam TRILIUN) + `halaman_<tanggal>` (HTML asli). Mulai 21 Nov 2026, HANYA ke depan.
+  Cara (keputusan pengguna 21 Nov 2026): baca daftar berita BERANDA (API `api-djppr.kemenkeu.go.id/web/api/v1/page` = yang dimuat situs
+  sendiri), buka berita "Hasil Lelang", urai tabel. Beranda cuma memuat ~1 hasil lelang terbaru → wajib harian. Tidak ada file kalau tidak
+  ada hasil lelang (bukan error; tidak masuk validasi). DILARANG mendaftar seluruh situs lewat `/page/filter` (endpoint pencarian CMS
+  internal; DITOLAK pengaman Claude Code sebagai akses tidak sah). Histori lama hanya lewat jalur resmi (permintaan data/publikasi DJPPR).
+  JEBAKAN: `read_html` default mengubah "5,55" jadi 555 → baca sel sebagai teks (`thousands=None, decimal="|"`) lalu urai sendiri.
+  Cek: SBSN 17 Nov 2026 penawaran Rp20,10 T, dimenangkan Rp10 T, bid-to-cover PBS041 2,60 (= 3,9063 / 1,5).
 - `kumpul_sbn.py` (harian, detik): YIELD OBLIGASI INDONESIA dari PHEI (Penilai Harga Efek Indonesia; robots.txt mengizinkan /Data)
   → `raw/harian/sbn` (mulai 20 Nov 2026, hanya ke depan; histori gratis tidak ada). Format panjang: kurva IGSYC tenor 0,1–30 thn,
   benchmark SUN (FR) & sukuk (PBS) dengan harga & kupon, seri ritel (ORI/SBR/ST/SR), korporasi per tenor × peringkat (IGS/AAA/AA/A/BBB).
