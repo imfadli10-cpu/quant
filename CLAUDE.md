@@ -705,6 +705,9 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   (Volume short FINRA, logam LME + stok, dan sawit harian SUDAH ditambahkan 19 Nov 2026.)
   Dengan harga harian LME & sawit, riset #3 bisa diuji ulang di horizon MINGGUAN (nikel/timah sejak 2008, sawit sejak 2010).
   Prioritaskan data "hanya ke depan" (tidak bisa diambil mundur).
+- **KONTEKS PASAR 21 Nov 2026: IHSG 5.146 = −43,7% dari puncak 9.135 (20 Jan 2026)**; 3 bulan −20,8%, setahun −37,8%; VIX AS 35,9.
+  Paper trading S2/s2v/ml mulai 1 Des 2026 DI TENGAH pasar bearish dalam → risiko "momentum crash" (S2 tertinggal tajam saat pasar
+  memantul dari dasar, seperti Mar–Apr 2009: −31% & −24% vs semesta). Diteliti di riset #40.
 - Pantau: email alarm, jatah menit GitHub (github.com/settings/billing, "$x used / $12.00"), jatah BigQuery.
 - **ATURAN RAHASIA STRATEGI (keputusan pengguna 20 Nov 2026):** detail sinyal/strategi yang terbukti MENGUNTUNGKAN
   (skrip, parameter, hasil lengkap) disimpan di folder `private/` (diabaikan git) + cadangan `python simpan_private.py`
