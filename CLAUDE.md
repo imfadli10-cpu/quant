@@ -744,6 +744,13 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   (atas&dekat − bawah&jauh) +1,92%/20 hari t +2,5 (paruh 0,9/3,3) | U2 beli atas&dekat bersih 0,8% −0,07% t −0,1. Sel: atas&dekat +0,73%,
   atas&jauh +1,03% (sisi beli TIDAK sesuai teori), bawah&jauh −1,19% (efek di sisi short, tidak bisa dipakai). Tes tiruan: pola ditemukan
   t 11,2; tes kosong 7 benih: U1 t −0,3..+2,6 (t 2–3 bisa muncul acak!). Hapus 2019+ → IDENTIK. Data uji tidak dibuka.
+- **Riset #44 SELESAI: berita emiten (EmitenNews) × dekat puncak 52 minggu (Kalsbach Bab 3)** (`riset_44_berita_jangkar.py`, `berita_emiten.py`).
+  TIDAK LOLOS. Pra-registrasi di-commit sebelum dijalankan (357ffc3); pembagian sendiri: latih sinyal 2021–2023, uji 2024+ DIKUNCI. FN = return
+  di hari berita (hari bursa >= tanggal & sesudahnya, dibatasi akhir bulan), NEAR = S2. Latih 32 bln, ~144 saham berita/bln: U1 interaksi
+  +1,71%/bln t +1,7 | U2 beli atas&dekat bersih biaya B +0,18% t 0,3 | berita baik − buruk −0,20% t −0,3 (BERITA SENDIRI TIDAK MEMPREDIKSI).
+  Sel: atas&dekat +0,97, atas&jauh −1,59, bawah&dekat +1,16, bawah&jauh −0,74 → yang bekerja hanya "dekat puncak" (= S2), bukan interaksi.
+  Tes tiruan ±3% → +5,68% t 10,9; tes kosong ≈ 0. Hapus data sesudah latih → IDENTIK. Pencocokan kode: kata umum (bank/bumi/emas/laba...)
+  wajib disertai nama perusahaan di judul.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
