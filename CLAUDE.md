@@ -597,6 +597,13 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Pra-registrasi di-commit sebelum dijalankan (aae0018). Total kredit = jumlah 5 kelompok bank (cek vs baris 'J U M L A H' BI: beda maks 2,6%);
   jeda 2 bulan. Latih 185 bulan: U1 12 saham bank − pasar +0,07%/pp t +0,5 | U2 4 bank Persero − pasar (kredit Persero) −0,06% t −0,5 |
   U3 pasar −0,37% t −1,6. Tes tiruan: +0,3%/pp ditemukan tepat. Hapus 2019+ → IDENTIK. Data uji tidak dibuka.
+- **Riset #30 SELESAI: kenaikan kas pemerintah AS di The Fed (TGA, DTS) → saham minggu depan** (`riset_30_tga.py`). HASIL NEGATIF
+  (setelah membongkar ARTEFAK). Pra-registrasi di-commit sebelum dijalankan (384a29e). Sinyal = perubahan saldo Kamis→Kamis dibagi sb 52 minggu.
+  Angka pra-registrasi: U1 IDX +0,17%/z t **+10,0** | U2 EIDO −0,10% t −0,6 | U3 SPY +0,11% t +5,8 → MENCURIGAKAN. Diagnosis: SATU minggu
+  (Okt 2008, z = 117,8: Kemenkeu memindahkan kas ke The Fed di puncak krisis; TGA 2006 cuma ~$5 miliar) bertepatan dengan pantulan
+  IDX +21,9% / SPY +15,7%. z dipotong ±3: IDX t +0,8, SPY t −0,8; 2010–2018 saja: −0,2 / −1,3; korelasi peringkat ≈ 0. Hapus 2019+ → IDENTIK.
+  PELAJARAN METODE: z-skor dengan sb bergulir MELEDAK saat rezim berubah (seri kecil → besar). Rancang uji dengan z DIPOTONG (mis. ±3)
+  atau peringkat SEJAK pra-registrasi; t yang luar biasa (> 6) pada sinyal makro = periksa pencilan dulu, jangan dirayakan.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
