@@ -227,6 +227,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   & tanggal terbit (point-in-time) hanya ada dari foto kita, mulai 21 Nov 2026 (foto pertama: 108 tabel). File .xls lama (BIFF) →
   `pd.read_excel(..., engine="xlrd")` (xlrd di requirements). Header bertingkat (judul baris 0-1, tahun/bulan ~baris 6, data mulai ~baris 8;
   kolom tahunan lalu bulanan) → urai per tabel saat riset membutuhkan. Gagal membaca indeks yang ADA → berhenti (jangan timpa riwayat).
+- `kumpul_ipo.py` (harian): IPO saham Indonesia dari e-IPO (e-ipo.co.id, sistem resmi BEI; robots.txt Allow /), HANYA halaman PUBLIK
+  (halaman 'closed' & penjatahan butuh LOGIN → tidak diambil; kode berhenti kalau diminta login). `raw/ipo/daftar/<tanggal>` (foto status
+  harian) + `raw/ipo/detail.parquet` (1 baris per IPO: sektor, saham ditawarkan, % dari total, PENJAMIN EMISI, jadwal book building +
+  rentang harga, penawaran + harga final, penjatahan, distribusi, pencatatan, syariah). Harian: detail hanya IPO yang belum Closed/Canceled.
+  `--histori` sekali (21 Nov 2026). JEBAKAN: menu filter halaman daftar memuat nama-nama status → urai teks SETELAH 'Tanggal Selesai';
+  persen memakai TITIK desimal ('30.3') → pengurai `persen()` khusus. Angka kelebihan pemesanan ada di PDF 'Informasi Tambahan' (belum diurai).
+  Indodax (kripto IDR) TIDAK dipakai: robots.txt `Disallow: /api`.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
