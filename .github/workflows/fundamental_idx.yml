@@ -32,6 +32,12 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}     # daftar_saham.kode_idx() mengunduh daftar tambahan dari gudang
         run: python kumpul_aksi_idx.py   # gagal (< 500 kode) = langkah merah, foto fundamental tetap diupload
 
+      - name: SEKI Bank Indonesia (~108 tabel; simpan yang berubah saja, upload sendiri)
+        continue-on-error: true
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python kumpul_seki.py
+
       - name: Upload ke Hugging Face (hanya folder ini, file lama tidak dihapus)
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}

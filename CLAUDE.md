@@ -221,6 +221,12 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   368 split termasuk 27 reverse split < 1), sejak 2000. Cakupan dividen naik dari 74 kode (2003) ke 230 (2018) → data awal tidak lengkap.
   Dari 248 titik rusak harga (bagian 8) hanya 6 yang dekat tanggal split (AKRA 2007: split 27-07, lonjakan 30-07) → kebanyakan nilai basi.
   Saham tanpa split tidak punya kolom 'Stock Splits' (reindex kolom). Bisa dipakai membangun ulang harga transaksi ASLI.
+- `kumpul_seki.py` (workflow `fundamental_idx.yml`, tiap SABTU): SEKI Bank Indonesia, 108 tabel Excel resmi (robots.txt BI: Allow /)
+  → `raw/seki/<tanggal>/TABELx_y.xls` (HANYA tabel yang BERUBAH sejak foto sebelumnya, sidik jari sha256) + `raw/seki/indeks.parquet`
+  (semua versi: tabel, judul, tanggal_ambil, sha256, ukuran, jalur; DITIMPA kumulatif). BI menimpa file tiap pembaruan → riwayat revisi
+  & tanggal terbit (point-in-time) hanya ada dari foto kita, mulai 21 Nov 2026 (foto pertama: 108 tabel). File .xls lama (BIFF) →
+  `pd.read_excel(..., engine="xlrd")` (xlrd di requirements). Header bertingkat (judul baris 0-1, tahun/bulan ~baris 6, data mulai ~baris 8;
+  kolom tahunan lalu bulanan) → urai per tabel saat riset membutuhkan. Gagal membaca indeks yang ADA → berhenti (jangan timpa riwayat).
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
