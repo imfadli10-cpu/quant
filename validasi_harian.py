@@ -80,9 +80,9 @@ cek("lelang_as",        "auction_date", 60,       50,        ["security_type"], 
 file_makro = list(Path("data/raw/makro").glob("*.parquet"))
 dff = pd.read_parquet("data/raw/makro/DFF.parquet") if Path("data/raw/makro/DFF.parquet").exists() else None
 basi_dff = (HARI_INI - ke_tanggal(dff.index).normalize()).days if dff is not None else 999
-if len(file_makro) < 170 or basi_dff > 10:
-    masalah.append(f"makro: {len(file_makro)}/175 seri, DFF basi {basi_dff} hari")
-    print(f"❌ {'makro':18} {len(file_makro)}/175 seri, DFF terbaru {basi_dff} hari lalu")
+if len(file_makro) < 190 or basi_dff > 10:
+    masalah.append(f"makro: {len(file_makro)}/197 seri, DFF basi {basi_dff} hari")
+    print(f"❌ {'makro':18} {len(file_makro)}/197 seri, DFF terbaru {basi_dff} hari lalu")
 else:
     print(f"✅ {'makro':18} {len(file_makro)} seri, DFF terbaru {basi_dff} hari lalu")
 

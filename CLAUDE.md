@@ -82,7 +82,8 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
 
 Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, isinya beberapa hari terakhir, sengaja tumpang tindih):
 - `ambil_makro.py`: FRED 75 seri (suku bunga, inflasi, likuiditas Fed, tenaga kerja, kurs 15 mata uang, yield 5 negara,
-  energi, 13 komoditas IMF termasuk nikel/timah/sawit/batu bara/karet, 3 seri Indonesia termasuk kurs akhir bulan OECD) + 99 seri FRED Indonesia AKTIF (tambahan 20 Nov 2026; total 175)
+  energi, 13 komoditas IMF termasuk nikel/timah/sawit/batu bara/karet, 3 seri Indonesia termasuk kurs akhir bulan OECD) + 99 seri FRED Indonesia AKTIF (tambahan 20 Nov 2026) + 22 seri likuiditas/resesi/kredit/ketidakpastian (21 Nov 2026: WRESBAL,
+  WEI, IORB, T10Y3M, BAA10Y/AAA10Y, Sahm, CFNAI, prob. resesi, GEPU global, ketidakpastian pasar saham harian, ANFCI, KCFSI...; total 197)
   → `raw/makro/<KODE>.parquet` (ditimpa). Tambahan penting: data TIC Kemenkeu AS = ARUS DANA investor AS ke saham/obligasi
   Indonesia per bulan (mis. `USLTEQTYNET42218` pembelian bersih saham Indonesia oleh investor AS) = pengganti tidak langsung
   arus dana asing IDX; indeks HARIAN NASDAQ Indonesia sejak 2001 (kecil/menengah/besar & sektor, `NASDAQNQID*`) = sumber harga
