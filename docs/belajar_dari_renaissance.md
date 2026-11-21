@@ -50,13 +50,33 @@ akademik terbaik, dan apa artinya untuk proyek ini (trader perorangan, IDX, tanp
 **Bukti eksternal bahwa sinyal timing makro memang lemah**: Welch & Goyal (2008, RFS 21:1455–1508): tidak satu pun dari
   puluhan prediktor klasik mengalahkan rata-rata historis di luar sampel; R² luar sampel umumnya NEGATIF (replikasi
   dividend-price: −2% s/d −15%). Bantahan Campbell & Thompson (2008): dengan batasan teori, perbaikan kecil.
-**Hanauer & Kalsbach (2023)**: PDF asli (TUM) DIBLOKIR anti-bot → belum dibaca langsung. Dari artikel Robeco (ditulis
+**Hanauer & Kalsbach (2023)**: (lihat teks lengkap di bawah; ringkasan Robeco awal): Dari artikel Robeco (ditulis
   Hanauer & Swinkels, 2023) yang TERVERIFIKASI: >15.000 saham, 32 negara, 1990–2021, 36 karakteristik, uji luar sampel
   2002–2021; long-short (5 portofolio, bobot kapitalisasi) linear ~0,8%/bln, pohon ~1,0%, jaringan saraf & gabungan ~1,2%;
   alpha atas faktor: linear ~0,2%, pohon 0,5%, NN/gabungan 0,7%/bln; "even accounting for transaction costs and
   short-selling constraints ... significant net outperformance" (TANPA angka biaya). **Prediktor terpenting: "price to its
   52-week high", idiosyncratic volatility, turnover** → = S2 kita (konfirmasi INDEPENDEN). BELUM TERVERIFIKASI (hanya
   ringkasan pihak ketiga): "tidak melemah seiring waktu", "berlaku di saham besar saja", apakah INDONESIA termasuk sampel.
+**Hanauer & Kalsbach — TEKS LENGKAP DIBACA 21 Nov 2026** (Bab 2 disertasi Kalsbach, TUM 2023; PDF lokal docs/paper/, tidak di repo):
+- Sampel: 15.152 saham, 32 negara EM, Jul 1990–Des 2021, uji luar sampel 2002–2021, 36 karakteristik; **INDONESIA TERMASUK**
+  (Tabel 2.1: 649 saham, rata-rata 150/bulan, 1990-07 s/d 2021-12). Mikrocap (3% kapitalisasi terbawah) DIBUANG.
+- Long-short bobot sama (Tabel 2.3): OLS 1,38%/bln t 7,8 | GBRT 1,82% t 11,6 | NN 1,84–1,91% | ENS 1,86% t 11,8. Bobot kapitalisasi
+  kira-kira 2/3-nya. Turnover ~90–100%/bln (long-short).
+- Prediktor terpenting (Gbr 2.1/B.1): LTurnover, Idiovol, **P2P52WH (= S2)**, r12-2, r2-1, Illiqu, ukuran. Profitabilitas/intangible lemah.
+- "we cannot observe a decline in predictability over time" (TERVERIFIKASI). Drawdown terbesar 2009 = momentum crash (sama dengan S2 kita).
+- **LONG-ONLY, HANYA SAHAM BESAR, SETELAH BIAYA** (Tabel 2.9, biaya = ½ spread estimator EDGE): kotor top kuintil − pasar ENS +0,78%/bln
+  (bobot sama), turnover 45%/bln; penyangga beli 10% / tahan 30%: turnover 27,5%, bersih **+0,59%/bln t 5,6** (bobot kapitalisasi +0,34% t 3,3).
+  Biaya konservatif 100 bps sekali jalan (Tabel B.12): hanya ENS + penyangga yang signifikan, +0,23% (bobot kap.) / +0,51% (bobot sama).
+- **Model dilatih gabungan banyak negara > dilatih per negara** (Tabel B.9: Indonesia dkk, ENS pooled 1,18% vs lokal 0,92%); model yang
+  dilatih HANYA di pasar maju memprediksi EM hampir sama baik (Tabel 2.4 Panel E).
+- Bab 3 (Kalsbach-Windmüller): BERITA spesifik emiten × dekat puncak 52 minggu → alpha 1,47%/bln t 4,7 (berita baik + dekat puncak = reaksi
+  kurang); efek terutama di saham batas-arbitrase tinggi & berita TIDAK terjadwal.
+**Implikasi untuk kita** (perbandingan jujur): IC model kita (0,098) & prediktor utama SEJALAN dengan paper. Bedanya: (1) paper 2002–2021
+  rata-rata 32 negara, kita 2009–2018 Indonesia saja (alpha IDX periode itu kecil); (2) kita hanya 20 fitur harga/volume (paper 36 termasuk
+  fundamental); (3) kita latih di ~100 saham IDX saja — paper menunjukkan DATA GABUNGAN lebih baik → IDE: latih model di 12.000+ saham AS
+  (bersih/saham_as) / gabungan, terapkan ke IDX; (4) paper pakai EDGE (Ardia-Guidotti-Kroencke 2022) utk spread → ganti Corwin-Schultz;
+  (5) Bab 3 → riset berita (raw/harian/berita kode_disebut) × S2 begitu data berita menumpuk.
+
 **Koreksi atas klaim sendiri**: desain "breadth ~1" menjelaskan kegagalan riset TIMING, TAPI tidak semua kegagalan:
   riset PENAMPANG #14 (perhatian), #22 (dividen), #35 (ilikuiditas) juga gagal → biaya IDX & sinyal lemah tetap penghalang nyata.
 **Klaim Renaissance** (leverage 12,5–20x, 50,75%, ~66%/thn) bersumber dari buku Zuckerman & laporan media (sekunder);
