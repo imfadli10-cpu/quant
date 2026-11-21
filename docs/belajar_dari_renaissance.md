@@ -41,6 +41,27 @@ akademik terbaik, dan apa artinya untuk proyek ini (trader perorangan, IDX, tanp
 - Hambatan utama di IDX = BIAYA (komisi 0,4% + spread 0,5–0,9%) dan TIDAK BISA SHORT → horizon terlalu pendek dibunuh biaya.
 - Yang TIDAK bisa ditiru: leverage 12–20x, short, eksekusi murah, ilmuwan ratusan orang, data berbayar.
 
+## 3b. BUKTI & STATUS VERIFIKASI (diperiksa 21 Nov 2026 atas permintaan pengguna: "jangan dari asumsi")
+**Bukti dengan data/simulasi sendiri** (`cek_daya_uji.py`, bisa diulang):
+- Agar uji timing bulanan 2003–2018 (190 bulan) lolos t > 3, sinyal harus berkorelasi ≥ 0,218 dengan return bulan depan
+  (R² ≥ 4,7%). Mingguan ≥ 0,106; harian ≥ 0,048.
+- Sinyal timing yang NYATA (IC 0,05) diuji pada 190 bulan: t rata-rata 0,77, lolos t > 3 hanya 2,2% percobaan.
+- Sinyal penampang dengan IC SAMA (0,05) pada 100 saham × 190 bulan: t rata-rata 6,8, lolos 100%.
+**Bukti eksternal bahwa sinyal timing makro memang lemah**: Welch & Goyal (2008, RFS 21:1455–1508): tidak satu pun dari
+  puluhan prediktor klasik mengalahkan rata-rata historis di luar sampel; R² luar sampel umumnya NEGATIF (replikasi
+  dividend-price: −2% s/d −15%). Bantahan Campbell & Thompson (2008): dengan batasan teori, perbaikan kecil.
+**Hanauer & Kalsbach (2023)**: PDF asli (TUM) DIBLOKIR anti-bot → belum dibaca langsung. Dari artikel Robeco (ditulis
+  Hanauer & Swinkels, 2023) yang TERVERIFIKASI: >15.000 saham, 32 negara, 1990–2021, 36 karakteristik, uji luar sampel
+  2002–2021; long-short (5 portofolio, bobot kapitalisasi) linear ~0,8%/bln, pohon ~1,0%, jaringan saraf & gabungan ~1,2%;
+  alpha atas faktor: linear ~0,2%, pohon 0,5%, NN/gabungan 0,7%/bln; "even accounting for transaction costs and
+  short-selling constraints ... significant net outperformance" (TANPA angka biaya). **Prediktor terpenting: "price to its
+  52-week high", idiosyncratic volatility, turnover** → = S2 kita (konfirmasi INDEPENDEN). BELUM TERVERIFIKASI (hanya
+  ringkasan pihak ketiga): "tidak melemah seiring waktu", "berlaku di saham besar saja", apakah INDONESIA termasuk sampel.
+**Koreksi atas klaim sendiri**: desain "breadth ~1" menjelaskan kegagalan riset TIMING, TAPI tidak semua kegagalan:
+  riset PENAMPANG #14 (perhatian), #22 (dividen), #35 (ilikuiditas) juga gagal → biaya IDX & sinyal lemah tetap penghalang nyata.
+**Klaim Renaissance** (leverage 12,5–20x, 50,75%, ~66%/thn) bersumber dari buku Zuckerman & laporan media (sekunder);
+  tidak ada dokumen resmi Renaissance. Return Medallion dari lampiran buku tersebut (dipakai Cornell 2019).
+
 ## 4. Arah baru (prioritas)
 1. **Model penampang IDX versi 2 (ML)**: 40–80 fitur (momentum berbagai jendela, pembalikan 1 minggu/1 bulan, jarak ke
    puncak 52 mg, volatilitas, max return, volume & lonjakan volume, likuiditas, kejutan laba, perhatian Wikipedia, musiman,
