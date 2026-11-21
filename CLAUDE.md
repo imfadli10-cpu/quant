@@ -227,6 +227,12 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   tidak ada file). 20 Nov 2026: VIX 35,9 (puncak 40), VXEEM 45,9. JEBAKAN data sumber: VXHYG 2017–2018 RUSAK (−19,7 juta & lompatan acak),
   DSPX ada nilai 0 (2018), VXD 2021-07-14 +472% & VXEEM 2021-04-22 +165% mencurigakan → bersihkan saat dipakai. Lompatan NYATA:
   VIX 2018-02-05 +116% (Volmageddon), OVX 2020-04 (minyak negatif). Indeks EVZ, VXXLE, TYVIX, SRVIX, VOLI: 403 (tidak tersedia).
+- `kumpul_pinksheet.py` (workflow `fundamental_idx.yml`, SABTU): World Bank Pink Sheet → `raw/worldbank/harga_bulanan.parquet` (71 komoditas
+  sejak 1960, format panjang komoditas/satuan/bulan/harga) + `indeks_bulanan.parquet` (16 indeks, 2010=100) + `arsip/<tanggal terbit>.xlsx`
+  (hanya terbitan BARU; terbit ~awal bulan, mis. 2026-11-03 berisi s/d Okt 2026 → point-in-time). Tautan Excel ber-ID yang berubah tiap
+  terbitan → dicari dari halaman resmi. Header lembar indeks BERTINGKAT (nama di baris 5–8) → nama = teks terisi pertama per kolom. '…' = kosong.
+  Sumber KEDUA untuk harga IMF di FRED (sawit, nikel, timah, batu bara, karet) → cek silang.
+- KSEI (statistik investor) TIDAK diambil: hanya PDF bulanan bergrafik dengan nama file tak konsisten & tanpa daftar publik (21 Nov 2026).
 - `kumpul_aksi_idx.py` (workflow `fundamental_idx.yml`, tiap SABTU, ~11 menit): AKSI KORPORASI semua saham & ETF IDX dari Yahoo
   (`Ticker.actions`) → `raw/aksi_idx/semua.parquet` (DITIMPA; kode, tanggal EX tanpa zona, dividen Rp/lembar, split rasio)
   + `raw/aksi_idx/foto/<tanggal>` (salinan mingguan, lacak revisi). 20 Nov 2026: 6.205 aksi dari 656 kode (5.888 dividen,

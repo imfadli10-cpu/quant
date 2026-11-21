@@ -38,6 +38,12 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python kumpul_seki.py
 
+      - name: World Bank Pink Sheet (71 komoditas bulanan sejak 1960; upload sendiri)
+        continue-on-error: true
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python kumpul_pinksheet.py
+
       - name: Upload ke Hugging Face (hanya folder ini, file lama tidak dihapus)
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
