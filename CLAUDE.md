@@ -720,6 +720,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   `private/`). BELUM TERBUKTI (daya uji rendah, diakui di depan): 15 bulan bearish 2005–2018; S2 − semesta −1,64%/bln saat bearish vs
   +1,42% normal (t −1,0; didominasi Mar–Apr 2009 −31%/−24%); proteksi − S2 +0,14%/bln t 0,5. Searah literatur (bukti eksternal AS sejak
   1927 kuat). S2 resmi TIDAK diubah; dijadikan paper EKSPERIMEN `s2p` karena kondisi sekarang BEARISH (uji masa depan paling relevan).
+- **Riset #41 SELESAI: momentum PENAMPANG kripto (Liu-Tsyvinski-Wu 2022 JF; Coinbase, koin median nilai ≥ $1 juta/hari)** (detail
+  `private/`). HASIL NEGATIF. Pembagian sendiri (penampang baru cukup sejak 2021): latih 2021–2023, uji 2024+ DIKUNCI. Return 21 hari →
+  minggu depan (jeda 1 hari): IC −0,038 t −2,1 (cenderung BERBALIK, kebalikan LTW yg sampelnya 2014–2018); sepertiga atas bersih −0,48%/mg
+  t −1,6 (biaya 0,35%/sisi, putar 40%/mg). Survivorship: hanya koin yg masih diperdagangkan. Hapus 2024+ → IDENTIK.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
