@@ -646,6 +646,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   t −0,2 (147 mg) | U2 4 minggu −0,90% t −1,0 (36 titik). Tes tiruan +0,5% ditemukan tepat. DUA bug ditemukan & diperbaiki sebelum
   hasil final: (1) potongan fungsi #29 kosong (penanda teks muncul lebih awal; jalur tiruan tidak memakainya → cek JALUR ASLI juga);
   (2) cek hapus-2023+ menemukan U2 bocor (jendela 4 minggu melewati batas) → penyaring khusus → IDENTIK.
+- **Riset #35 SELESAI: premi ilikuiditas Amihud di IDX (bersih biaya realistis)** (`riset_35_amihud.py`). HASIL NEGATIF.
+  Pra-registrasi di-commit sebelum dijalankan (9a774e8). Kerangka #13 (semesta #2, bulanan, biaya 0,4% + spread CS). Latih 160 bulan:
+  U1 IC −0,036 t −3,0 (ilikuid sedikit LEBIH BURUK secara peringkat, kebalikan literatur) | U2 beli 20% paling ilikuid kotor +0,49%/bln,
+  biaya 0,59%/bln → bersih −0,11% t −0,3 (paruh +0,5/−1,5). Premi (kalau ada) habis dimakan spread. Tes tiruan OK. Hapus 2019+ → IDENTIK.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
