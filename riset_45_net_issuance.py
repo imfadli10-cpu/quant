@@ -72,6 +72,8 @@ with contextlib.redirect_stdout(io.StringIO()):
 sys.argv = simpan
 akhir_bulan, lolos, ret_pegang = g["akhir_bulan"], g["lolos"], g["ret_pegang"]
 awal_bulan = g["g"]["awal_bulan"]
+if POTONG:
+    print(f"   (cek potong: harga terakhir {g['g']['adj'].index.max():%Y-%m-%d})")
 tgl_beli = pd.Series(awal_bulan).shift(-1).reset_index(drop=True)
 tgl_jual = pd.Series(awal_bulan).shift(-2).reset_index(drop=True)
 

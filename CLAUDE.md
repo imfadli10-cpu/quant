@@ -757,6 +757,13 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Sel: atas&dekat +0,97, atas&jauh −1,59, bawah&dekat +1,16, bawah&jauh −0,74 → yang bekerja hanya "dekat puncak" (= S2), bukan interaksi.
   Tes tiruan ±3% → +5,68% t 10,9; tes kosong ≈ 0. Hapus data sesudah latih → IDENTIK. Pencocokan kode: kata umum (bank/bumi/emas/laba...)
   wajib disertai nama perusahaan di judul.
+- **Riset #45 SELESAI: net share issuance (Pontiff-Woodgate 2008; McLean-Pontiff-Watanabe 2009) → saham IDX bulan depan**
+  (`riset_45_net_issuance.py`). HASIL NEGATIF (daya uji rendah, diakui di depan). Pra-registrasi di-commit sebelum return dilihat (a0bbc7d);
+  pembagian sendiri (data saham beredar padat baru 2018Q4): latih sinyal 2019-12..2022-10 (35 bln), uji 2023+ DIKUNCI. NI = log saham
+  beredar 12 bulan (median 3 titik, jeda 30 hari), bulan-saham dgn split di jendela DIBUANG (Yahoo tak konsisten soal split).
+  Semesta S2, median 133 saham & 14 penerbit (NI > 5%) per bulan. U1 penerbit − tanpa −0,10%/bln t −0,1 | U2 semesta tanpa penerbit −
+  semesta +0,08% t +0,8 | U3 IC −0,017 t −1,0. Daya uji: pola tiruan −2%/bln baru t −3,3. Hapus data > 2022 → IDENTIK. Data uji tidak dibuka.
+  Uji ulang setelah data saham beredar ke depan menumpuk (bisa juga jadi fitur model penampang).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
