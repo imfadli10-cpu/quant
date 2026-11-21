@@ -801,6 +801,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Aturan uji data uji ditulis dulu, lalu ANALISIS DAYA UJI: premi tiruan +1%/bln → bersih hanya t 1,4 (160 bln) karena pembagi ≈ 72% semesta;
   in-sample asli +0,20%/bln t 1,6. Data uji ~93 bln → hampir pasti gagal walau efek nyata → data uji TIDAK dibuka (tidak dihitung sbg uji).
   PELAJARAN: sebelum membuka data uji, SELALU cek daya uji strategi yang akan dinilai. Ide disimpan sbg fitur ML / penyaring semesta.
+- **Riset #49 SELESAI: volatilitas rendah long-only (S3 sendiri; Blitz-Pang-van Vliet 2013 EM, Frazzini-Pedersen 2014)**
+  (`riset_49_volatilitas_rendah.py`). TIDAK LOLOS. Pra-registrasi di-commit sebelum dijalankan (b4347ae). 20% vol 120 hari terendah, ukuran =
+  ALPHA CAPM bersih vs semesta (rf = IRSTCI01IDM156N, galat White). Latih 2004-11..2018-10 (160 bln): beta 0,62; return mentah bersih SAMA dgn
+  semesta (+1,22% vs +1,17%/bln); Sharpe 0,40 vs 0,26; alpha kotor +0,57% t 2,9; U1 alpha BERSIH +0,26%/bln t +1,3 (paruh 0,8/1,1; putar 24%,
+  biaya 0,31%). Efek klasik terlihat (risiko −40%, return sama) tapi tak signifikan setelah biaya. Cek potong: identik (biaya beda tipis, sebab #46).
+  Catatan: berguna sbg portofolio DEFENSIF (bukan alpha); data uji tidak dibuka.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
