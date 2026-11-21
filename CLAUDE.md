@@ -655,6 +655,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   DESAIN). Yang berhasil justru PENAMPANG saham (S2, model gabungan IC t 4–6). Prioritas: (1) model penampang IDX v2 berbasis ML
   (gradient boosting, 40–80 fitur, uji maju, dinilai sebagai SATU uji; Gu-Kelly-Xiu 2020, Hanauer-Kalsbach 2023 EM), (2) pembalikan
   jangka pendek penampang + aturan "trade hanya kalau untung > biaya", (3) model biaya dari data intraday. Kurangi timing makro 1 keranjang.
+- **Riset #36 SELESAI: model penampang IDX v2 (LightGBM, 20 fitur harga/volume, uji maju 2009–2018)** (detail di `private/`).
+  TIDAK LOLOS (t bersih realistis +0,4). Ranking KUAT (IC 0,098, t 5,1; ≈ linear, > S2 saja) tapi keuntungan kotor 20% teratas
+  habis dimakan biaya. Fitur terpenting = s2 (jarak ke puncak 52 minggu) → konsisten dengan Hanauer-Kalsbach (EM). PELAJARAN METODE:
+  parameter LightGBM awal GAGAL tes tiruan non-linear (menghafal derau); pohon dangkal + daun ≥ 1.000 sampel + regularisasi kuat
+  dipilih HANYA dengan data tiruan & dibekukan sebelum data asli. MASALAH INTI SEKARANG: mengubah kemampuan meranking menjadi untung
+  BERSIH long-only (biaya IDX + tidak bisa short) → riset konstruksi portofolio (penyangga, horizon lebih panjang, saham murah ditransaksikan).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
