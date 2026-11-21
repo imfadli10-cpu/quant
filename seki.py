@@ -40,8 +40,60 @@ def _tahun(c):
 
 
 def peta_kolom(v):
-    """(baris_header_terakhir, {kolom: Timestamp bulan}) atau (None, {})."""
+    """(baris_header, {kolom: Timestamp bulan}) atau (None, {}).
+    Cara utama = JALAN kiri->kanan pada baris header terbaik (sel TANGGAL dan/atau NAMA BULAN; header campuran ada,
+    mis. TABEL1_4 'Th 2002-2017': tanggal s/d Feb 2015 lalu 'Mar','Apr',...): sel tanggal dipakai langsung; sel nama bulan
+    menyambung dari kolom sebelumnya (tahun +1 setiap bulan TURUN). Kalau header dimulai dengan nama bulan, tahun awal
+    diambil dari label tahun di dalam blok pertama. Label tahun di baris atas dipakai sebagai PEMERIKSA (beda = lembar dilewati)."""
     batas = min(15, len(v))
+    skor = []
+    for i in range(batas):
+        sel = v.iloc[i].tolist()
+        skor.append(sum(_tanggal(c) is not None or _nama_bulan(c) is not None for c in sel))
+    i = int(np.argmax(skor)) if skor else 0
+    if skor and skor[i] >= 6:
+        sel = v.iloc[i].tolist()
+        label_th = {}
+        for a in range(max(0, i - 3), i):
+            for j, c in enumerate(v.iloc[a].tolist()):
+                t = _tahun(c) if not isinstance(c, str) or re.match(r"^\s*\d{4}", c) else None
+                if t is not None:
+                    label_th.setdefault(j, t)
+        peta, th, bl_lalu, blok_awal = {}, None, None, []
+        for j, c in enumerate(sel):
+            t = _tanggal(c)
+            b = _nama_bulan(c) if t is None else None
+            if t is not None:
+                th, bl_lalu = t.year, t.month
+                peta[j] = t
+            elif b is not None:
+                if th is None:                                   # header diawali nama bulan: kumpulkan blok pertama
+                    if blok_awal and b <= blok_awal[-1][1]:
+                        lab = [label_th[k] for k in range(blok_awal[0][0], blok_awal[-1][0] + 1) if k in label_th]
+                        if len(set(lab)) != 1:
+                            break
+                        th = lab[0]
+                        for k, bb in blok_awal:
+                            peta[k] = pd.Timestamp(th, bb, 1)
+                        bl_lalu = blok_awal[-1][1]
+                    else:
+                        blok_awal.append((j, b))
+                        continue
+                if b <= bl_lalu:
+                    th += 1
+                bl_lalu = b
+                peta[j] = pd.Timestamp(th, b, 1)
+        if th is None and blok_awal:                             # hanya satu blok (kurang dari setahun)
+            lab = [label_th[k] for k in range(blok_awal[0][0], blok_awal[-1][0] + 1) if k in label_th]
+            if len(set(lab)) == 1:
+                peta = {k: pd.Timestamp(lab[0], bb, 1) for k, bb in blok_awal}
+        # Pemeriksa: label tahun yang tepat di atas kolom harus sama dengan tahun hasil jalan, KECUALI pola
+        # 'label di akhir blok' (I.1) atau 'di awal blok'; cukup cek bahwa setiap label ada di blok tahun yang sama.
+        salah = [j for j, t in label_th.items() if j in peta and peta[j].year != t]
+        if len(peta) >= 6 and not salah:
+            return i, peta
+        if salah:
+            warnings.warn(f"SEKI: label tahun tidak cocok di {len(salah)} kolom -> pakai cara blok")
     # Format (b): baris nama bulan + baris tahun di atasnya
     for i in range(1, batas):
         bl = [_nama_bulan(c) for c in v.iloc[i].tolist()]
