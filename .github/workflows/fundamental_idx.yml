@@ -28,6 +28,8 @@ jobs:
 
       - name: Aksi korporasi IDX (dividen & split, seluruh histori)
         continue-on-error: true
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}     # daftar_saham.kode_idx() mengunduh daftar tambahan dari gudang
         run: python kumpul_aksi_idx.py   # gagal (< 500 kode) = langkah merah, foto fundamental tetap diupload
 
       - name: Upload ke Hugging Face (hanya folder ini, file lama tidak dihapus)

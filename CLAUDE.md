@@ -301,6 +301,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   `bersih_idx.bersihkan()` mengosongkan titik itu (median TERPUSAT → HANYA riset historis; ≤ 2018 & 2019+ dibersihkan TERPISAH
   supaya tidak bocor). Dipakai BAWAAN di `riset_02` & `riset_12` (dan semua skrip yang meng-exec-nya); `BERSIHKAN_IDX=0` = versi lama.
   DAMPAK BESAR: lihat catatan koreksi di bagian 10. Pelajaran: satu bulan palsu (MAPI +900%) bisa menghasilkan "t 2,7".
+- `continue-on-error: true` MENYAMARKAN error jadi "success". Cek DURASI langkah (API publik repo: /actions/runs/<id>/jobs):
+  langkah yang selesai 1 detik = crash. 21 Nov 2026: `kumpul_aksi_idx.py` di workflow Sabtu crash karena langkahnya tidak diberi
+  `HF_TOKEN` (`daftar_saham.kode_idx()` mengunduh daftar tambahan dari gudang) → SETIAP langkah yang memakai `kode_idx()` WAJIB punya `HF_TOKEN`.
+- Opsi (`kumpul_opsi.py`) 21 Nov 2026 dari server: SEMUA 49 kode gagal seketika (dari laptop normal) → dulu `pd.concat([])` crash tanpa
+  pesan. Sekarang: 3x coba ulang (jeda 5/15/30 dtk) + putaran kedua setelah 60 dtk + pesan error jelas. Pantau beberapa hari.
 - Saat menulis kode Python yang berisi tiga backtick di dalam string, buat lewat variabel (mis. `"`" * 3`) supaya tampilan chat tidak rusak.
 
 ## 9. Aturan riset (WAJIB)
