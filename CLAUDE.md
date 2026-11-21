@@ -549,6 +549,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Latih 2004–2018 (58 gempa, 22 ≥ M7): U1 reaksi d0 +0,23% t +0,9 (TIDAK turun) | U2 d0+1..5 −0,02% t −0,0 | U3 M ≥ 7 +0,90% t +1,3.
   Tsunami Aceh 2004: d0 +1,15%. Nias 2005 (M8,6): d0 −4,35% lalu +1,6%. Tes tiruan: −1%/+1% ditemukan (t −8,0 / +3,7).
   Hapus 2019+ → IDENTIK. Data uji tidak dibuka. Kesimpulan: gempa (umumnya jauh dari pusat ekonomi) tidak menggerakkan saham likuid IDX.
+- **Riset #26 SELESAI: efek kalender IDX — pra-libur & pergantian bulan** (`riset_26_kalender.py`). HASIL NEGATIF.
+  Pra-registrasi di-commit sebelum dijalankan (222dc81). Keranjang 30 likuid, 2002-05..2018-12 (3.921 hari; 190 hari pra-libur; jendela
+  pergantian bulan = hari terakhir + 3 hari pertama). U1 pra-libur −0,00%/hari vs +0,09% t −0,7 | U2 pergantian bulan +0,175% vs +0,062%
+  t +1,6 (searah literatur, paruh 1,4/0,8) | U3 strategi pra-libur bersih −0,50%/peristiwa | U4 strategi pergantian bulan bersih −0,03%/bln
+  t −0,1. Tes tiruan: pola +0,3% & +0,15% ditemukan. Cek hapus-2019+ MENEMUKAN beda 1 hari (label pra-libur 28-12-2018 bergantung pada
+  hari bursa 2 Jan 2019) → hari yang hari bursa berikutnya di 2019 dikeluarkan → IDENTIK. Data uji tidak dibuka.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)

@@ -75,9 +75,10 @@ gb = pd.Series((urut_akhir == 0).values | (urut_awal <= 2).values, index=hari)  
 if TES_TIRUAN:
     r = r + 0.003 * pra_libur + 0.0015 * gb
 
-pilih = (hari > BATAS_LATIH) if BUKA_DATA_UJI else (hari <= BATAS_LATIH)
+# Latih: hari bursa BERIKUTNYA juga harus <= batas (label pra-libur bergantung padanya; ditemukan cek hapus-2019+)
+pilih = (hari > BATAS_LATIH) if BUKA_DATA_UJI else ((hari <= BATAS_LATIH) & (berikut.values <= BATAS_LATIH))
 pilih = pd.Series(pilih, index=hari)
-pilih.iloc[-1] = pilih.iloc[-1] and not BUKA_DATA_UJI   # hari terakhir tidak punya label pra-libur yang pasti
+pilih.iloc[-1] = False                                   # hari terakhir tidak punya label pra-libur yang pasti
 print(f"🔒 Data uji {'DIBUKA' if BUKA_DATA_UJI else 'DIKUNCI'}.\n")
 rr, pl, g = r[pilih], pra_libur[pilih], gb[pilih]
 print(f"   {len(rr)} hari bursa ({rr.index.min():%Y-%m} s/d {rr.index.max():%Y-%m}); pra-libur {pl.sum()} hari; "
