@@ -44,6 +44,14 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python kumpul_pinksheet.py
 
+      - name: BIS (likuiditas global, celah kredit, suku bunga kebijakan, kurs efektif...; semua negara)
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}     # upload_satu.py butuh kunci (pelajaran 21 Nov 2026)
+        run: python kumpul_bis.py && python upload_satu.py data/raw/bis
+        timeout-minutes: 40
+
       - name: Upload ke Hugging Face (hanya folder ini, file lama tidak dihapus)
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}

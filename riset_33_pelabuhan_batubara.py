@@ -38,7 +38,8 @@ KOTAK = (108, 119, -4.5, 4.5)
 src30 = Path("riset_30_tga.py").read_text(encoding="utf-8")
 exec(compile(src30[src30.index("def t_robust"):src30.index("def sinyal_tga")], "riset_30_fungsi", "exec"))
 src29 = Path("riset_29_kredit_bank.py").read_text(encoding="utf-8")
-exec(compile(src29[src29.index("def jadi_tanggal"):src29.index("if TES_TIRUAN or TES_KOSONG:")], "riset_29_fungsi", "exec"))
+_a = src29.index("def jadi_tanggal")                      # cari penanda SESUDAH fungsi (teks yang sama muncul lebih awal di file #29)
+exec(compile(src29[_a:src29.index("\nif TES_TIRUAN or TES_KOSONG:", _a)], "riset_29_fungsi", "exec"))
 
 
 def sinyal_dari_volume(vol_mingguan):
@@ -93,6 +94,8 @@ print(f"🔒 Data uji (2023+) {'DIBUKA' if BUKA_DATA_UJI else 'DIKUNCI'}.\n")
 y = y1[pilih]
 b, t, n = t_robust(y, sinyal.reindex(y.index))
 print(f"   U1 BATUBARA-PASAR minggu depan: +0,1 log pertumbuhan volume -> {b * 0.1:+.3%}, t robust {t:+.1f} ({n} minggu)")
-y4 = sum(y1.shift(-k) for k in range(4))[pilih].dropna().iloc[::4]
+akhir4 = pd.Series([(w + 5).end_time.normalize() for w in y1.index], index=y1.index)   # jendela 4 minggu selesai di w+5
+pilih4 = (awal > AKHIR_LATIH).values if BUKA_DATA_UJI else ((awal >= AWAL_LATIH) & (akhir4 <= AKHIR_LATIH)).values
+y4 = sum(y1.shift(-k) for k in range(4))[pilih4].dropna().iloc[::4]   # (ditemukan cek hapus-2023+: dulu bocor ke 2023)
 b, t, n = t_robust(y4, sinyal.reindex(y4.index))
 print(f"   U2 BATUBARA-PASAR 4 minggu (tanpa tumpang tindih): +0,1 -> {b * 0.1:+.3%}, t robust {t:+.1f} ({n} titik)")

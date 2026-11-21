@@ -234,6 +234,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   terbitan → dicari dari halaman resmi. Header lembar indeks BERTINGKAT (nama di baris 5–8) → nama = teks terisi pertama per kolom. '…' = kosong.
   Sumber KEDUA untuk harga IMF di FRED (sawit, nikel, timah, batu bara, karet) → cek silang.
 - KSEI (statistik investor) TIDAK diambil: hanya PDF bulanan bergrafik dengan nama file tak konsisten & tanpa daftar publik (21 Nov 2026).
+- `kumpul_bis.py` (workflow `fundamental_idx.yml`, SABTU): BIS unduhan massal resmi (data.bis.org/static/bulk, robots Allow /) →
+  `raw/bis/<DATASET>.parquet` (DITIMPA, semua negara): WS_GLI likuiditas global, WS_CREDIT_GAP, WS_DSR, WS_TC, WS_CBPOL (suku bunga kebijakan
+  HARIAN), WS_CBTA, WS_EER (kurs efektif harian), WS_XRU, WS_SPP, WS_LONG_CPI; ~3,9 juta baris, 21 MB. Kolom 'KODE: Label' dipecah jadi
+  <dim> & <dim>_label (hanya nilai unik → cepat). Unduhan dari laptop SANGAT lambat (~22 KB/dtk, ±20 menit total); di server lebih cepat;
+  batas langkah 40 menit. LBS (365 MB) & DEBT_SEC (147 MB) belum diambil. Survei BI (penjualan eceran dll.) TIDAK diambil: nama file PDF
+  bulanan tidak konsisten, Excel hanya sesekali (sama seperti KSEI).
+- `ref/pelabuhan_portwatch.parquet`: database 2.071 pelabuhan PortWatch (koordinat, jumlah kapal per jenis, industri utama). 18 di kotak Kalimantan.
 - `kumpul_aksi_idx.py` (workflow `fundamental_idx.yml`, tiap SABTU, ~11 menit): AKSI KORPORASI semua saham & ETF IDX dari Yahoo
   (`Ticker.actions`) → `raw/aksi_idx/semua.parquet` (DITIMPA; kode, tanggal EX tanpa zona, dividen Rp/lembar, split rasio)
   + `raw/aksi_idx/foto/<tanggal>` (salinan mingguan, lacak revisi). 20 Nov 2026: 6.205 aksi dari 656 kode (5.888 dividen,
@@ -628,6 +635,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   DAN t > 2 di data uji) ditetapkan & dicadangkan SEBELUM dijalankan; data uji 2019+ dibuka SEKALI. Latih (in-sample): EIDO t 3,2.
   UJI: EIDO +0,32%/skor t +0,6 (410 minggu), IDX t −0,0 → kedua sinyal DIBUANG sebagai sinyal mingguan. PELAJARAN: sinyal "searah tapi
   t ~2" yang dikumpulkan dari banyak uji = kemungkinan besar KEBETULAN (multiple testing); gabungannya juga ikut kebetulan.
+- **Riset #33 SELESAI: ekspor curah kering pelabuhan Kalimantan (PortWatch) → saham batu bara vs pasar** (`riset_33_pelabuhan_batubara.py`).
+  HASIL NEGATIF. Pra-registrasi di-commit SEBELUM histori dilihat (7422244); pembagian SENDIRI: latih 2020–2022, uji 2023+ (DIKUNCI).
+  18 pelabuhan Kalimantan (~4,2 juta ton/minggu). Sinyal = pertumbuhan tahunan 4 minggu, jeda 2 minggu. U1 minggu depan −0,04% per +0,1
+  t −0,2 (147 mg) | U2 4 minggu −0,90% t −1,0 (36 titik). Tes tiruan +0,5% ditemukan tepat. DUA bug ditemukan & diperbaiki sebelum
+  hasil final: (1) potongan fungsi #29 kosong (penanda teks muncul lebih awal; jalur tiruan tidak memakainya → cek JALUR ASLI juga);
+  (2) cek hapus-2023+ menemukan U2 bocor (jendela 4 minggu melewati batas) → penyaring khusus → IDENTIK.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
