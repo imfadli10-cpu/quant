@@ -510,6 +510,9 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     beli 0,1–0,2% (bukan masalah); ARB saat jual 0,6–1,5%. BERSIH REALISTIS: latih +0,87%/bln t 2,5 (~+11%/thn),
     uji +0,99%/bln t 2,4 (~+12,6%/thn). Kapasitas (5% nilai transaksi harian): median Rp 1,7–3,4 miliar per transaksi.
     Kesimpulan: konsisten untung di 2 periode terpisah tapi t ~2,5 setelah gesekan nyata = kandidat, bukan jaminan.
+  - **KOREKSI BIAYA (21 Nov 2026, biaya B = 0,4% + 1,2 × tick historis/harga asli; aturan S2 TIDAK diubah):** latih 2005–2018
+    +0,44%/bln t 1,1 (≈ lama, tick dulu besar) | **uji 2019–2026 +1,22%/bln t 2,9 (~+15,6%/thn, menang 69%; lama +1,00% t 2,4)**;
+    semesta uji ~40 saham/bulan vs ~20 dulu. = perkiraan TERBAIK untuk paper trading. Kalibrasi 1,2 akan dicek ulang dgn foto jam bursa.
   - LANGKAH BERIKUTNYA: PAPER TRADING MAJU (catat pilihan S2 tiap akhir bulan, pantau hasil nyata 6–12 bulan).
     JANGAN memodifikasi S2 lalu menilainya di 2019–2026 (data uji S2 sudah terpakai). Ide pengurang biaya (mis. aturan
     penyangga/buffer, tahan 2–3 bulan) hanya boleh dirancang di data LATIH lalu dinilai lewat paper trading.
