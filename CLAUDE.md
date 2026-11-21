@@ -75,6 +75,13 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
   (`dicatat_sebelum_beli`=True = sah). Catatan lama TIDAK PERNAH diubah; kalau gagal membaca catatan lama → berhenti.
   Rumus terbukti IDENTIK dengan riset #12 (`--cek-riset`, 3 bulan). JANGAN ubah aturan S2; versi baru = portofolio baru.
   Portofolio resmi pertama: sinyal akhir Nov 2026, beli tutup 1 Des 2026. Portofolio kedua `s2v` (aturan private) menyusul sama.
+  Portofolio KETIGA `ml` (EKSPERIMEN, 21 Nov 2026): model ML riset #36 (aturan & model di HF private: `private/paper_ml.py`,
+  `private/model_ml_<T>.txt`; diunduh workflow). Model tahun T dilatih dgn sinyal <= Okt T-1 (aturan uji maju #36; model live ikut
+  berlatih dgn data 2019+). `--cek-riset` IDENTIK 3 bulan. **WAJIB latih ulang tiap tahun**: model 2027 dilatih SETELAH target sinyal
+  Okt 2026 terealisasi (awal Des 2026) & SEBELUM sinyal akhir Jan 2027 — `python private/paper_ml.py --latih 2027` lalu
+  `python simpan_private.py`. CATATAN: `kerangka_riset()` membaca `data/raw/harga_idx` (histori statis Nov 2026) → sebelum melatih 2027,
+  perbarui histori harga (mis. dari `bersih/harga_idx`) atau model 2027 kekurangan data Nov–Okt. `paper_trading.main()` kini meneruskan
+  `b["cs"]` (spread Corwin-Schultz) ke pemilih. Tanpa model tahun berjalan → langkah `ml` gagal (continue-on-error), S2 tetap jalan.
 - `histori_as.yml`, `histori_bps.yml`: manual, sudah selesai 100%. `histori_finra.yml`: manual, SUDAH selesai
   19 Nov 2026 (17 menit; 9 file, 20,1 juta baris, 2.087 hari bursa, hari kosong = persis hari libur bursa AS). `PYTHONUNBUFFERED=1` wajib untuk pekerjaan panjang.
 

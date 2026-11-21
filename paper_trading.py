@@ -192,6 +192,7 @@ def main(pemilih=None, awalan="s2"):
     rendah = h["Low"].reindex(index=hari, columns=b["adj"].columns)
     sah = (tinggi > 0) & (rendah > 0) & (tinggi >= rendah) & b["aktif"]
     cs = corwin_schultz(tinggi.where(sah), rendah.where(sah)).rolling(21, min_periods=10).mean()
+    b["cs"] = cs                     # dipakai pemilih lain (mis. portofolio ml di private/); S2 tidak memakainya
 
     # Akhir bulan yang SUDAH lengkap = akhir bulan yang punya hari bursa sesudahnya di bulan berikutnya,
     # ATAU bulan kalender sudah lewat (hari ini sudah bulan berikutnya).

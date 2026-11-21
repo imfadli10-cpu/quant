@@ -35,6 +35,14 @@ jobs:
           python -c "import os; from huggingface_hub import hf_hub_download; hf_hub_download('fadli-sparks/quant-data', 'private/paper_s2v.py', repo_type='dataset', local_dir='.', token=os.environ['HF_TOKEN'])"
           python private/paper_s2v.py
 
+      - name: Portofolio ketiga EKSPERIMEN "ml" (model ML riset #36; aturan & model di gudang PRIVATE)
+        continue-on-error: true
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python -c "import os; from huggingface_hub import snapshot_download; snapshot_download('fadli-sparks/quant-data', repo_type='dataset', local_dir='.', allow_patterns=['private/paper_ml.py', 'private/model_ml_*.txt'], token=os.environ['HF_TOKEN'])"
+          python private/paper_ml.py
+
       - name: Upload catatan ke Hugging Face (hanya folder paper_trading)
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
