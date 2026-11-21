@@ -15,3 +15,6 @@ data/
 __pycache__/
 # Riset & catatan SENSITIF (sinyal menguntungkan): TIDAK PERNAH ke GitHub publik; cadangan di HF private/
 private/
+
+# PDF paper/buku (hak cipta; repo publik) - simpan lokal saja
+docs/paper/
