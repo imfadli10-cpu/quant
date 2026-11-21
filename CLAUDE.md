@@ -319,6 +319,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   PAKAI INI untuk riset makro point-in-time (riset lama memakai angka TERREVISI). Contoh revisi nyata: NFP Jun 2025 rilis pertama 159.724 →
   158.478 ribu. JEBAKAN: level PDB riil antar vintage beda TAHUN DASAR (Apr 2020: 17.206 [dolar 2012] vs 19.078 [dolar 2017]) → bandingkan
   PERTUMBUHAN di dalam satu vintage. Jangan cetak emoji dari terminal Bash (charmap) → jalankan via PowerShell / PYTHONIOENCODING=utf-8.
+- `kumpul_ojk_emisi.py` (workflow `fundamental_idx.yml`, SABTU; hanya file BARU): OJK "Ikhtisar Perkembangan Emisi Efek & Aksi Korporasi"
+  MINGGUAN (ojk.go.id tanpa robots.txt; hanya halaman & lampiran yang ditautkan halaman publik Statistik Pasar Modal) → `raw/ojk_emisi/arsip/<nama>.xlsx`
+  + `urai/<nama>.parquet` (format panjang: file, minggu_ke, bulan, tahun, lembar, bagian, sub_bagian, no, kolom, nilai TEKS). Isi KUMULATIF sejak awal
+  tahun: IPO, right issue (PUT), EBUS/PUB obligasi-sukuk, AKSI KORPORASI (PMTHMETD/private placement, transaksi material, merger, go private,
+  perubahan usaha) + tgl RUPS/efektif → deretan mingguan = point-in-time. Halaman utama hanya menautkan ~5 bulan → mulai Jul 2026 (19 file),
+  HANYA KE DEPAN. 2026 s/d Nov: 90 aksi korporasi (21 PMTHMETD), 18+ right issue. Nama emiten = nama PT (bukan kode) → cocokkan dgn longName.
+  Server OJK lambat (~1 menit/file dari laptop). OJK juga punya xlsx "Rata-rata Bid-Ask Spread & Turnover" mingguan, tapi hanya agregat pasar (tidak diambil).
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:

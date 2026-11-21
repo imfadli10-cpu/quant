@@ -8,7 +8,7 @@ on:
 jobs:
   foto:
     runs-on: ubuntu-latest
-    timeout-minutes: 210   # banyak collector mingguan (fundamental, aksi, SEKI, Pink Sheet, BIS, laba, saham beredar, ALFRED)
+    timeout-minutes: 240   # banyak collector mingguan (fundamental, aksi, SEKI, Pink Sheet, BIS, laba, saham beredar, ALFRED, OJK)
     env:
       PYTHONUNBUFFERED: "1"
     steps:
@@ -75,6 +75,14 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
           PYTHONUNBUFFERED: "1"
         run: python kumpul_alfred.py && python upload_satu.py data/raw/alfred
+
+      - name: OJK ikhtisar emisi efek & aksi korporasi mingguan (hanya file baru; upload sendiri)
+        continue-on-error: true
+        timeout-minutes: 60
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}     # daftar file yang sudah ada di gudang
+          PYTHONUNBUFFERED: "1"
+        run: python kumpul_ojk_emisi.py && if [ -d data/raw/ojk_emisi ]; then python upload_satu.py data/raw/ojk_emisi; fi
 
       - name: Upload ke Hugging Face (hanya folder ini, file lama tidak dihapus)
         env:
