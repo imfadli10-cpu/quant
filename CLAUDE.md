@@ -513,6 +513,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   - **KOREKSI BIAYA (21 Nov 2026, biaya B = 0,4% + 1,2 × tick historis/harga asli; aturan S2 TIDAK diubah):** latih 2005–2018
     +0,44%/bln t 1,1 (≈ lama, tick dulu besar) | **uji 2019–2026 +1,22%/bln t 2,9 (~+15,6%/thn, menang 69%; lama +1,00% t 2,4)**;
     semesta uji ~40 saham/bulan vs ~20 dulu. = perkiraan TERBAIK untuk paper trading. Kalibrasi 1,2 akan dicek ulang dgn foto jam bursa.
+    LINIMASA S2 per tahun (biaya B, bersih/bln): 2005–2010 naik-turun (2008 +4,6%, 2009 −4,8% crash) | 2011–2017 KERING (−0,55..+0,41%) |
+    2018 +2,0%, 2019 +1,2%, 2020 −1,4% (COVID) | 2021–2026 +0,7..+2,9% (2020–2026: +1,22% t 2,6). Bersamaan dgn ledakan investor ritel
+    (SID KSEI: 12,17 jt akhir 2023 → 14,87 jt 2024 → 20,13 jt Des 2025 → 30,30 jt Agu 2026 [1 sumber]) & semesta 22 → 54 saham.
+    KORELASI WAKTU, bukan bukti sebab. RISIKO: kalau rezim berbalik, S2 bisa "kering" bertahun-tahun seperti 2011–2017.
   - LANGKAH BERIKUTNYA: PAPER TRADING MAJU (catat pilihan S2 tiap akhir bulan, pantau hasil nyata 6–12 bulan).
     JANGAN memodifikasi S2 lalu menilainya di 2019–2026 (data uji S2 sudah terpakai). Ide pengurang biaya (mis. aturan
     penyangga/buffer, tahan 2–3 bulan) hanya boleh dirancang di data LATIH lalu dinilai lewat paper trading.
