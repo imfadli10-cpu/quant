@@ -253,6 +253,9 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   (hanya terbitan BARU; terbit ~awal bulan, mis. 2026-11-03 berisi s/d Okt 2026 → point-in-time). Tautan Excel ber-ID yang berubah tiap
   terbitan → dicari dari halaman resmi. Header lembar indeks BERTINGKAT (nama di baris 5–8) → nama = teks terisi pertama per kolom. '…' = kosong.
   Sumber KEDUA untuk harga IMF di FRED (sawit, nikel, timah, batu bara, karet) → cek silang.
+- GDELT GKG per EMITEN IDX TIDAK diambil (21 Nov 2026): uji Okt 2026 (0,57 GB) → hanya 17 dari 834 nama emiten (nama resmi dinormalkan)
+  muncul di kolom V2Organizations, kebanyakan bank besar dengan 1–183 sebutan/bulan. Biaya histori 2015–2026 ~330 GB (≈20–44 GB/tahun) tidak
+  sebanding. Untuk perhatian media per saham pakai `raw/harian/berita` (RSS Indonesia, kolom kode_disebut).
 - KSEI (statistik investor) TIDAK diambil: hanya PDF bulanan bergrafik dengan nama file tak konsisten & tanpa daftar publik (21 Nov 2026).
 - `kumpul_bis.py` (workflow `fundamental_idx.yml`, SABTU): BIS unduhan massal resmi (data.bis.org/static/bulk, robots Allow /) →
   `raw/bis/<DATASET>.parquet` (DITIMPA, semua negara): WS_GLI likuiditas global, WS_CREDIT_GAP, WS_DSR, WS_TC, WS_CBPOL (suku bunga kebijakan
