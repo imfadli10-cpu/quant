@@ -732,6 +732,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   IDX saja = #38 persis. Model gabungan didominasi log_harga & porsi hari aktif (bukan s2) = jejak BIAS SURVIVORSHIP data AS (saham kecil
   yang mati hilang → yang tersisa tampak menang). PELAJARAN: data AS kita (100% survivor) TIDAK layak jadi data latih ML; paper memakai
   Datastream dengan daftar saham mati. Jangan ulangi tanpa data delisting.
+- **Riset #43 SELESAI: kejutan laba × dekat puncak 52 minggu ("jangkar"; George-Hwang-Li 2014, Kalsbach Bab 3)** (`riset_43_laba_jangkar.py`).
+  TIDAK LOLOS. Pra-registrasi di-commit sebelum dijalankan (8ee4376). Latih 2005Q4–2018Q4 (1.620 peristiwa, sel ~6 saham): U1 interaksi
+  (atas&dekat − bawah&jauh) +1,92%/20 hari t +2,5 (paruh 0,9/3,3) | U2 beli atas&dekat bersih 0,8% −0,07% t −0,1. Sel: atas&dekat +0,73%,
+  atas&jauh +1,03% (sisi beli TIDAK sesuai teori), bawah&jauh −1,19% (efek di sisi short, tidak bisa dipakai). Tes tiruan: pola ditemukan
+  t 11,2; tes kosong 7 benih: U1 t −0,3..+2,6 (t 2–3 bisa muncul acak!). Hapus 2019+ → IDENTIK. Data uji tidak dibuka.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
