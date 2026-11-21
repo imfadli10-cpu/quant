@@ -327,6 +327,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   `HF_TOKEN` (`daftar_saham.kode_idx()` mengunduh daftar tambahan dari gudang) → SETIAP langkah yang memakai `kode_idx()` WAJIB punya `HF_TOKEN`.
 - Opsi (`kumpul_opsi.py`) 21 Nov 2026 dari server: SEMUA 49 kode gagal seketika (dari laptop normal) → dulu `pd.concat([])` crash tanpa
   pesan. Sekarang: 3x coba ulang (jeda 5/15/30 dtk) + putaran kedua setelah 60 dtk + pesan error jelas. Pantau beberapa hari.
+- SEKI (`seki.py`): lembar 'I.1' menaruh label TAHUN di kolom TERAKHIR tiap tahun (bukan pertama). Isi-ke-kanan biasa membuat
+  Jan–Nov 2025 terbaca sebagai 2024 & MENIMPA angka 2024 (21 Nov 2026, sempat terlihat sebagai "lonjakan M1 +19%"). Sekarang kolom bulan
+  dikelompokkan per blok (bulan turun = blok baru) dan tahun diambil dari label di dalam blok. Singkatan Agustus: 'Ags'/'Agt'/'Aug'.
+  Cek: pertumbuhan M2 Des 2018 6,3%, 2020 12,5%, 2023 3,5% (cocok angka resmi BI).
 - Saat menulis kode Python yang berisi tiga backtick di dalam string, buat lewat variabel (mis. `"`" * 3`) supaya tampilan chat tidak rusak.
 
 ## 9. Aturan riset (WAJIB)
@@ -561,6 +565,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   t +1,6 (searah literatur, paruh 1,4/0,8) | U3 strategi pra-libur bersih −0,50%/peristiwa | U4 strategi pergantian bulan bersih −0,03%/bln
   t −0,1. Tes tiruan: pola +0,3% & +0,15% ditemukan. Cek hapus-2019+ MENEMUKAN beda 1 hari (label pra-libur 28-12-2018 bergantung pada
   hari bursa 2 Jan 2019) → hari yang hari bursa berikutnya di 2019 dikeluarkan → IDENTIK. Data uji tidak dibuka.
+- **Riset #27 SELESAI: percepatan uang beredar M1/M2 (SEKI BI) → keranjang 30 likuid IDX bulan depan** (`riset_27_likuiditas.py`).
+  BELUM LOLOS (searah dugaan). Pra-registrasi di-commit sebelum dijalankan (b4915c9). Jeda terbit konservatif 2 bulan; percepatan =
+  pertumbuhan tahunan(m) − pertumbuhan tahunan(m−3). Latih 189 bulan: U1 M1 +0,17%/pp t +1,0 | U2 M2 +0,36%/pp t +1,8 |
+  U3 bulan M1 menguat +2,91% vs melemah +0,74% (t +2,0). Ketiganya POSITIF (sesuai teori likuiditas) tapi < 3. Catatan: angka SEKI = versi
+  TERREVISI terbaru (bukan point-in-time; foto kita baru mulai 21 Nov 2026). Hapus 2019+ → IDENTIK. Data uji tidak dibuka.
+  Kandidat KOMPONEN model gabungan makro (bersama lelang Treasury #20, pergantian bulan #26), bukan strategi sendiri.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
