@@ -724,6 +724,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   `private/`). HASIL NEGATIF. Pembagian sendiri (penampang baru cukup sejak 2021): latih 2021–2023, uji 2024+ DIKUNCI. Return 21 hari →
   minggu depan (jeda 1 hari): IC −0,038 t −2,1 (cenderung BERBALIK, kebalikan LTW yg sampelnya 2014–2018); sepertiga atas bersih −0,48%/mg
   t −1,6 (biaya 0,35%/sisi, putar 40%/mg). Survivorship: hanya koin yg masih diperdagangkan. Hapus 2024+ → IDENTIK.
+- **Riset #42 SELESAI: model ML dilatih data GABUNGAN AS + IDX (ide Hanauer-Kalsbach: pooled > per negara), diterapkan ke IDX 2009–2018**
+  (detail `private/`). TIDAK LOLOS & lebih buruk: gabungan IC +0,029, bersih −0,51%/bln t −2,2; model AS saja IC +0,001 (tidak transfer);
+  IDX saja = #38 persis. Model gabungan didominasi log_harga & porsi hari aktif (bukan s2) = jejak BIAS SURVIVORSHIP data AS (saham kecil
+  yang mati hilang → yang tersisa tampak menang). PELAJARAN: data AS kita (100% survivor) TIDAK layak jadi data latih ML; paper memakai
+  Datastream dengan daftar saham mati. Jangan ulangi tanpa data delisting.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
