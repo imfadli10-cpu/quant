@@ -661,6 +661,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   parameter LightGBM awal GAGAL tes tiruan non-linear (menghafal derau); pohon dangkal + daun ≥ 1.000 sampel + regularisasi kuat
   dipilih HANYA dengan data tiruan & dibekukan sebelum data asli. MASALAH INTI SEKARANG: mengubah kemampuan meranking menjadi untung
   BERSIH long-only (biaya IDX + tidak bisa short) → riset konstruksi portofolio (penyangga, horizon lebih panjang, saham murah ditransaksikan).
+- **Riset #34 SELESAI: kejutan laba → drift saham IDX (post-earnings announcement drift)** (`riset_34_kejutan_laba.py`). BELUM LOLOS
+  (searah literatur). Pra-registrasi di-commit sebelum data dilihat (54f3437) + adendum cakupan (114 saham diliput analis). Masuk tutup hari
+  bursa ke-2 setelah tanggal pengumuman, tahan 20 hari, abnormal vs keranjang 30. Latih 2005Q4–2018Q4 (1.620 peristiwa, 39 kuartal):
+  U1 tertil atas − bawah +1,44% per 20 hari t +2,8 (atas +0,82%, bawah −0,63%; paruh −0,1 / +4,0 = efek muncul 2012+) |
+  U2 beli tertil atas bersih 0,8% +0,02% t 0,0. Tes tiruan ±2% ditemukan tepat. Hapus 2019+ → IDENTIK. Data uji tidak dibuka.
+  Kandidat FITUR model penampang (hanya saham besar yang diliput analis).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
