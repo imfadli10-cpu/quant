@@ -143,6 +143,10 @@ jobs:
         continue-on-error: true
         run: python kumpul_pangan.py
 
+      - name: Kurs JISDOR Bank Indonesia (USD/IDR referensi resmi, ~10:00 WIB)
+        continue-on-error: true
+        run: python kumpul_jisdor.py
+
       - name: Hasil lelang surat utang pemerintah AS (fiscaldata)
         continue-on-error: true
         run: python kumpul_lelang_as.py

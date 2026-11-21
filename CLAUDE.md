@@ -137,7 +137,12 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   → `raw/kurs_ecb/semua.parquet` (histori lengkap, DITIMPA tiap hari) + `raw/harian/kurs_ecb` (30 hari). Format panjang:
   tanggal, mata_uang, per_eur, per_usd. **PAKAI INI untuk kurs harian, BUKAN Yahoo IDR=X** (USD/IDR ECB vs OECD akhir bulan:
   korelasi 0,96, rasio 0,9995; hanya 2 lompatan > 5%, krisis 2008 = nyata). Kurs ECB ditetapkan ~20:15 WIB = setelah IDX tutup.
-  Situs Bank Indonesia (JISDOR) tidak merespons dari laptop (20 Nov 2026, WARP menyala) → belum dipakai.
+- `kumpul_jisdor.py` (harian, ~1 menit): KURS JISDOR Bank Indonesia (USD/IDR referensi resmi, ditetapkan ~10:00 WIB = SAAT jam bursa)
+  → `raw/harian/jisdor` (60 hari) + `raw/histori/jisdor/semua.parquet` (`--histori`, 3.271 hari sejak 2013-05-20). Cara: formulir publik
+  halaman JISDOR (rentang tanggal + tombol Unduh XLSX, ASP.NET postback; robots BI Allow /). Tanggal XLSX format AS (m/d/Y), kurs format
+  Indonesia. Dari laptop WARP HARUS MATI. Server BI menerima GitHub (file pangan & sbn 21 Nov 2026 ada). Cek vs ECB: rasio median 1,0001,
+  korelasi perubahan harian hanya 0,52 (jam penetapan beda 10 jam). Selisih NYATA 2–5% vs ECB Agu–Okt 2013 (taper tantrum, BI mengelola
+  rupiah); lompatan > 3% hanya 19–20 Mar 2020 (COVID).
 - `kumpul_polymarket.py`: foto HARIAN pasar prediksi Polymarket (data "hanya ke depan", mulai 20 Nov 2026) → `raw/harian/polymarket`.
   2.100 pasar volume 24 jam terbesar + 2.100 likuiditas terbesar (dobel dibuang, ~3.500 pasar, ~$22 juta volume/hari).
   `harga_ya` = peluang hasil pertama. API: maks 100 per halaman, offset maks ~2.100 (lebih dalam butuh /markets/keyset yang
