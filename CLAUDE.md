@@ -650,6 +650,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Pra-registrasi di-commit sebelum dijalankan (9a774e8). Kerangka #13 (semesta #2, bulanan, biaya 0,4% + spread CS). Latih 160 bulan:
   U1 IC −0,036 t −3,0 (ilikuid sedikit LEBIH BURUK secara peringkat, kebalikan literatur) | U2 beli 20% paling ilikuid kotor +0,49%/bln,
   biaya 0,59%/bln → bersih −0,11% t −0,3 (paruh +0,5/−1,5). Premi (kalau ada) habis dimakan spread. Tes tiruan OK. Hapus 2019+ → IDENTIK.
+- **ARAH BARU (21 Nov 2026, setelah riset literatur — baca `docs/belajar_dari_renaissance.md`):** kebanyakan riset #1–#35 menguji
+  SATU sinyal untuk timing SATU keranjang → breadth ~1 → menurut hukum Grinold-Kahn (IR = IC × √breadth) hampir pasti gagal (kesalahan
+  DESAIN). Yang berhasil justru PENAMPANG saham (S2, model gabungan IC t 4–6). Prioritas: (1) model penampang IDX v2 berbasis ML
+  (gradient boosting, 40–80 fitur, uji maju, dinilai sebagai SATU uji; Gu-Kelly-Xiu 2020, Hanauer-Kalsbach 2023 EM), (2) pembalikan
+  jangka pendek penampang + aturan "trade hanya kalau untung > biaya", (3) model biaya dari data intraday. Kurangi timing makro 1 keranjang.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
