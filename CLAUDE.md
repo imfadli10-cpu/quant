@@ -769,6 +769,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Semesta S2, median 133 saham & 14 penerbit (NI > 5%) per bulan. U1 penerbit − tanpa −0,10%/bln t −0,1 | U2 semesta tanpa penerbit −
   semesta +0,08% t +0,8 | U3 IC −0,017 t −1,0. Daya uji: pola tiruan −2%/bln baru t −3,3. Hapus data > 2022 → IDENTIK. Data uji tidak dibuka.
   Uji ulang setelah data saham beredar ke depan menumpuk (bisa juga jadi fitur model penampang).
+- **Riset #46 SELESAI: musiman penampang (Heston-Sadka 2008/2010; Keloharju dkk. 2016)** (`riset_46_musiman.py`). HASIL NEGATIF.
+  Pra-registrasi di-commit sebelum dijalankan (fa89516). Sinyal = rata-rata return bulan kalender yang sama 1–10 tahun lalu (min 4).
+  Latih 2007-07..2018-10 (118 bln, median 86 saham): U1 IC −0,007 t −0,7 | K5−K1 −0,47% t −1,2 | U2 20% teratas bersih −1,33%/bln t −5,5
+  (putar 79%, biaya ~1%/bln). Tes tiruan (pola sb 2%) IC t +9,2 tapi bersih t +0,5 → sinyal berperputaran tinggi tak bisa jadi strategi
+  long-only IDX; keputusan kedua (fitur ML, IC t > 3) juga GAGAL. Cek potong data: IC & return IDENTIK; biaya beda tipis (0,95 vs 0,98%)
+  karena `harga_asli` butuh split SESUDAH 2018 untuk membalik penyesuaian Yahoo (sah, bukan kebocoran). Data uji tidak dibuka.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
