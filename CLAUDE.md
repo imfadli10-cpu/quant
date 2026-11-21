@@ -611,6 +611,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   IDX +21,9% / SPY +15,7%. z dipotong ±3: IDX t +0,8, SPY t −0,8; 2010–2018 saja: −0,2 / −1,3; korelasi peringkat ≈ 0. Hapus 2019+ → IDENTIK.
   PELAJARAN METODE: z-skor dengan sb bergulir MELEDAK saat rezim berubah (seri kecil → besar). Rancang uji dengan z DIPOTONG (mis. ±3)
   atau peringkat SEJAK pra-registrasi; t yang luar biasa (> 6) pada sinyal makro = periksa pencilan dulu, jangan dirayakan.
+- **Riset #31 SELESAI: struktur waktu VIX (VIX/VIX3M, panik jangka pendek) → saham Indonesia minggu depan** (`riset_31_struktur_vix.py`).
+  BELUM LOLOS (searah dugaan). Pra-registrasi di-commit sebelum dijalankan (c102383). Rasio Jumat (dibatasi 0,7–1,5, TANPA z bergulir).
+  Latih 2009-09..2018 (median rasio 0,878; backwardation 9% minggu): U1 IDX +0,32% per +0,1 rasio t +1,3 | U2 EIDO +0,68% t +2,1 |
+  U3 IDX setelah backwardation +0,40%/mg vs +0,19% t +0,3 (39 minggu). Semua positif (premi rasa takut) tapi < 3. Tes tiruan: +0,3% tepat.
+  Hapus 2019+ → IDENTIK. Data uji tidak dibuka. Kandidat KOMPONEN model gabungan makro mingguan (bersama #20 lelang Treasury, #27 likuiditas).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
