@@ -215,6 +215,11 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   (ditimpa) + `raw/harian/lelang_as` (90 hari, melacak kapan hasil terisi). API fiscaldata TERLAMBAT ~1 bulan & memuat lelang
   yang baru diumumkan (kolom hasil kosong). JEBAKAN: kolom 'ref_cpi_on_*_date' & 'index_ratio_on_issue_date' berisi ANGKA
   (indeks inflasi TIPS) walau namanya '_date' → tipe ditentukan dari ISI, bukan nama kolom.
+- `kumpul_dts.py` (harian, ~5 menit): DAILY TREASURY STATEMENT AS (fiscaldata, tanpa kunci) → `raw/dts/<tabel>.parquet` (9 tabel, SEMUA
+  baris sejak 2005-10, DITIMPA; ~870 ribu baris, 8 MB). Saldo kas TGA (`operating_cash_balance`; 19 Nov 2026: $891 miliar) = komponen
+  likuiditas dolar (neraca Fed − TGA − RRP). Pajak harian: `federal_tax_deposits` & `short_term_cash_investments` BERHENTI 2023-02-13
+  (format DTS berubah) → sesudahnya rincian pajak ada di `deposits_withdrawals_operating_cash` (kategori) + `inter_agency_tax_transfers`.
+  Riset nanti harus menyambung dua format itu. Tipe kolom dari ISI (pola lelang_as).
 - `kumpul_aksi_idx.py` (workflow `fundamental_idx.yml`, tiap SABTU, ~11 menit): AKSI KORPORASI semua saham & ETF IDX dari Yahoo
   (`Ticker.actions`) → `raw/aksi_idx/semua.parquet` (DITIMPA; kode, tanggal EX tanpa zona, dividen Rp/lembar, split rasio)
   + `raw/aksi_idx/foto/<tanggal>` (salinan mingguan, lacak revisi). 20 Nov 2026: 6.205 aksi dari 656 kode (5.888 dividen,

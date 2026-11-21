@@ -143,6 +143,10 @@ jobs:
         continue-on-error: true
         run: python kumpul_lelang_as.py
 
+      - name: Arus kas harian pemerintah AS (Daily Treasury Statement, 9 tabel sejak 2005)
+        continue-on-error: true
+        run: python kumpul_dts.py
+
       - name: Upload ke Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
