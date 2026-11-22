@@ -838,6 +838,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   semesta (+1,22% vs +1,17%/bln); Sharpe 0,40 vs 0,26; alpha kotor +0,57% t 2,9; U1 alpha BERSIH +0,26%/bln t +1,3 (paruh 0,8/1,1; putar 24%,
   biaya 0,31%). Efek klasik terlihat (risiko −40%, return sama) tapi tak signifikan setelah biaya. Cek potong: identik (biaya beda tipis, sebab #46).
   Catatan: berguna sbg portofolio DEFENSIF (bukan alpha); data uji tidak dibuka.
+- **Riset #50 SELESAI: momentum SEKTOR long-only (Moskowitz-Grinblatt 1999)** (`riset_50_momentum_sektor.py`). TIDAK LOLOS.
+  Pra-registrasi di-commit sebelum dijalankan (c5fbea6). Peta sektor = foto fundamental Yahoo 21 Nov 2026 (11 sektor, STATIS → sedikit info
+  masa depan, diakui). Return 12-1 sektor dari rata-rata saham semesta; beli semua saham 3 sektor teratas. Latih 2006-02..2018-10 (113 bln,
+  P ~34 saham, putar 21%, biaya 0,28%): IC peringkat sektor +0,132 t +2,9 | kotor P − semesta +0,36%/bln t +1,4 | U1 BERSIH +0,08%/bln
+  t +0,3 (paruh −0,9/+1,2); alpha CAPM sama (beta 0,99). Tes tiruan: drift sektor AR(1) → bersih t 5,5. Cek potong: identik. Data uji tidak dibuka.
+  POLA BERULANG #36–#50: arah sinyal benar (IC t 3–5) tapi alpha kotor long-only IDX 2005–2018 ≈ 0,3–0,6%/bln ≈ biaya.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
