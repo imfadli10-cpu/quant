@@ -62,7 +62,8 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
 
 ## 5. Jadwal otomatis (.github/workflows/)
 
-- `harian.yml`: **00:17 UTC (07:17 WIB)** setiap hari (~35 menit). Semua collector harian (masing-masing
+- `harian.yml`: **00:17 UTC (07:17 WIB)** setiap hari (~76 menit per 22 Nov 2026; terlama: Wikipedia per saham ~35 mnt, saham AS ~12 mnt,
+  opsi ~7 mnt; batas job 150 mnt, langkah Wikipedia per saham 45 mnt). Job yang terpotong batas waktu = upload di akhir TIDAK jalan = data hari itu hilang. Semua collector harian (masing-masing
   `continue-on-error: true` supaya tidak saling menghentikan) → `upload_ke_cloud.py` → `buat_katalog.py` →
   `validasi_harian.py` (gagal = GitHub mengirim email alarm ke pengguna).
 - `fundamental.yml`: tanggal 2 setiap bulan, 02:41 UTC: `kumpul_sec.py` + `kumpul_bps.py` (mode bulanan) → upload.
@@ -221,7 +222,9 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   89.902 artikel 2017-03 s/d 2026-11; per tahun 1,1 rb (2017) → 16,3 rb (2022); **2020 cuma 1.111 = sitemap 2020 TIDAK LENGKAP**).
   Kolom: url, slug, judul_slug, tanggal (= lastmod; divalidasi = tanggal terbit 7/7 artikel yg halamannya masih ada), sitemap. Judul asli memuat
   kode dalam kurung ("Bakrie (BUMI)") → slug memuat kode huruf kecil; cocokkan dgn daftar kode & BUANG kode yang juga kata umum. Jam terbit
-  tidak ada → pakai hari bursa SESUDAH tanggal. Bahan riset "berita × dekat puncak 52 mg" (Kalsbach Bab 3): histori 2017+ = sebagian besar
+  tidak ada → pakai hari bursa SESUDAH tanggal. JEBAKAN (22 Nov 2026): lastmod bisa di MASA DEPAN (artikel terjadwal, mis. "rupiah pagi ini"
+  bertanggal Senin 23 Nov sudah ada di sitemap Minggu 22 Nov; histori 1 kasus) → arahnya konservatif (kita tahu SEBELUM tanggalnya), bukan
+  kebocoran; untuk sinyal live pakai max(tanggal, tanggal ambil). Bahan riset "berita × dekat puncak 52 mg" (Kalsbach Bab 3): histori 2017+ = sebagian besar
   periode UJI → butuh pembagian latih/uji sendiri.
 - `kumpul_intraday_idx.py` (harian): bar 1 MENIT semua saham & ETF IDX, 3 hari bursa terakhir → `raw/harian/intraday_idx`
   (~284 ribu bar/hari, ~1,9 MB, ~2,5 menit; mulai 20 Nov 2026). Yahoo hanya menyimpan 1 menit ~8 hari, 5 menit ~60 hari, 1 jam
@@ -456,13 +459,16 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 ### ⏰ DAFTAR PERIKSA TERTUNDA (cek di awal tiap sesi; coret/hapus yang sudah selesai, tambahkan yang baru)
 - [ ] **Senin 23 Nov 2026** (setelah ~15:30 WIB): `spread_idx.yml` run pertama (4 foto: ~09:31/11:01/14:01/15:11 WIB) → file
   `raw/harian/spread_idx/2026-11-23_*.parquet` ada & BID/ASK terisi (bukan 0/kosong) untuk ~800 saham; cek durasi langkah.
-- [ ] **Senin 23 Nov 2026** (setelah 07:30 WIB): `harian.yml` → langkah BARU `kumpul_jisdor.py` & `kumpul_putcall.py` (dan
-  `kumpul_emitennews.py`) berhasil: file `raw/harian/jisdor/`, `raw/harian/putcall/` hari itu ada; durasi langkah > 1 dtk (bukan crash);
-  `validasi_harian.py` hijau. Kalau BI/CBOE menolak server GitHub → catat, jangan ditembus.
+- [x] ~~`harian.yml` langkah BARU JISDOR / put/call / EmitenNews~~ → SELESAI 22 Nov 2026 (run 44971739609): ketiganya sukses
+  (6/5/6 dtk), file 22 Nov ada & isinya benar (JISDOR 43 hari s/d 20 Nov Rp18.278; put/call 7 hari; EmitenNews 2.000); 37/37 folder
+  harian punya file; validasi hijau (langkah validasi TANPA continue-on-error). Server BI & CBOE menerima GitHub.
+  TEMUAN: job harian ~76 menit (bukan 35) dgn batas lama 90 → MEPET; langkah Wikipedia per saham ~35 mnt (429 Wikimedia) → batas job
+  dinaikkan ke 150 & langkah Wikipedia dibatasi 45 mnt (22 Nov 2026). Cek run 23 Nov: job sukses & durasi wajar.
 - [ ] **Sabtu 28 Nov 2026** (setelah ~13:00 WIB): `fundamental_idx.yml` → langkah BARU saham beredar, ALFRED (~13 mnt), OJK emisi
   (hanya file baru) → cek durasi tiap langkah & file baru di HF (`raw/saham_beredar`, `raw/alfred/vintage`, `raw/ojk_emisi/arsip`);
   job total < 240 menit.
-- [ ] **Pantau beberapa hari**: `kumpul_opsi.py` dari server (21 Nov semua 49 kode gagal) & Kontan RSS (403 dari server, sudah diketahui).
+- [ ] **Pantau beberapa hari**: `kumpul_opsi.py` dari server (21 Nov semua 49 kode gagal; 22 Nov PULIH: 34.649 kontrak, 426 dtk) &
+  Kontan RSS (403 dari server, sudah diketahui). Centang setelah ~5 hari opsi berturut-turut normal.
 - [ ] **Senin 30 Nov / Selasa 1 Des 2026**: paper trading — pilihan akhir Nov tercatat SEBELUM beli (`dicatat_sebelum_beli`=True) untuk
   s2, s2v, ml, s2p; beli tutup 1 Des. Cek log `paper_trading.yml` 30 Nov 22:41 UTC.
 - [ ] **Awal Des 2026 – akhir Jan 2027**: latih model `ml` 2027 (lihat bagian 5: unduh ulang histori penuh `ambil_semua_idx.py` dulu,

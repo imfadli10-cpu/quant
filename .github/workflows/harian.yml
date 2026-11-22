@@ -8,7 +8,7 @@ on:
 jobs:
   kumpulkan:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 150   # job ~76 mnt (22 Nov 2026); batas lama 90 terlalu mepet -> upload di akhir bisa terpotong
     steps:
       - name: Ambil kode dari repo
         uses: actions/checkout@v4
@@ -123,6 +123,7 @@ jobs:
 
       - name: Perhatian publik per saham IDX (pembaca Wikipedia ~280 perusahaan)
         continue-on-error: true
+        timeout-minutes: 45   # biasanya ~35 mnt (Wikimedia membatasi kecepatan, 429); jangan sampai menghabiskan batas job
         run: python kumpul_perhatian_idx.py
 
       - name: Harga intraday 1 menit saham & ETF IDX (3 hari bursa terakhir)
