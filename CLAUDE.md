@@ -847,6 +847,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   P ~34 saham, putar 21%, biaya 0,28%): IC peringkat sektor +0,132 t +2,9 | kotor P − semesta +0,36%/bln t +1,4 | U1 BERSIH +0,08%/bln
   t +0,3 (paruh −0,9/+1,2); alpha CAPM sama (beta 0,99). Tes tiruan: drift sektor AR(1) → bersih t 5,5. Cek potong: identik. Data uji tidak dibuka.
   POLA BERULANG #36–#50: arah sinyal benar (IC t 3–5) tapi alpha kotor long-only IDX 2005–2018 ≈ 0,3–0,6%/bln ≈ biaya.
+- **Riset #51 SELESAI: model ML (#36/#38 + fitur 'pembagi dividen') di REZIM SEKARANG vs S2 sendirian** (detail `private/`). ❌ GERBANG A GAGAL.
+  Pra-registrasi di catatan private + dicadangkan sebelum dijalankan. Ukuran = ML − S2 (bukan ML vs pasar), karena data uji S2 2019+ sudah
+  dibuka. Validasi 2019–2022 (46 bln): IC ML > S2 (t 4,3 vs 3,2) TAPI 20% teratas ML untung bersih jauh lebih kecil (ML − S2 −0,87%/bln
+  t −1,6; terburuk 2021). Data uji 2023+ TIDAK dibuka; `ml` tetap EKSPERIMEN. Pelajaran: IC lebih tinggi ≠ kelompok teratas lebih untung;
+  di rezim ritel, S2 murni lebih kuat dari skor campuran. Cek potong: identik.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
