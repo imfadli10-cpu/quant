@@ -477,6 +477,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - [ ] **Tiap awal bulan (mulai Jan 2027)**: laporan paper trading untuk pengguna + cek syarat Fase 1 & aturan BERHENTI di
   `docs/rencana_eksekusi_s2.md` (ditetapkan 22 Nov 2026 SEBELUM hasil paper trading ada; JANGAN diubah setelah melihat hasil).
   Fase 1 (uang kecil) paling cepat Mar 2027.
+- [ ] **PRIORITAS RISET BERIKUTNYA (#52, keputusan 22 Nov 2026 atas teguran pengguna): MESIN PENYARING MASSAL "data aneh"** —
+  variabel yang dulu gagal sebagai timing 1 keranjang (cuaca, alam, iklim, BPS 1.767 variabel, FRED, SEKI, pangan, komoditas, kurs...) diuji
+  ULANG secara PENAMPANG: kepekaan tiap saham (beta bergulir thd variabel, data masa lalu saja) × perubahan variabel terbaru = skor per saham.
+  Wajib: point-in-time (jeda terbit konservatif; ALFRED utk FRED), koreksi uji ganda (Benjamini-Hochberg/ambang t ketat), saring di 2005–2018,
+  validasi ulang 2019–2022, penyintas digabung lalu dibandingkan dgn S2. Langkah 1 = tabel bulanan terpadu semua variabel (point-in-time).
+  Sesudahnya: #53 S2 dgn pengaturan porsi menurut volatilitas (Barroso-Santa-Clara 2015; Moreira-Muir 2017), latih 2005–2018 + paper trading.
 - [ ] Ide tersimpan (perlu pra-registrasi sendiri): fitur "pembagi dividen" (#47/#48) untuk model penampang; riset kejutan rilis makro
   (ALFRED rilis pertama + Kalshi, setelah data Kalshi beberapa bulan); #10 volatilitas tersirat opsi (data opsi beberapa bulan).
 
