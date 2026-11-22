@@ -82,6 +82,13 @@ IDX: 1 lot = 100 lembar, tanpa pecahan. Dari pilihan 13 Nov 2026 (48 saham, harg
 
 Saran: **k ≥ 12**. Di bawah 12, hasil sangat bergantung keberuntungan undian.
 
+Analisis modal sangat kecil (lot dengan harga asli, hanya saham terjangkau) ada di `private/` (berisi angka modal pribadi).
+Catatan umum: dengan modal kecil, subset terpaksa condong ke saham MURAH → hasil historis yang tampak lebih bagus adalah ciri periode
+2019–2026, bukan aturan; risikonya (turun dalam, sering kalah dari pasar) yang harus dipegang.
+
+Rekening saham: butuh KTP + rekening bank atas nama sendiri; setor ke RDN lewat transfer bank / virtual account (m-banking cukup;
+tidak perlu kartu kredit/debit/PayPal). Pilih broker anggota BEI & terdaftar OJK, biaya ~0,15%/0,25%, tanpa biaya minimum per transaksi.
+
 Kapasitas bukan masalah untuk modal perorangan: dengan batas 5% nilai transaksi harian, satu transaksi bisa Rp1,7–3,4 miliar per saham.
 
 ## 5. Tahapan (kriteria ditetapkan SEKARANG, sebelum hasil paper trading terlihat)
