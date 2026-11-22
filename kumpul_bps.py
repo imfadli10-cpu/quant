@@ -56,7 +56,10 @@ def daftar_halaman(params):
 
 
 def urai(v, j):
-    """BPS menyimpan nilai dengan kunci gabungan: wilayah+var+kategori+tahun+periode."""
+    """BPS menyimpan nilai dengan kunci gabungan: wilayah+var+kategori+tahun+periode.
+    PENTING (22 Nov 2026): label 'wilayah' (vervar) bisa BERJENJANG & BERULANG (mis. '1.1 Pertanian' di bawah Bahan Baku, Barang
+    Konsumsi, Barang Modal = kode 11/21/31; jenjang hanya ditandai spasi depan & tag <b>) -> KODE disimpan (kode_wilayah,
+    kode_kategori, kode_periode). Tanpa kode, 46 variabel (PDB triwulanan per pengeluaran, IHPB, ekspor per pelabuhan...) tercampur."""
     data = j.get("datacontent") or {}
     vid = v["var_id"]
     baris = []
@@ -70,6 +73,7 @@ def urai(v, j):
                             "var_id": vid, "judul": v.get("title"), "satuan": v.get("unit"),
                             "wilayah": vv["label"], "kategori": tv["label"],
                             "tahun": th["label"], "periode": tt["label"], "nilai": data[kunci],
+                            "kode_wilayah": str(vv["val"]), "kode_kategori": str(tv["val"]), "kode_periode": str(tt["val"]),
                         })
     return baris
 
@@ -89,14 +93,47 @@ def ambil_variabel(v, kode_tahun):
 def simpan(baris, file):
     df = pd.DataFrame(baris)
     df["nilai"] = pd.to_numeric(df["nilai"], errors="coerce")
+    df["var_id"] = df["var_id"].astype(str).astype("string")    # SAMAKAN tipe dgn histori (dulu campur int/str)
     df["tahun"] = pd.to_numeric(df["tahun"], errors="coerce").astype("Int64")
     df["bulan"] = df["periode"].map(BULAN).astype("Int64")
-    for kolom in ["judul", "satuan", "wilayah", "kategori", "periode"]:
-        df[kolom] = df[kolom].astype("string")
+    for kolom in ["judul", "satuan", "wilayah", "kategori", "periode", "kode_wilayah", "kode_kategori", "kode_periode"]:
+        if kolom in df.columns:
+            df[kolom] = df[kolom].astype("string")
     file.parent.mkdir(parents=True, exist_ok=True)
     df.to_parquet(file, index=False)
     print(f"   💾 {file.name}: {df['var_id'].nunique()} variabel, {len(df):,} baris")
 
+
+# =====================================================================
+# MODE ULANG: unduh ulang SEMUA tahun untuk var_id tertentu (dengan KODE dimensi)
+#   python kumpul_bps.py --ulang 108,109,1015  -> data/raw/histori/bps/perbaikan_kode.parquet (digabung dgn file lama kalau ada)
+# =====================================================================
+if "--ulang" in sys.argv:
+    ids = sys.argv[sys.argv.index("--ulang") + 1].split(",")
+    daftar_v = {str(v["var_id"]): v for v in daftar_halaman({"model": "var"})}
+    hilang = [i for i in ids if i not in daftar_v]
+    if hilang:
+        print(f"⚠️ var_id tidak ada di daftar BPS sekarang: {hilang}")
+    pilih_v = [daftar_v[i] for i in ids if i in daftar_v]
+    mulai = time.time()
+
+    def semua_tahun(v):
+        tahun = sorted({int(t["th_id"]) for t in daftar_halaman({"model": "th", "var": v["var_id"]})})
+        return ambil_variabel(v, tahun)
+
+    with ThreadPoolExecutor(max_workers=PEKERJA) as pool:
+        hasil = list(pool.map(semua_tahun, pilih_v))
+    baris = [b for h in hasil for b in h]
+    kosong = [v["var_id"] for v, h in zip(pilih_v, hasil) if not h]
+    print(f"   {len(pilih_v)} variabel, {len(baris):,} baris, kosong: {kosong} ({(time.time() - mulai) / 60:.1f} menit)")
+    if not baris:
+        sys.exit(1)
+    f = Path("data/raw/histori/bps/perbaikan_kode.parquet")
+    simpan(baris, f)
+    baru = pd.read_parquet(f)
+    k = ["var_id", "kode_wilayah", "kode_kategori", "tahun", "kode_periode"]
+    print(f"   cek: baris dobel menurut KODE = {baru.duplicated(k).sum()} (harus 0)")
+    sys.exit()
 
 # =====================================================================
 # MODE BULANAN: semua variabel, 3 tahun terakhir (1 permintaan per variabel)

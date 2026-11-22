@@ -448,6 +448,15 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 
 ## 9. Aturan riset (WAJIB)
 
+- **PRINSIP PENGGUNA (22 Nov 2026, teguran tegas):** proyek ini SERIUS dan butuh BERBULAN-BULAN sampai BERTAHUN-TAHUN. JANGAN cepat
+  menyimpulkan. Model BELUM jadi: S2 hanya kandidat PERTAMA untuk paper trading, BUKAN "model akhir". TIDAK ADA variabel yang "dibuang":
+  hasil negatif = "belum terbukti dengan uji X (desain, periode, daya uji)", bukan "tidak berguna"; setiap variabel tetap di gudang dan
+  diuji ulang saat ada metode baru / data lebih panjang / digabung dengan yang lain. Teliti hal sekecil apa pun (format, satuan, spasi,
+  tipe data, tanggal terbit, revisi, tahun dasar). Pakai cara berpikir LINTAS ILMU (Renaissance merekrut matematikawan, fisikawan,
+  ahli sinyal/pengenalan suara, statistikawan, ilmuwan komputer — bukan ekonom): pemrosesan sinyal, model rantai Markov tersembunyi,
+  teori informasi, statistik nonparametrik, analisis jaringan, NLP, ekologi/klimatologi. Baca banyak paper dari berbagai bidang
+  sebelum merancang; catat bacaan di `docs/`.
+
 - Tulis dugaan + alasan logis SEBELUM melihat data (hindari HARKing & data mining).
 - Data latih s/d **2018-12-31**; data uji **2019+ DIKUNCI**, dibuka sekali di akhir (`--buka-uji`), hanya untuk strategi yang lolos di data latih.
 - Ambang signifikansi **|t| > 3**. Hitung berapa banyak uji yang sudah dilakukan (multiple testing).
