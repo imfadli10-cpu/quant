@@ -492,6 +492,26 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Wajib: point-in-time (jeda terbit konservatif; ALFRED utk FRED), koreksi uji ganda (Benjamini-Hochberg/ambang t ketat), saring di 2005–2018,
   validasi ulang 2019–2022, penyintas digabung lalu dibandingkan dgn S2. Langkah 1 = tabel bulanan terpadu semua variabel (point-in-time).
   Sesudahnya: #53 S2 dgn pengaturan porsi menurut volatilitas (Barroso-Santa-Clara 2015; Moreira-Muir 2017), latih 2005–2018 + paper trading.
+  **POSISI KERJA (serah terima 22 Nov 2026, kredit pengguna hampir habis):**
+  - SELESAI: `panel_bps.py` → `data/olah/panel_bps.parquet` (6,67 jt baris, 644 rb seri; cukup utk latih 2005–2018: M 1.083 seri/26 var,
+    Q 4.189/43, Y 13.707/262). Aturan: periode di-strip ('Februari ' berspasi 9.006 baris), proyeksi > 2026 dibuang, jeda terbit M+2/Q+3/S+3/Y+12.
+    BUG DIPERBAIKI: label wilayah BPS berjenjang & berulang ('1.1 Pertanian' di bawah Bahan Baku/Konsumsi/Modal = kode 11/21/31) → 57 variabel
+    (PDB triwulanan per pengeluaran, IHPB, ekspor per pelabuhan...) tercampur. `kumpul_bps.py` kini menyimpan kode_wilayah/kode_kategori/
+    kode_periode + mode `--ulang ID,ID` → `raw/histori/bps/perbaikan_kode.parquet` (365.936 baris = jumlah lama, 0 dobel; SUDAH di HF);
+    panel memakainya otomatis. `var_id` diseragamkan teks (dulu campur int/str).
+  - BELUM: (a) sambung seri beda tahun dasar (IHK 2012→2018 thn 2019/2020, NTP 2012→2018 thn 2019, IHPB 2018→2023) via PERTUMBUHAN;
+    (b) panel sumber lain: FRED (pakai ALFRED rilis pertama, tersedia = tanggal rilis), cuaca 15 kota, iklim (ONI jeda 1 bln, DMI 6 bln!),
+    alam (Kp/Ap, bintik matahari), gempa, titik api, LME, harga global, kurs ECB/JISDOR, CBOE, Fama-French (jeda 2), COT, World Bank,
+    SEKI (perlu urai per tabel), BIS, DTS, lelang AS, Wikipedia; (c) mesin penyaring (beta bergulir saham × variabel; uji tiruan dulu);
+    (d) panel_bps.parquet belum di-upload ke HF (bisa dibangun ulang dari raw dgn `python panel_bps.py`).
+  - METODE LINTAS ILMU yang harus dicoba (bukan hanya regresi/uji faktor): analisis spektral & wavelet (siklus), Hidden Markov Model
+    (keadaan pasar; Baum-Welch = akar Renaissance), mutual information / transfer entropy (hubungan non-linear), uji permutasi & bootstrap,
+    jaringan korelasi/lead-lag saham (networkx), korelasi silang berjeda & Granger/CCM (iklim→saham), NLP isi berita. Tinjau literatur
+    tiap bidang dulu, catat di `docs/`.
+  - ALAT gratis yang ditawarkan ke pengguna (belum diputuskan): Google Colab (komputasi lebih kuat, akun Google, tanpa kartu), Jupyter
+    Notebook (eksplorasi yang bisa dilihat langkah demi langkah), pustaka hmmlearn/PyWavelets/networkx.
+  - RENCANA 4 TAHAP: (1) fondasi data panel terpadu & bersih → (2) eksplorasi multi-metode → (3) model gabungan banyak sinyal lemah →
+    (4) validasi bertahun-tahun lewat data maju & paper trading. Pengumpulan data otomatis tetap jalan.
 - [ ] Ide tersimpan (perlu pra-registrasi sendiri): fitur "pembagi dividen" (#47/#48) untuk model penampang; riset kejutan rilis makro
   (ALFRED rilis pertama + Kalshi, setelah data Kalshi beberapa bulan); #10 volatilitas tersirat opsi (data opsi beberapa bulan).
 
