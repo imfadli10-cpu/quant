@@ -516,7 +516,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     (b) panel sumber lain: FRED (pakai ALFRED rilis pertama, tersedia = tanggal rilis), cuaca 15 kota, iklim (ONI jeda 1 bln, DMI 6 bln!),
     alam (Kp/Ap, bintik matahari), gempa, titik api, LME, harga global, kurs ECB/JISDOR, CBOE, Fama-French (jeda 2), COT, World Bank,
     SEKI (perlu urai per tabel), BIS, DTS, lelang AS, Wikipedia; (c) mesin penyaring (beta bergulir saham × variabel; uji tiruan dulu);
-    (d) panel_bps.parquet belum di-upload ke HF (bisa dibangun ulang dari raw dgn `python panel_bps.py`).
+    (d) ~~upload panel~~ SELESAI 23 Nov 2026: `data/olah/` (panel_bps, panel_fred + ringkas) → HF `olah/` (katalog INFO "olah").
+    SETIAP panel/olahan baru WAJIB di-upload (`python upload_satu.py data/olah`) — prinsip pengguna: data JANGAN hanya di laptop.
+  - INFO OPSIONAL utk pengguna (butuh email pengguna → keputusan pengguna): webinar GRATIS Stefan Jansen "Open-Source Tools for ML Trading
+    Research" Rabu 25 Nov 2026 16:00 UTC (23:00 WIB), rekaman dikirim ke pendaftar (link di README repo machine-learning-for-trading);
+    juga "ML for Trading 3rd Ed." 23 Des 2026 & "Build ML for Trading Strategies with AI Agents" 21 Jan 2027 (16:00 UTC).
   - METODE LINTAS ILMU yang harus dicoba (bukan hanya regresi/uji faktor): analisis spektral & wavelet (siklus), Hidden Markov Model
     (keadaan pasar; Baum-Welch = akar Renaissance), mutual information / transfer entropy (hubungan non-linear), uji permutasi & bootstrap,
     jaringan korelasi/lead-lag saham (networkx), korelasi silang berjeda & Granger/CCM (iklim→saham), NLP isi berita. Tinjau literatur
