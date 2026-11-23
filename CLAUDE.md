@@ -521,6 +521,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     (keadaan pasar; Baum-Welch = akar Renaissance), mutual information / transfer entropy (hubungan non-linear), uji permutasi & bootstrap,
     jaringan korelasi/lead-lag saham (networkx), korelasi silang berjeda & Granger/CCM (iklim→saham), NLP isi berita. Tinjau literatur
     tiap bidang dulu, catat di `docs/`.
+  - BACAAN (23 Nov 2026): `docs/bacaan_alat_dan_repo.md` — penilaian 9 plugin (graphify, OmniRoute, ponytail, Agent Reach, Understand
+    Anything, last30days, career-ops, Headroom, REA: TIDAK ada yang disarankan dipasang; OmniRoute/Agent Reach/REA dihindari) + peta bab
+    *Machine Learning for Trading* ed.3 (BH-FDR & Deflated Sharpe Bab 7; Kalman/wavelet/GARCH/HMM Bab 9; PCMCI/Double ML Bab 15; biaya Bab 18)
+    + pilihan awesome-quant (tsfresh, purgedcv, pit-release-gate, Carver). Pakai sbg acuan #52/#53 & kalibrasi biaya.
   - ALAT gratis yang ditawarkan ke pengguna (belum diputuskan): Google Colab (komputasi lebih kuat, akun Google, tanpa kartu), Jupyter
     Notebook (eksplorasi yang bisa dilihat langkah demi langkah), pustaka hmmlearn/PyWavelets/networkx.
   - RENCANA 4 TAHAP: (1) fondasi data panel terpadu & bersih → (2) eksplorasi multi-metode → (3) model gabungan banyak sinyal lemah →
