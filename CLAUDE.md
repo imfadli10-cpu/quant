@@ -502,6 +502,14 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     (PDB triwulanan per pengeluaran, IHPB, ekspor per pelabuhan...) tercampur. `kumpul_bps.py` kini menyimpan kode_wilayah/kode_kategori/
     kode_periode + mode `--ulang ID,ID` → `raw/histori/bps/perbaikan_kode.parquet` (365.936 baris = jumlah lama, 0 dobel; SUDAH di HF);
     panel memakainya otomatis. `var_id` diseragamkan teks (dulu campur int/str).
+  - SELESAI (23 Nov 2026): `panel_fred.py` → `data/olah/panel_fred.parquet` (207 seri, 95.832 baris: M 109, harian→bulanan 83, Q 15;
+    kolom bulan, tersedia, nilai, pit, tumbuh1, tumbuh12). POINT-IN-TIME: jeda normal seri = median jeda rilis 24 obs TERBARU; obs dgn jeda
+    <= max(2×normal, normal+45 hr) = rilis pertama ALFRED (pit=True, 60% titik 2005–2018), selain itu nilai revisi + jeda konservatif
+    max(2×normal, 90/180/450 hr) (pit=False; seri Indonesia/IMF sebelum ~2015 = artefak arsip ALFRED). PERTUMBUHAN REAL-TIME: nilai t & t−L
+    dari VINTAGE YANG SAMA (rilis pertama PDB AS 2008Q4 = dolar 2000, 2013Q3 = dolar 2009 → tanpa ini pertumbuhan lompat palsu).
+    Cek manual: PDB AS 2008Q4 −0,97% q/q (advance 30 Jan 2009 ✓), CPI Jun 2022 +8,6% yoy rilis 13 Jul 2022 ✓, 0 titik tersedia sebelum periodenya.
+    BUG DITEMUKAN & DIPERBAIKI: jeda normal dari obs ≥ 2019 membuat TIC Mar 2015 'tersedia' Apr 2022. TEMUAN: TIC baru muncul di FRED ~7 bulan
+    setelah periode (Kemenkeu sendiri ~6 minggu) → riset #19 berasumsi jeda 2 bln: sah HANYA bila sumbernya situs Kemenkeu, bukan FRED (keraguan, catat).
   - BELUM: (a) sambung seri beda tahun dasar (IHK 2012→2018 thn 2019/2020, NTP 2012→2018 thn 2019, IHPB 2018→2023) via PERTUMBUHAN;
     (b) panel sumber lain: FRED (pakai ALFRED rilis pertama, tersedia = tanggal rilis), cuaca 15 kota, iklim (ONI jeda 1 bln, DMI 6 bln!),
     alam (Kp/Ap, bintik matahari), gempa, titik api, LME, harga global, kurs ECB/JISDOR, CBOE, Fama-French (jeda 2), COT, World Bank,
