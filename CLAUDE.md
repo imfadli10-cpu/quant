@@ -512,6 +512,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     Cek manual: PDB AS 2008Q4 −0,97% q/q (advance 30 Jan 2009 ✓), CPI Jun 2022 +8,6% yoy rilis 13 Jul 2022 ✓, 0 titik tersedia sebelum periodenya.
     BUG DITEMUKAN & DIPERBAIKI: jeda normal dari obs ≥ 2019 membuat TIC Mar 2015 'tersedia' Apr 2022. TEMUAN: TIC baru muncul di FRED ~7 bulan
     setelah periode (Kemenkeu sendiri ~6 minggu) → riset #19 berasumsi jeda 2 bln: sah HANYA bila sumbernya situs Kemenkeu, bukan FRED (keraguan, catat).
+  - SELESAI (23 Nov 2026): `panel_alam.py` → `data/olah/panel_alam.parquet` (119 seri: cuaca 15 kota ×6, titik api MODIS/VIIRS ×3 wilayah,
+    iklim ONI/SOI/MEI/DMI + anomali Nino mingguan, geomagnetik/matahari ×5, gempa ×4; 113 seri ≥ 120 bln latih). pit=False SEMUA (reanalisis/
+    arsip revisi). Jeda: cuaca +7 hr, ONI +2 bln+10 hr (bulan tengah), SOI/MEI +1 bln+10 hr, DMI +6 bln, Nino mg +7 hr, matahari +5 hr, gempa +2 hr,
+    api +7 hr. Bulan BERJALAN dibuang. Cek kewajaran lolos (gempa Aceh/Nias/Bengkulu/Biak, api 2015/2006/2019, banjir Jakarta 2002/2020,
+    ONI 2015/1997/2026, DMI 1997/2019). Dugaan "bintik matahari modern harus tinggi" SALAH: siklus 19/21/22 memang lebih kuat. Sudah di HF `olah/`.
   - BELUM: (a) sambung seri beda tahun dasar (IHK 2012→2018 thn 2019/2020, NTP 2012→2018 thn 2019, IHPB 2018→2023) via PERTUMBUHAN;
     (b) panel sumber lain: FRED (pakai ALFRED rilis pertama, tersedia = tanggal rilis), cuaca 15 kota, iklim (ONI jeda 1 bln, DMI 6 bln!),
     alam (Kp/Ap, bintik matahari), gempa, titik api, LME, harga global, kurs ECB/JISDOR, CBOE, Fama-French (jeda 2), COT, World Bank,
