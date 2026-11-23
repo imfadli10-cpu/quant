@@ -2,10 +2,12 @@ name: Foto bid/ask IDX saat jam bursa (4x sehari)
 
 on:
   schedule:
-    - cron: "31 2 * * 1-5"    # ~09:31 WIB (sesi 1)
-    - cron: "1 4 * * 1-5"     # ~11:01 WIB (sesi 1; Jumat sesi 1 s/d 11:30)
-    - cron: "1 7 * * 1-5"     # ~14:01 WIB (sesi 2)
-    - cron: "11 8 * * 1-5"    # ~15:11 WIB (sesi 2)
+    # Jadwal GitHub TERLAMBAT 58-86 menit (23 Nov 2026: 02:31->03:29, 04:01->05:10, 07:01->08:27, 08:11->09:26 UTC; foto ke-4 jatuh
+    # 16:26 WIB = SETELAH tutup). Jadwal digeser supaya tetap di dalam sesi walau terlambat s/d ~90 menit:
+    - cron: "17 2 * * 1-5"    # 09:17 WIB -> tiba 09:17-10:47 (sesi 1)
+    - cron: "37 3 * * 1-5"    # 10:37 WIB -> tiba 10:37-12:07 (sesi 1; Jumat sesi 1 s/d 11:30)
+    - cron: "31 6 * * 1-5"    # 13:31 WIB -> tiba 13:31-15:01 (sesi 2; Jumat sesi 2 mulai 14:00)
+    - cron: "11 7 * * 1-5"    # 14:11 WIB -> tiba 14:11-15:41 (sesi 2, sebelum pra-penutupan 15:50)
   workflow_dispatch:
 
 jobs:

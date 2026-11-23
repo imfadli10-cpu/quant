@@ -466,8 +466,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 ## 10. Status riset & rencana berikutnya
 
 ### ⏰ DAFTAR PERIKSA TERTUNDA (cek di awal tiap sesi; coret/hapus yang sudah selesai, tambahkan yang baru)
-- [ ] **Senin 23 Nov 2026** (setelah ~15:30 WIB): `spread_idx.yml` run pertama (4 foto: ~09:31/11:01/14:01/15:11 WIB) → file
-  `raw/harian/spread_idx/2026-11-23_*.parquet` ada & BID/ASK terisi (bukan 0/kosong) untuk ~800 saham; cek durasi langkah.
+- [x] ~~`spread_idx.yml` run pertama~~ → SELESAI 23 Nov 2026: 4 file (`2026-11-23_0330/0510/0827/0927`), 838 saham, bid&ask sah 734–811,
+  spread median 0,91–1,00% (semua saham). TEMUAN: (1) jadwal GitHub TERLAMBAT 58–86 mnt → foto ke-4 jatuh 16:26 WIB (kuotasi 16:14 = SETELAH
+  tutup) → cron digeser ke 09:17/10:37/13:31/14:11 WIB (aman s/d ~90 mnt terlambat); (2) kuotasi Yahoo tertunda ~10–15 mnt (`waktu_kuotasi`).
+  ANALISIS NANTI: pakai `waktu_kuotasi` (bukan waktu_ambil) & buang kuotasi di luar sesi (09:00–12:00, 13:30–15:50; Jumat 09:00–11:30, 14:00–15:50).
+- [x] ~~Harian 23 Nov dgn batas baru~~ → sukses 81 mnt (batas 150), Wikipedia 34 mnt (batas 45), opsi normal hari ke-2 (255 dtk).
 - [x] ~~`harian.yml` langkah BARU JISDOR / put/call / EmitenNews~~ → SELESAI 22 Nov 2026 (run 44971739609): ketiganya sukses
   (6/5/6 dtk), file 22 Nov ada & isinya benar (JISDOR 43 hari s/d 20 Nov Rp18.278; put/call 7 hari; EmitenNews 2.000); 37/37 folder
   harian punya file; validasi hijau (langkah validasi TANPA continue-on-error). Server BI & CBOE menerima GitHub.
