@@ -523,7 +523,18 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     ONI 2015/1997/2026, DMI 1997/2019). Dugaan "bintik matahari modern harus tinggi" SALAH: siklus 19/21/22 memang lebih kuat. Sudah di HF `olah/`.
   - SELESAI (26 Nov 2026): `panel_pasar.py` → `data/olah/panel_pasar.parquet` (302 seri: Yahoo 98, World Bank 87, kurs 43, CBOE 32, LME 18, put/call 18,
     FF 6; cek kewajaran di docstring). Beda biaya di cek potong #46 (0,95 vs 0,98%) TERBUKTI karena aksi korporasi ikut terpotong (aksi utuh → 0,95% identik).
-  - BELUM: (a) sambung seri beda tahun dasar (IHK 2012→2018 thn 2019/2020, NTP 2012→2018 thn 2019, IHPB 2018→2023) via PERTUMBUHAN;
+  - KOREKSI panel BPS (26 Nov 2026): (1) BOCOR kecil diperbaiki: Sakernas Feb/Ags tercatat 'M' (diketahui akhir Apr/Okt) padahal rilis 5 Mei /
+    5–6 Nov (dicek di bps.go.id); kemiskinan Maret rilis Juli → 58 variabel 'bulanan' palsu kini Q/S dari ISI (<= 4 bulan kalender); jeda kini
+    M+2, Q+4 (PDB +3), S+5, Y+18. (2) `seri` kini memuat frek (dulu bulanan & tahunan bernama sama, 18 rb seri). (3) Angka "Q 4.189 seri / 43 var"
+    di atas SALAH HITUNG (ikut menghitung baris tahunan); yang benar Q 635 seri/13 var, M 1.116/32, S 299/8, Y 13.447/250 (≥ titik minimum latih).
+  - SELESAI (26 Nov 2026): `sambung_bps.py` → `data/olah/panel_bps_sambung.parquet` (205 seri: tumbuh1, tumbuh12, tersedia). Aturan ditetapkan
+    SEBELUM melihat hasil: seri lama dipakai s/d akhir hidupnya lalu seri baru (angka dasar baru utk masa lalu belum ada saat itu); pertumbuhan
+    dihitung di dalam tiap seri; disambung bila tumpang tindih >= 6 titik & korelasi pertumbuhan >= 0,7. HASIL: 202 disambung (NTP provinsi 181,
+    PDB pengeluaran riil/nominal 18: PDB total kor 0,96/0,94, PMTB, ekspor, impor, konsumsi pemerintah; sektor 3), 102 GAGAL (NTP nasional 4
+    kor 0,42–0,57; NTP provinsi 89; konsumsi RT kor 0,41/0,44 walau beda median cuma 0,3 pp — korelasi lemah utk seri yang sangat mulus = ukuran
+    uji kurang tepat, TIDAK diubah setelah melihat hasil; konstruksi kor −0,07 = definisi berubah). Yang gagal TETAP ada per segmen di panel_bps.
+    IHPB 2019-11 → 2019-12 tanpa tumpang tindih = digabung dgn CELAH 12 bln untuk tumbuh12 (tidak dijembatani). Kelompok IHK tidak disambung (7 → 11 kelompok).
+  - BELUM: (a) ~~sambung seri beda tahun dasar~~ SELESAI (lihat atas);
     (b) panel sumber lain: FRED (pakai ALFRED rilis pertama, tersedia = tanggal rilis), cuaca 15 kota, iklim (ONI jeda 1 bln, DMI 6 bln!),
     alam (Kp/Ap, bintik matahari), gempa, titik api, LME, harga global, kurs ECB/JISDOR, CBOE, Fama-French (jeda 2), COT, World Bank,
     SEKI (perlu urai per tabel), BIS, DTS, lelang AS, Wikipedia; (c) mesin penyaring (beta bergulir saham × variabel; uji tiruan dulu);

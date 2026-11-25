@@ -9,7 +9,10 @@ ATURAN (ditetapkan 22 Nov 2026 SEBELUM melihat hubungan apa pun dengan return sa
 - Tahun > 2026 DIBUANG (proyeksi penduduk sampai 2035 = bukan data nyata).
 - seri = var_id | wilayah | kategori. Duplikat (seri, bulan, frek) -> nilai terakhir (dilaporkan jumlahnya).
 - KETERSEDIAAN (jeda terbit KONSERVATIF; tanggal rilis asli tidak tercatat): data bulan m dianggap DIKETAHUI pada akhir bulan
-  m + JEDA[frek]: M = 2 bulan (inflasi terbit tgl 1, ekspor ~tgl 15, hotel ~2 bln), Q = 3, S = 3, Y = 12.
+  m + JEDA[frek]: M = 2 bulan (inflasi terbit tgl 1, ekspor ~tgl 15, hotel ~2 bln), Q = 4 (PDB 3), S = 5, Y = 18.
+  KOREKSI 26 Nov 2026: dulu Sakernas (Feb/Ags) tercatat 'M' -> 'diketahui' akhir Apr/Okt padahal rilis 5 Mei / 5-6 Nov; kemiskinan
+  Maret akhir Jun padahal rilis Juli (1-25 Jul) = BOCOR. Kini frek ditentukan dari ISI: variabel 'bulanan' yang hanya punya
+  <= 4 bulan kalender = Q (bila hanya 3/6/9/12) atau S. 'seri' kini memuat frek (dulu bulanan & tahunan bernama sama: 18 ribu seri).
 - Tahun dasar BERGANTI (IHK 2012->2018 thn 2019/2020, NTP 2012->2018 thn 2019, IHPB 2018->2023): seri lama & baru = var_id BERBEDA.
   Panel ini menyimpan LEVEL per var_id apa adanya; transformasi ke pertumbuhan & penyambungan dilakukan di langkah penyaring.
 
@@ -26,7 +29,7 @@ BULAN = {b: i + 1 for i, b in enumerate(["Januari", "Februari", "Maret", "April"
 PETA_LAIN = {"Triwulan I": ("Q", 3), "Triwulan II": ("Q", 6), "Triwulan III": ("Q", 9), "Triwulan IV": ("Q", 12),
              "Semester 1 (Maret)": ("S", 3), "Semester 2 (September)": ("S", 9),
              "Tahun": ("Y", 12), "Tahunan": ("Y", 12), "Jumlah": ("Y", 12)}
-JEDA = {"M": 2, "Q": 3, "S": 3, "Y": 12}
+JEDA = {"M": 2, "Q": 4, "S": 5, "Y": 18}      # bulan; Q berjudul PDB = 3 (rilis PDB ~5 minggu setelah triwulan)
 TAHUN_MAKS = 2026
 
 d = pd.concat([pd.read_parquet(f) for f in sorted(glob.glob("data/raw/histori/bps/bagian_*.parquet"))], ignore_index=True)
@@ -60,10 +63,18 @@ for k in ["wilayah", "kategori"]:
     d[k] = d[k].astype("string").fillna("-").str.strip()
 d["seri"] = d["var_id"].astype("string") + "|" + d["wilayah"] + "|" + d["kategori"]
 d["bulan"] = pd.PeriodIndex.from_fields(year=d["tahun"].astype(int), month=d["bln"].astype(int), freq="M")
+bln_var = d[d["frek"] == "M"].groupby("var_id")["bln"].agg(lambda s: frozenset(int(x) for x in s.unique()))
+jarang = {v: ("Q" if b <= {3, 6, 9, 12} else "S") for v, b in bln_var.items() if len(b) <= 4}
+kena = (d["frek"] == "M") & d["var_id"].isin(jarang)
+d.loc[kena, "frek"] = d.loc[kena, "var_id"].map(jarang)
+print(f"   'bulanan' palsu (<= 4 bulan kalender): {len(jarang)} variabel, {kena.sum():,} baris -> Q/S")
+d["seri"] = d["seri"] + "|" + d["frek"].astype("string")
 dup = d.duplicated(["seri", "frek", "bulan"], keep="last")
 print(f"   duplikat (seri, frek, bulan) dibuang {dup.sum():,} (nilai terakhir dipakai)")
 d = d[~dup]
-d["tersedia"] = d["bulan"] + d["frek"].map(JEDA).astype(int)
+jeda = d["frek"].map(JEDA).astype(int)
+jeda[(d["frek"] == "Q") & d["judul"].str.contains(r"PDB", regex=True).fillna(False).astype(bool)] = 3
+d["tersedia"] = d["bulan"] + jeda
 out = d[["seri", "var_id", "judul", "satuan", "wilayah", "kategori", "frek", "bulan", "tersedia", "nilai"]].reset_index(drop=True)
 out["bulan"] = out["bulan"].dt.to_timestamp(how="end").dt.normalize().astype("datetime64[ns]")
 out["tersedia"] = out["tersedia"].dt.to_timestamp(how="end").dt.normalize().astype("datetime64[ns]")
