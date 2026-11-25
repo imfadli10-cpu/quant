@@ -472,7 +472,9 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   tutup) → cron digeser ke 09:17/10:37/13:31/14:11 WIB (aman s/d ~90 mnt terlambat); (2) kuotasi Yahoo tertunda ~10–15 mnt (`waktu_kuotasi`).
   ANALISIS NANTI: pakai `waktu_kuotasi` (bukan waktu_ambil) & buang kuotasi di luar sesi (09:00–12:00, 13:30–15:50; Jumat 09:00–11:30, 14:00–15:50).
 - [x] ~~Jadwal BARU `spread_idx.yml`~~ → SELESAI: 8 foto 24–25 Nov, kuotasi 95–99% di dalam sesi (09:58 s/d 15:25 WIB). Opsi normal 22–25 Nov.
-- [ ] **SEBELUM uang sungguhan**: keputusan pengguna soal aturan BERHENTI S2 (peluang alarm palsu jauh > 3%, lihat koreksi di docs/rencana_eksekusi_s2.md).
+- [x] ~~Aturan BERHENTI S2~~ → DITETAPKAN 26 Nov 2026 sebelum paper trading (pengguna menyerahkan ke Claude; boleh diubah pengguna): dinilai dari paper
+  S2 PENUH; kuning 12 bln < −1% (periksa), merah 24 bln < −0,5% (stop tambah uang), batas keras −50% dari puncak (jual semua). Detail di docs/.
+- [ ] **SEBELUM uang sungguhan**: pengguna menegaskan sanggup kehilangan 50% modal; kalau tidak, modal dikecilkan (bukan batasnya diketatkan).
 - [x] ~~Harian 23 Nov dgn batas baru~~ → sukses 81 mnt (batas 150), Wikipedia 34 mnt (batas 45), opsi normal hari ke-2 (255 dtk).
 - [x] ~~`harian.yml` langkah BARU JISDOR / put/call / EmitenNews~~ → SELESAI 22 Nov 2026 (run 44971739609): ketiganya sukses
   (6/5/6 dtk), file 22 Nov ada & isinya benar (JISDOR 43 hari s/d 20 Nov Rp18.278; put/call 7 hari; EmitenNews 2.000); 37/37 folder

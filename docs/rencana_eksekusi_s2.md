@@ -109,12 +109,17 @@ Modal yang **benar-benar siap hilang**. S2 subset lengket k = 12–16 (atau penu
 Hanya bila Fase 1 berjalan sesuai aturan dan aturan berhenti di bawah tidak terpicu.
 
 **Aturan BERHENTI** (berlaku di semua fase):
-- Rata-rata relatif 12 bulan terakhir (S2 − semesta, bersih) **< −1%/bulan** → hentikan & evaluasi.
-  **KOREKSI 26 Nov 2026 (sebelum paper trading mulai):** versi awal menulis "hanya ~3% peluangnya bila S2 bekerja". Itu SALAH: 3% hanya untuk SATU
-  jendela 12 bulan. Aturan ini dicek tiap bulan, jadi peluang alarm PALSU minimal sekali (simulasi, S2 dianggap benar-benar bekerja):
-  S2 penuh 1 thn 3% | 3 thn 20% | 5 thn 34%; k=12: 9% | 47% | 68%; k=8: 13% | 58% | 79%. Aturan ini juga PERNAH terpicu di data 2019–2026
-  (Okt 2020 – Mar 2021, terendah −2,8%/bln), dan 12 bulan sesudah pemicu pertama S2 justru unggul +2,8%/bln. Jadi pemicu BUKAN bukti rezim
-  berubah. Ambang −1% BELUM diubah (mengubahnya karena hasil 2020 = mencocokkan ke data); menunggu keputusan pengguna sebelum uang sungguhan.
+- **(Diganti 26 Nov 2026, SEBELUM paper trading mulai; pengguna menyerahkan pilihannya ke Claude dan boleh mengubahnya.)**
+  Kinerja SELALU dinilai dari portofolio paper **S2 penuh**, bukan dari subset pribadi (subset terlalu berderau untuk menilai strategi).
+  1. **Lampu kuning:** rata-rata relatif 12 bulan < −1%/bulan → periksa data, biaya & eksekusi. Tidak ada jual paksa.
+  2. **Lampu merah:** rata-rata relatif **24 bulan < −0,5%/bulan** → berhenti MENAMBAH uang & evaluasi menyeluruh; tidak otomatis menjual.
+  3. **Batas keras:** nilai portofolio uang sungguhan turun **50% dari puncaknya** (setoran baru tidak dihitung sebagai untung) → jual semua, berhenti.
+  Simulasi 5 tahun (20.000 kali; S2 penuh sb 3,99%) aturan 12 bln < −1% → 24 bln < −0,5%: alarm palsu bila S2 hidup +1,2%/bln 34% → 13%; terdeteksi bila
+  S2 mati (0%) 89% → 76%; bila merugi −0,5%/bln 98% → 94%. Aturan 36 bln < 0 setara (14%/81%) tetapi butuh 3 tahun data. Batas keras untuk 8 saham:
+  peluang tersentuh 5 tahun walau S2 bekerja seperti 2019–2026: −30% 65%, −40% 34%, −50% 13%.
+  ASUMSI: return bulanan saling bebas & normal, tanpa momentum crash → kenyataan bisa LEBIH BURUK. Dipilih dari simulasi ini; aturan baru sengaja
+  TIDAK dicocokkan ke kejadian 2019–2026. Aturan lama (12 bln < −1% = hentikan, "~3%") salah hitung: 3% hanya untuk SATU jendela, dan aturan itu
+  pernah terpicu Okt 2020–Mar 2021 tepat sebelum S2 unggul +2,8%/bln.
 - Kesalahan sistem yang membuat pilihan tercatat setelah hari beli → hentikan sampai diperbaiki.
 - Jangan pernah menambah modal untuk "membalas" kerugian.
 
