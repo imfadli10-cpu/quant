@@ -109,7 +109,12 @@ Modal yang **benar-benar siap hilang**. S2 subset lengket k = 12–16 (atau penu
 Hanya bila Fase 1 berjalan sesuai aturan dan aturan berhenti di bawah tidak terpicu.
 
 **Aturan BERHENTI** (berlaku di semua fase):
-- Rata-rata relatif 12 bulan terakhir (S2 − semesta, bersih) **< −1%/bulan** → hentikan & evaluasi. Kalau S2 benar-benar bekerja, kejadian ini hanya ~3% peluangnya. Kalau terjadi, kemungkinan besar rezim sudah berubah.
+- Rata-rata relatif 12 bulan terakhir (S2 − semesta, bersih) **< −1%/bulan** → hentikan & evaluasi.
+  **KOREKSI 26 Nov 2026 (sebelum paper trading mulai):** versi awal menulis "hanya ~3% peluangnya bila S2 bekerja". Itu SALAH: 3% hanya untuk SATU
+  jendela 12 bulan. Aturan ini dicek tiap bulan, jadi peluang alarm PALSU minimal sekali (simulasi, S2 dianggap benar-benar bekerja):
+  S2 penuh 1 thn 3% | 3 thn 20% | 5 thn 34%; k=12: 9% | 47% | 68%; k=8: 13% | 58% | 79%. Aturan ini juga PERNAH terpicu di data 2019–2026
+  (Okt 2020 – Mar 2021, terendah −2,8%/bln), dan 12 bulan sesudah pemicu pertama S2 justru unggul +2,8%/bln. Jadi pemicu BUKAN bukti rezim
+  berubah. Ambang −1% BELUM diubah (mengubahnya karena hasil 2020 = mencocokkan ke data); menunggu keputusan pengguna sebelum uang sungguhan.
 - Kesalahan sistem yang membuat pilihan tercatat setelah hari beli → hentikan sampai diperbaiki.
 - Jangan pernah menambah modal untuk "membalas" kerugian.
 

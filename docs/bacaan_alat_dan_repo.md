@@ -17,6 +17,10 @@ kunci API di laptop, aturan "jangan menembus situs yang memblokir program").
 | Headroom | chopratejas / headroomlabs-ai (pip `headroom-ai`) | Proksi lokal yang memampatkan konteks sebelum dikirim ke model (klaim hemat 50–90%) | ⚠️ Bisa menghemat kredit, TAPI semua lalu lintas Claude Code lewat proksi pihak ketiga & pemampatan bisa membuang detail kecil (bertentangan dgn prinsip "teliti hal kecil"). Belum disarankan. |
 | REA | morluto/rea ("Reverse Engineer Anything") | Alat bongkar-balik aplikasi untuk agen | ❌ Hindari; membongkar aplikasi/situs (mis. aplikasi bursa) melanggar aturan kita. |
 
+CATATAN KEJUJURAN (26 Nov 2026): penilaian di atas dari CUPLIKAN hasil pencarian; kode/README tiap plugin TIDAK dibuka. Untuk dua repo di bawah,
+yang dibaca hanya README ML4T (utuh) dan SEBAGIAN awesome-quant (faktor, data alternatif, deret waktu, buku); bab/notebook/kode BELUM dibaca,
+bagian sumber data awesome-quant (baris 465-592) juga belum. Isi bab di bawah = ringkasan dari README.
+
 Prinsip umum: setiap plugin menjalankan kode di laptop dengan akses ke folder proyek (termasuk `kunci_*.txt`) dan menambah konteks
 (kredit). Pasang hanya yang jelas manfaatnya, dari pembuat jelas, setelah membaca kodenya.
 

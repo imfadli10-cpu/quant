@@ -4,7 +4,7 @@ Sumber: data/raw/makro/<KODE>.parquet (versi terbaru, 197 seri) + data/raw/alfre
 
 ATURAN (ditetapkan 23 Nov 2026 SEBELUM melihat hubungan apa pun dengan return saham):
 - 'tanggal' FRED = AWAL periode. jeda(obs) = tanggal vintage pertama - tanggal.
-- JEDA NORMAL seri = median jeda obs bertanggal >= 2019 (ALFRED mencatat rapi). Contoh: PAYEMS 34 hari, CPIAUCSL ~45, Brent 6.
+- JEDA NORMAL seri = median jeda 24 obs terbaru, TANPA obs isi-mundur di vintage pertama arsip (min 4 obs). Contoh: PAYEMS 34 hari, CPIAUCSL ~45, Brent 6.
 - Obs "TERCATAT SEJAK TERBIT" bila jeda <= max(2 x normal, normal + 45 hari) -> nilai = RILIS PERTAMA, tersedia = tanggal rilis pertama,
   pit = True. Sebaliknya (artefak: seri Indonesia/IMF sebelum ~2015 punya 'jeda' bertahun-tahun karena ALFRED baru mulai mencatat)
   -> nilai = versi TERBARU (sudah direvisi), tersedia = tanggal + max(2 x normal, DEFAULT[frek]), pit = False.
@@ -69,8 +69,11 @@ for kode, judul in JUDUL.items():
         jeda = (pertama["berlaku_mulai"] - pertama.index).dt.days
         # JEDA NORMAL dari 24 obs TERBARU (dulu: obs >= 2019 -> seri yang baru dicatat ALFRED belakangan, mis. TIC, dapat jeda
         # bertahun-tahun -> TIC Mar 2015 'tersedia' Apr 2022; diperbaiki 23 Nov 2026)
-        baru = jeda.sort_index().iloc[-24:]
-        jn = float(baru.median()) if len(baru) >= 6 else np.nan
+        # 26 Nov 2026: BUANG obs yang muncul di vintage PERTAMA arsip (= isi-mundur, bukan tanggal terbit). Tanpa ini TIC (arsip mulai
+        # 2026-05-18) dapat jeda 244 hari padahal rilis nyatanya 77 hari sejak awal bulan (~6-7 minggu sesudah bulan berakhir).
+        isi_mundur = pertama['berlaku_mulai'] == va['berlaku_mulai'].min()
+        baru = jeda[~isi_mundur].sort_index().iloc[-24:]
+        jn = float(baru.median()) if len(baru) >= 4 else np.nan
     if f == "D":
         if makro is None:
             ringkas.append({"kode": kode, "status": "harian tanpa raw/makro"})

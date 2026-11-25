@@ -142,8 +142,9 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   → `raw/harian/jisdor` (60 hari) + `raw/histori/jisdor/semua.parquet` (`--histori`, 3.271 hari sejak 2013-05-20). Cara: formulir publik
   halaman JISDOR (rentang tanggal + tombol Unduh XLSX, ASP.NET postback; robots BI Allow /). Tanggal XLSX format AS (m/d/Y), kurs format
   Indonesia. Dari laptop WARP HARUS MATI. Server BI menerima GitHub (file pangan & sbn 21 Nov 2026 ada). Cek vs ECB: rasio median 1,0001,
-  korelasi perubahan harian hanya 0,52 (jam penetapan beda 10 jam). Selisih NYATA 2–5% vs ECB Agu–Okt 2013 (taper tantrum, BI mengelola
-  rupiah); lompatan > 3% hanya 19–20 Mar 2020 (COVID).
+  korelasi perubahan harian hanya 0,52 (jam penetapan beda 10 jam). Selisih 2–5% vs ECB Agu–Okt 2013 SEBABNYA BELUM TERBUKTI
+  (dulu ditulis 'nyata, taper tantrum' tanpa diuji; OECD akhir bulan = JISDOR persis jadi bukan sumber independen; ECB 17–21 Okt 2013 melompat
+  10.859→11.329→10.876 = ECB bisa jadi yang berderau); lompatan > 3% hanya 19–20 Mar 2020 (COVID).
 - `kumpul_polymarket.py`: foto HARIAN pasar prediksi Polymarket (data "hanya ke depan", mulai 20 Nov 2026) → `raw/harian/polymarket`.
   2.100 pasar volume 24 jam terbesar + 2.100 likuiditas terbesar (dobel dibuang, ~3.500 pasar, ~$22 juta volume/hari).
   `harga_ya` = peluang hasil pertama. API: maks 100 per halaman, offset maks ~2.100 (lebih dalam butuh /markets/keyset yang
@@ -470,8 +471,8 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   spread median 0,91–1,00% (semua saham). TEMUAN: (1) jadwal GitHub TERLAMBAT 58–86 mnt → foto ke-4 jatuh 16:26 WIB (kuotasi 16:14 = SETELAH
   tutup) → cron digeser ke 09:17/10:37/13:31/14:11 WIB (aman s/d ~90 mnt terlambat); (2) kuotasi Yahoo tertunda ~10–15 mnt (`waktu_kuotasi`).
   ANALISIS NANTI: pakai `waktu_kuotasi` (bukan waktu_ambil) & buang kuotasi di luar sesi (09:00–12:00, 13:30–15:50; Jumat 09:00–11:30, 14:00–15:50).
-- [ ] **Selasa 24 Nov 2026 (atau sesi berikutnya)**: cek jadwal BARU `spread_idx.yml` (09:17/10:37/13:31/14:11 WIB) → `waktu_kuotasi` keempat
-  file 2026-11-24 berada DI DALAM sesi bursa (09:00–12:00, 13:30–15:50). Kalau masih ada yang di luar → majukan lagi / tambah foto cadangan.
+- [x] ~~Jadwal BARU `spread_idx.yml`~~ → SELESAI: 8 foto 24–25 Nov, kuotasi 95–99% di dalam sesi (09:58 s/d 15:25 WIB). Opsi normal 22–25 Nov.
+- [ ] **SEBELUM uang sungguhan**: keputusan pengguna soal aturan BERHENTI S2 (peluang alarm palsu jauh > 3%, lihat koreksi di docs/rencana_eksekusi_s2.md).
 - [x] ~~Harian 23 Nov dgn batas baru~~ → sukses 81 mnt (batas 150), Wikipedia 34 mnt (batas 45), opsi normal hari ke-2 (255 dtk).
 - [x] ~~`harian.yml` langkah BARU JISDOR / put/call / EmitenNews~~ → SELESAI 22 Nov 2026 (run 44971739609): ketiganya sukses
   (6/5/6 dtk), file 22 Nov ada & isinya benar (JISDOR 43 hari s/d 20 Nov Rp18.278; put/call 7 hari; EmitenNews 2.000); 37/37 folder
@@ -510,13 +511,16 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     max(2×normal, 90/180/450 hr) (pit=False; seri Indonesia/IMF sebelum ~2015 = artefak arsip ALFRED). PERTUMBUHAN REAL-TIME: nilai t & t−L
     dari VINTAGE YANG SAMA (rilis pertama PDB AS 2008Q4 = dolar 2000, 2013Q3 = dolar 2009 → tanpa ini pertumbuhan lompat palsu).
     Cek manual: PDB AS 2008Q4 −0,97% q/q (advance 30 Jan 2009 ✓), CPI Jun 2022 +8,6% yoy rilis 13 Jul 2022 ✓, 0 titik tersedia sebelum periodenya.
-    BUG DITEMUKAN & DIPERBAIKI: jeda normal dari obs ≥ 2019 membuat TIC Mar 2015 'tersedia' Apr 2022. TEMUAN: TIC baru muncul di FRED ~7 bulan
-    setelah periode (Kemenkeu sendiri ~6 minggu) → riset #19 berasumsi jeda 2 bln: sah HANYA bila sumbernya situs Kemenkeu, bukan FRED (keraguan, catat).
+    BUG DITEMUKAN & DIPERBAIKI: jeda normal dari obs ≥ 2019 membuat TIC Mar 2015 'tersedia' Apr 2022. KOREKSI 26 Nov 2026: 'TIC ~7 bulan' SALAH =
+    artefak (arsip ALFRED TIC baru mulai 2026-05-18, obs lama isi-mundur). Jeda nyata 77 hari sejak awal bulan (~6–7 minggu) → asumsi 2 bln riset #19
+    WAJAR, keraguan DICABUT. Jeda normal kini membuang obs isi-mundur (28 seri TIC terdampak).
   - SELESAI (23 Nov 2026): `panel_alam.py` → `data/olah/panel_alam.parquet` (119 seri: cuaca 15 kota ×6, titik api MODIS/VIIRS ×3 wilayah,
     iklim ONI/SOI/MEI/DMI + anomali Nino mingguan, geomagnetik/matahari ×5, gempa ×4; 113 seri ≥ 120 bln latih). pit=False SEMUA (reanalisis/
     arsip revisi). Jeda: cuaca +7 hr, ONI +2 bln+10 hr (bulan tengah), SOI/MEI +1 bln+10 hr, DMI +6 bln, Nino mg +7 hr, matahari +5 hr, gempa +2 hr,
     api +7 hr. Bulan BERJALAN dibuang. Cek kewajaran lolos (gempa Aceh/Nias/Bengkulu/Biak, api 2015/2006/2019, banjir Jakarta 2002/2020,
     ONI 2015/1997/2026, DMI 1997/2019). Dugaan "bintik matahari modern harus tinggi" SALAH: siklus 19/21/22 memang lebih kuat. Sudah di HF `olah/`.
+  - SELESAI (26 Nov 2026): `panel_pasar.py` → `data/olah/panel_pasar.parquet` (302 seri: Yahoo 98, World Bank 87, kurs 43, CBOE 32, LME 18, put/call 18,
+    FF 6; cek kewajaran di docstring). Beda biaya di cek potong #46 (0,95 vs 0,98%) TERBUKTI karena aksi korporasi ikut terpotong (aksi utuh → 0,95% identik).
   - BELUM: (a) sambung seri beda tahun dasar (IHK 2012→2018 thn 2019/2020, NTP 2012→2018 thn 2019, IHPB 2018→2023) via PERTUMBUHAN;
     (b) panel sumber lain: FRED (pakai ALFRED rilis pertama, tersedia = tanggal rilis), cuaca 15 kota, iklim (ONI jeda 1 bln, DMI 6 bln!),
     alam (Kp/Ap, bintik matahari), gempa, titik api, LME, harga global, kurs ECB/JISDOR, CBOE, Fama-French (jeda 2), COT, World Bank,
