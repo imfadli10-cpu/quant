@@ -534,6 +534,13 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     kor 0,42–0,57; NTP provinsi 89; konsumsi RT kor 0,41/0,44 walau beda median cuma 0,3 pp — korelasi lemah utk seri yang sangat mulus = ukuran
     uji kurang tepat, TIDAK diubah setelah melihat hasil; konstruksi kor −0,07 = definisi berubah). Yang gagal TETAP ada per segmen di panel_bps.
     IHPB 2019-11 → 2019-12 tanpa tumpang tindih = digabung dgn CELAH 12 bln untuk tumbuh12 (tidak dijembatani). Kelompok IHK tidak disambung (7 → 11 kelompok).
+  - SELESAI (26 Nov 2026): `panel_lain.py` → `data/olah/panel_lain.parquet` (2.933 seri, 441 rb baris; 651 seri cukup panjang di latih):
+    COT 1.366 (per KODE CFTC: net spekulan/komersial/OI legacy, managed money, leveraged funds & asset manager; rilis Selasa+6 hr, penutupan
+    pemerintah 2013/2018-19/2025 = rilis susulan konservatif; net/OI > 1 = salah sumber → kosong), BIS 350 (semua seri Indonesia + GLI global +
+    suku bunga kebijakan semua negara + aset bank sentral US/XM/JP/CN/GB; jeda 0–7 bln), DTS 4 (TGA & kas operasi akhir/rata bulan), lelang
+    Treasury 26 (bid-to-cover & porsi indirect per tenor, nominal saja), Wikipedia 20, pangan PIHPS 1.167 (4 jenis harga × 35 wilayah × komoditas).
+    JEBAKAN DTS: sejak 2022-04-18 saldo TGA ada di kolom `open_today_bal` (close kosong); 2021-10..2022-04 akun 'Treasury General Account (TGA)'.
+    JEBAKAN BIS: kolom `collection` = DIMENSI di WS_XRU (rata-rata vs akhir periode), bukan atribut. Sudah di HF `olah/`.
   - BELUM: (a) ~~sambung seri beda tahun dasar~~ SELESAI (lihat atas);
     (b) panel sumber lain: FRED (pakai ALFRED rilis pertama, tersedia = tanggal rilis), cuaca 15 kota, iklim (ONI jeda 1 bln, DMI 6 bln!),
     alam (Kp/Ap, bintik matahari), gempa, titik api, LME, harga global, kurs ECB/JISDOR, CBOE, Fama-French (jeda 2), COT, World Bank,
