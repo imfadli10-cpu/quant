@@ -138,8 +138,16 @@ if TES_TIRUAN or TES_KOSONG:
         if "--satu" in sys.argv:                     # tes terkendali: SATU variabel (harga jagung), gamma 0,015
             tanam = np.flatnonzero(info["seri"].str.contains("yahoo_jagung_akhir").values)[:1].repeat(3)[2:]
         B_TANAM = {}
+        if "--z-acak" in sys.argv:                   # berita variabel tertanam diganti acak N(0,1) TANPA autokorelasi (di bulan berita
+            for v in tanam:                          # yang sama) -> mengisolasi jalur reaksi TERTUNDA (gamma)
+                ada = ~np.isnan(Z[:, v]) & (np.nan_to_num(Z[:, v]) != 0)
+                Z[ada, v] = np.clip(acak.normal(0, 1, ada.sum()), -3, 3)
         for k, v in enumerate(tanam):
             gam = 0.015 if "--satu" in sys.argv else [0.005, 0.010, 0.015][k % 3]
+            if "--lemah" in sys.argv:                # daya uji gabungan #52b: semua efek 3x lebih lemah
+                gam /= 3
+            if "--tanpa-gamma" in sys.argv:          # kontrol: HANYA reaksi kontemporer (tanpa reaksi tertunda)
+                gam = 0.0
             b = acak.normal(0, 1, N)
             B_TANAM[v] = b
             zz = np.nan_to_num(Z[:, v])

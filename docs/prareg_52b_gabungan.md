@@ -24,3 +24,14 @@ menemukan efek realistis (IC 0,01–0,06 → t < 3 per variabel). Renaissance: b
 ## Keterbatasan
 Bobot = rata IC masa lalu (berderau; tanpa penyusutan selain bobot kecil alami). Variabel berkorelasi tinggi (provinsi × komoditas) ikut
 terhitung berkali-kali → kelompok besar mendominasi; diakui, tidak dikoreksi (koreksi = desain lain). Survivorship IDX & pit=False seperti #52.
+
+## Amandemen (26 Nov 2026, SEBELUM #52b dijalankan pada data asli)
+Tes kode (`--cepat`, 1.321 variabel) menunjukkan bobot "rata IC masa lalu" melarutkan sinyal di antara ratusan variabel derau
+(median 187 variabel berbobot/bulan). Diganti PENYUSUTAN James-Stein: w_v(t) = rata IC × max(0, 1 − 4/t_v²), t_v = t IC masa lalu (≥ 24 bulan).
+Hasil tes (versi tersusut): kosong t −0,44 (terkalibrasi); tiruan t +8,30 (median 27 variabel berbobot). Versi lama: kosong +0,01, tiruan +8,58.
+TEMUAN DAYA UJI: tes tiruan terdeteksi terutama lewat jalur "berita persisten" (gamma = 0 pun t +7,6) — sebagian ARTEFAK pembuat data palsu
+(perubahan rata-rata bulanan berautokorelasi, Working 1960). Dgn berita tertanam ACAK (`--z-acak`, hanya reaksi tertunda gamma 0,005–0,015):
+versi lama t −0,94, tersusut t −1,27 → reaksi tertunda IC ≤ ~0,06 TIDAK bisa dibuktikan dgn ~100 bulan × ~50 saham. Hasil negatif #52b =
+"tidak terdeteksi pada daya uji ini", BUKAN bukti tidak ada. Kriteria LOLOS (t > 3, satu uji) TIDAK diubah.
+Kejujuran: kode penyusutan ditulis sebelum hasil #52 asli terlihat; sebelum amandemen ini di-commit, daftar 20 t terbesar cek potong-data #52
+sempat terbaca sekilas (tidak ada yang lolos BH di daftar itu). Desain tidak diubah karena itu.
