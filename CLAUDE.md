@@ -321,6 +321,10 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
 - GDELT GKG per EMITEN IDX TIDAK diambil (21 Nov 2026): uji Okt 2026 (0,57 GB) → hanya 17 dari 834 nama emiten (nama resmi dinormalkan)
   muncul di kolom V2Organizations, kebanyakan bank besar dengan 1–183 sebutan/bulan. Biaya histori 2015–2026 ~330 GB (≈20–44 GB/tahun) tidak
   sebanding. Untuk perhatian media per saham pakai `raw/harian/berita` (RSS Indonesia, kolom kode_disebut).
+- PORTAL DATA OJK (data.ojk.go.id/SJKPublic) TIDAK diambil (27 Nov 2026): firewall (F5 'Request Rejected') MENOLAK program — robots.txt pun
+  ditolak, data katalog (GetGridData) ditolak → JANGAN ditembus. Isinya PENTING (dari 'Mapping Statistik Pasar Modal.xlsx' di halaman statistik OJK):
+  nilai perdagangan saham per TIPE INVESTOR (asing/domestik), komposisi kepemilikan efek KSEI per tipe investor, SID per provinsi/kota,
+  penjualan APERD, NAB per jenis RD. Alternatif: UNDUH MANUAL oleh pengguna dari portal (fitur 'Download' resmi) lalu `upload_satu.py`.
 - KSEI (statistik investor) TIDAK diambil: hanya PDF bulanan bergrafik dengan nama file tak konsisten & tanpa daftar publik (21 Nov 2026).
 - `kumpul_bis.py` (workflow `fundamental_idx.yml`, SABTU): BIS unduhan massal resmi (data.bis.org/static/bulk, robots Allow /) →
   `raw/bis/<DATASET>.parquet` (DITIMPA, semua negara): WS_GLI likuiditas global, WS_CREDIT_GAP, WS_DSR, WS_TC, WS_CBPOL (suku bunga kebijakan
