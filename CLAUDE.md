@@ -1025,6 +1025,9 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   d9bb718). U1 ✅ IC(−ID, r) di antara pemenang 12-1 +0,065 t +3,83 (paruh 2,2/3,4) | U2 ❌ FIP beli-saja bersih +0,24%/bln t +0,78 (= momentum biasa).
   DIAGNOSIS sesudah hasil: −ID kor +0,28 dgn S2 & +0,30 dgn S3; residual setelah S1/S2/S3 IC +0,027 t +1,80 → sebagian besar = sinyal lama.
   Kandidat FITUR model penampang (ID = tanda(PRET) x (%turun − %naik), 150+ hari). Potong-data: IC identik (biaya beda tipis, sebab #46).
+- **Riset #58 SELESAI: laba diumumkan TELAT vs kebiasaan emiten (Givoly-Palmon 1982; deHaan dkk. 2015)** (`riset_58_laba_telat.py`, pra-reg
+  `docs/prareg_58_laba_telat.md` 5e84faf). ❌ TIDAK LOLOS (daya uji rendah). 1.249 peristiwa, TELAT ≥ 14 hr cuma 103 (8%; jadwal emiten IDX sangat tetap):
+  U1 +1,20%/kuartal t +0,92 (14 kuartal) | U2 t −0,03. Kejutan EPS kelompok telat hanya sedikit lebih buruk (median −3,2% vs −1,8%). Potong-data identik.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)

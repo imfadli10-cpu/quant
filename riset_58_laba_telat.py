@@ -28,6 +28,18 @@ import pandas as pd
 BATAS_LATIH = pd.Timestamp("2018-12-31")
 TES_TIRUAN, TES_KOSONG = "--tes-tiruan" in sys.argv, "--tes-kosong" in sys.argv
 TAHAN, AMBANG = 20, 14
+if "--potong-data" in sys.argv:                 # cek kebocoran: semua data > 2018 dibuang SEBELUM dibaca
+    _baca = pd.read_parquet
+
+    def _terpotong(*a, **k):
+        d = _baca(*a, **k)
+        if isinstance(d.index, pd.DatetimeIndex):
+            d = d[d.index <= BATAS_LATIH]
+        for c in ("tanggal", "Date", "waktu_wib"):
+            if c in d.columns and pd.api.types.is_datetime64_any_dtype(d[c]):
+                d = d[(d[c].dt.tz_localize(None) if d[c].dt.tz is not None else d[c]) <= BATAS_LATIH]
+        return d
+    pd.read_parquet = _terpotong
 
 
 def t_rata(x):
