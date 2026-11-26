@@ -164,6 +164,18 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   internal; DITOLAK pengaman Claude Code sebagai akses tidak sah). Histori lama hanya lewat jalur resmi (permintaan data/publikasi DJPPR).
   JEBAKAN: `read_html` default mengubah "5,55" jadi 555 → baca sel sebagai teks (`thousands=None, decimal="|"`) lalu urai sendiri.
   Cek: SBSN 17 Nov 2026 penawaran Rp20,10 T, dimenangkan Rp10 T, bid-to-cover PBS041 2,60 (= 3,9063 / 1,5).
+- `kumpul_kepemilikan_sbn.py` (harian, hanya file baru; pengurai `sbn_kepemilikan.py`): KEPEMILIKAN SBN Rupiah per jenis investor dari halaman
+  publik DJPPR (slug dari menu beranda, API yang dimuat situs sendiri; TIDAK pakai /page/filter) → `raw/kepemilikan_sbn/harian.parquet`
+  (tanggal, kategori, jenis SUN/SBSN/TOTAL, nilai Rp T, label, media_id, pertama_terlihat) + `arsip/` (file asli tiap versi, sha256) + `indeks.parquet`.
+  Bulanan 2003-2013 (2003-2009 SUN saja), HARIAN sejak 2014 (Excel s/d 2024, PDF per bulan 2025+). Kategori baku: bank(+konvensional/syariah),
+  institusi_negara, bi_net/bi_gross/bi_operasi_moneter, non_bank, reksadana, asuransi(_dana_pensiun), dana_pensiun, NON_RESIDEN (+pemerintah_asing),
+  individu, lainnya, total. = PENGGANTI ARUS DANA ASING (asing di SBN). Cek: non-residen 4 Sep 2026 Rp917,71 T (= Kontan); porsi asing 38,6% (2019)
+  → 14,4% (2022); identitas total cocok s/d 0,01 T. JEBAKAN: PDF format angka BERGANTI (Okt 2026 '1.209,49' Indonesia, Nov '1 ,209.49' Inggris
+  + spasi nyasar); sel tabel PDF menempel antar baris tak konsisten per kolom → dibaca PER KOLOM (harus 15 nilai) + identitas hitung (gagal = error,
+  bukan tebakan); label 'Bank Indonesia (net, tidak termasuk ... operasi moneter)' = bi_net; Excel lama ikut bagian B persen → berhenti di TOTAL;
+  salah ketik tahun sumber (lembar Des 2022: 30-12-2023) dikoreksi otomatis & dicetak. Dobel antar file (2015-12-31 direvisi) → file terbaru menang.
+  `pertama_terlihat` histori = 26 Nov 2026 (bukan tanggal terbit); jeda terbit nyata terlihat ke depan (23 Nov terlihat 26 Nov). Lampiran asing
+  per SEKTOR & TENOR (bulanan 2008+) diarsip mentah, BELUM diurai.
 - `kumpul_sbn.py` (harian, detik): YIELD OBLIGASI INDONESIA dari PHEI (Penilai Harga Efek Indonesia; robots.txt mengizinkan /Data)
   → `raw/harian/sbn` (mulai 20 Nov 2026, hanya ke depan; histori gratis tidak ada). Format panjang: kurva IGSYC tenor 0,1–30 thn,
   benchmark SUN (FR) & sukuk (PBS) dengan harga & kupon, seri ritel (ORI/SBR/ST/SR), korporasi per tenor × peringkat (IGS/AAA/AA/A/BBB).
@@ -484,6 +496,9 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - [ ] **Sabtu 28 Nov 2026** (setelah ~13:00 WIB): `fundamental_idx.yml` → langkah BARU saham beredar, ALFRED (~13 mnt), OJK emisi
   (hanya file baru) → cek durasi tiap langkah & file baru di HF (`raw/saham_beredar`, `raw/alfred/vintage`, `raw/ojk_emisi/arsip`);
   job total < 240 menit.
+- [ ] **Jumat 27 Nov 2026** (setelah ~08:40 WIB): `harian.yml` langkah BARU kepemilikan SBN → cek sukses & di HF ada `raw/kepemilikan_sbn/harian.parquet`
+  + `indeks.parquet` (run pertama dari laptop 26 Nov TERPUTUS tanpa WARP: 38 file arsip sudah di HF, harian & indeks BELUM; run server mengunggah
+  ulang semuanya dalam SATU commit). Cek: ~3.200 tanggal, non-residen terakhir ~Rp930 T, server DJPPR menerima GitHub.
 - [ ] **Pantau beberapa hari**: `kumpul_opsi.py` dari server (21 Nov semua 49 kode gagal; 22 Nov PULIH: 34.649 kontrak, 426 dtk) &
   Kontan RSS (403 dari server, sudah diketahui). Centang setelah ~5 hari opsi berturut-turut normal.
 - [ ] **Senin 30 Nov / Selasa 1 Des 2026**: paper trading — pilihan akhir Nov tercatat SEBELUM beli (`dicatat_sebelum_beli`=True) untuk

@@ -10,3 +10,4 @@ duckdb
 hijridate
 xlrd
 lightgbm
+pdfplumber

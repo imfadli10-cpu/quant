@@ -107,6 +107,13 @@ jobs:
         continue-on-error: true
         run: python kumpul_lelang_sbn.py
 
+      - name: Kepemilikan SBN per jenis investor termasuk ASING (DJPPR; hanya file baru, langsung ke gudang)
+        continue-on-error: true
+        timeout-minutes: 15
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}     # membaca indeks & harian lama + upload arsip
+        run: python kumpul_kepemilikan_sbn.py
+
       - name: Aktivitas pelabuhan & jalur kapal dunia (IMF PortWatch)
         continue-on-error: true
         run: python kumpul_pelabuhan.py
