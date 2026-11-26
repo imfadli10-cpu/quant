@@ -32,3 +32,18 @@ Sharpe dasar S2 rendah (0,15–0,25 bersih) → keuntungan teoretis volatility t
 128 bulan. Drawdown maks turun (−35% → −32%; −33% → −29%) = efek RISIKO mekanis yang memang terlihat.
 → Uji penentu TIDAK diubah, tetapi hasil asli dibaca sebagai INFORMASI RISIKO; hasil negatif BUKAN bukti tidak berguna.
 Pelajaran: pengaturan porsi long-only tanpa utang adalah alat RISIKO (drawdown), bukan sumber alpha yang bisa dibuktikan dgn ~10 tahun data.
+
+## HASIL DATA ASLI (26 Nov 2026) — ❌ BELUM TERBUKTI (daya uji praktis nol, sudah dicatat di atas)
+- 128 bulan (2007-07..2018-10); porsi rata 0,98 (min 0,70; porsi < 1 hanya 16% bulan); vol S2 median 17%/thn.
+- S2 selalu: bersih +0,81%/bln, Sharpe 0,15, drawdown maks −50%. Terkelola: +0,79%/bln, Sharpe 0,14, DD −47%.
+- U1 (PENENTU) alpha −0,009%/bln, beta 0,97, t −0,23 (paruh −0,1 / +0,4).
+- Info: vol semesta t −0,40 | varians 21 hari (Moreira-Muir) alpha +0,074%/bln t +0,67, Sharpe 0,24 vs 0,20 | rf = 0: t −0,17.
+- DIAGNOSIS: jendela 126 hari TERLAMBAT — Agu & Sep 2008 (−17%, −21%) porsi masih 1,00; baru Des 2008 turun ke 0,70. Volatilitas S2 di
+  IDX melonjak MENDADAK saat krisis dimulai, bukan berkelompok pelan sebelumnya. Versi 21 hari lebih cepat (info, BUKAN dipilih
+  setelah melihat hasil; tetap t < 1).
+- Cek `--potong-data`: alpha, porsi, bulan terburuk IDENTIK; biaya beda tipis (S2 bersih +0,81 vs +0,79%) karena `harga_asli` butuh split
+  sesudah 2018 (sebab sama #46/#49, bukan kebocoran).
+- Tafsiran: pengaturan porsi volatilitas long-only tanpa utang TIDAK memberi alpha yang terlihat & hanya sedikit memangkas drawdown
+  (−50% → −47%). Untuk modal kecil tanpa utang, alat risiko yang lebih tegas = aturan BERHENTI (sudah ditetapkan) & ukuran modal.
+  Ide tersimpan (pra-registrasi baru bila diuji): penanda volatilitas CEPAT (5–21 hari, intraday `raw/harian/intraday_idx`) sebagai
+  pengaman crash, dinilai lewat paper trading.

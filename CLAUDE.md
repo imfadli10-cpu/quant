@@ -499,7 +499,7 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   ULANG secara PENAMPANG: kepekaan tiap saham (beta bergulir thd variabel, data masa lalu saja) × perubahan variabel terbaru = skor per saham.
   Wajib: point-in-time (jeda terbit konservatif; ALFRED utk FRED), koreksi uji ganda (Benjamini-Hochberg/ambang t ketat), saring di 2005–2018,
   validasi ulang 2019–2022, penyintas digabung lalu dibandingkan dgn S2. Langkah 1 = tabel bulanan terpadu semua variabel (point-in-time).
-  Sesudahnya: #53 S2 dgn pengaturan porsi menurut volatilitas (Barroso-Santa-Clara 2015; Moreira-Muir 2017), latih 2005–2018 + paper trading.
+  Sesudahnya: #53 S2 dgn porsi menurut volatilitas → SELESAI 26 Nov 2026 (❌ belum terbukti, daya uji nol; lihat entri #53).
   **POSISI KERJA (serah terima 22 Nov 2026, kredit pengguna hampir habis):**
   - SELESAI: `panel_bps.py` → `data/olah/panel_bps.parquet` (6,67 jt baris, 644 rb seri; cukup utk latih 2005–2018: M 1.083 seri/26 var,
     Q 4.189/43, Y 13.707/262). Aturan: periode di-strip ('Februari ' berspasi 9.006 baris), proyeksi > 2026 dibuang, jeda terbit M+2/Q+3/S+3/Y+12.
@@ -954,6 +954,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   dibuka. Validasi 2019–2022 (46 bln): IC ML > S2 (t 4,3 vs 3,2) TAPI 20% teratas ML untung bersih jauh lebih kecil (ML − S2 −0,87%/bln
   t −1,6; terburuk 2021). Data uji 2023+ TIDAK dibuka; `ml` tetap EKSPERIMEN. Pelajaran: IC lebih tinggi ≠ kelompok teratas lebih untung;
   di rezim ritel, S2 murni lebih kuat dari skor campuran. Cek potong: identik.
+- **Riset #53 SELESAI: S2 dengan porsi menurut volatilitas (Barroso-Santa-Clara 2015; Moreira-Muir 2017), long-only tanpa utang**
+  (`riset_53_s2_volatilitas.py`, pra-reg `docs/prareg_53_s2_volatilitas.md` d0a79d7). ❌ BELUM TERBUKTI. Tes daya uji SEBELUM data asli: dunia palsu
+  persis sesuai teori pun alpha t < 1 (porsi dibatasi 1 + Sharpe dasar rendah). Asli 2007-07..2018-10 (128 bln): alpha −0,009%/bln t −0,23;
+  Sharpe 0,14 vs 0,15; DD maks −47% vs −50%; porsi rata 0,98. Jendela 126 hari TERLAMBAT (Agu–Sep 2008 porsi masih 1,00). Info: varians 21 hari
+  t +0,67. Potong-data identik (biaya beda tipis, sebab #46). S2 resmi TIDAK diubah. Pelajaran: porsi-vol long-only = alat risiko, bukan alpha.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
