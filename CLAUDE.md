@@ -541,6 +541,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     Treasury 26 (bid-to-cover & porsi indirect per tenor, nominal saja), Wikipedia 20, pangan PIHPS 1.167 (4 jenis harga × 35 wilayah × komoditas).
     JEBAKAN DTS: sejak 2022-04-18 saldo TGA ada di kolom `open_today_bal` (close kosong); 2021-10..2022-04 akun 'Treasury General Account (TGA)'.
     JEBAKAN BIS: kolom `collection` = DIMENSI di WS_XRU (rata-rata vs akhir periode), bukan atribut. Sudah di HF `olah/`.
+  - SELESAI (26 Nov 2026): `panel_seki.py` → `data/olah/panel_seki.parquet` (7.725 seri: M 6.739, Q 986; 1.162 cukup panjang di latih)
+    dari 87 dari 108 tabel SEKI. Lembar periode disambung HANYA lewat ANGKA (bulan tumpang tindih sama ≤ 0,5%, pasangan saling tunggal;
+    baris kembar identitas dipasangkan menurut urutan) karena nama baris & susunan berubah antar periode; tanpa tumpang tindih = segmen.
+    Cek: M2 yoy Des 2018/2020/2023 = 6,3/12,5/3,5% (resmi), kredit total 2020 −2,6%. TERLEWAT 21 tabel berheader kuartalan/tahunan
+    (IV.1–3 APBN, V.1–V.8 neraca pembayaran, V.39 PII, VI.1–5 ULN, IX.1–4) → pengurai kuartalan NANTI. CATATAN: III.3 versi baru = volume/
+    nilai transaksi & indeks BEI, BUKAN kepemilikan asing (kepemilikan asing hanya lembar lama 1990–2003). Sudah di HF `olah/`.
   - BELUM: (a) ~~sambung seri beda tahun dasar~~ SELESAI (lihat atas);
     (b) panel sumber lain: FRED (pakai ALFRED rilis pertama, tersedia = tanggal rilis), cuaca 15 kota, iklim (ONI jeda 1 bln, DMI 6 bln!),
     alam (Kp/Ap, bintik matahari), gempa, titik api, LME, harga global, kurs ECB/JISDOR, CBOE, Fama-French (jeda 2), COT, World Bank,
