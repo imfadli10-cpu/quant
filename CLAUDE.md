@@ -988,6 +988,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   `docs/prareg_54_asing_sbn.md` a8a5fb1). ❌ TIDAK LOLOS (daya uji rendah: tiruan besar pun t 2,3–3,1). Jeda konservatif 7 hari. U1 IDX minggu depan
   t +0,35 | U2 EIDO t +0,32 | U3 bulanan (porsi asing, 2003–2018) t −1,24. Cek kewajaran minggu SAMA t +3,35 (asing masuk ↔ saham naik) → info
   sudah masuk harga minggu itu. Potong-data identik. Uji ulang dgn jeda nyata (~3 hari, ukur dari `pertama_terlihat`) / sbg fitur penampang.
+- **Riset #55 SELESAI: beta saham thd arus asing SBN (PENAMPANG mingguan) → saham IDX minggu depan** (`riset_55_beta_asing.py`, pra-reg
+  `docs/prareg_55_beta_asing.md` 9d1dd06). ❌ TIDAK LOLOS. 207 mg, ~118 saham: U1 IC searah arus t −0,20 | U2 IC~F t +0,37 | U3 bersih t −0,71.
+  AKAR: beta 52 minggu per saham TIDAK persisten (cek minggu sama IC t +0,41; data palsu t +7) → kepekaan per saham tak terukur dgn desain ini.
+  Potong-data identik. Uji ulang dgn kelompok kepemilikan asing nyata / beta harian.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
