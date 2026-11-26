@@ -201,6 +201,12 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   portofolio per RD TIDAK ada, hanya NAB/unit). Pasardana (komersial, histori butuh login) & Infovesta (robots melarang) TIDAK dipakai.
   HBA/HMA ESDM TIDAK diambil (27 Nov 2026): situs Minerba 'dalam perbaikan', Kepmen di JDIH = PDF HASIL PINDAI (butuh OCR), dan HBA = rata-rata
   indeks bulan lalu (mirip IMF batu bara). Google News RSS: robots MELARANG bot Claude.
+- `kumpul_estimasi_idx.py` (workflow SENDIRI `estimasi_idx.yml`, SABTU 04:23 UTC): foto PERKIRAAN ANALIS ~140 saham IDX dari Yahoo → `raw/estimasi_idx/<tgl>`
+  (format panjang kode/tabel/periode/kolom/nilai): earnings & revenue estimate, eps_trend (konsensus vs 7/30/60/90 hr lalu), eps_revisions (naik/turun
+  7/30 hr), growth, recommendations (4 bln), target harga. HANYA KE DEPAN (mulai 28 Nov 2026) → bahan riset REVISI PERKIRAAN LABA (Chan-Jegadeesh-
+  Lakonishok 1996) setelah ~1 tahun foto. upgrades_downgrades IDX KOSONG di Yahoo. JEBAKAN: 0 = kosong bila numberOfAnalysts 0.
+  Laporan publikasi BULANAN per bank (cfs.ojk.go.id) TIDAK diambil: sejak POJK 37/2019 terbit 3 bulan setelah periode (bulan ke-4) & bulan
+  Mar/Jun/Sep/Des tidak wajib → kalah segar dari laporan kuartalan emiten (27 Nov 2026).
 - `kumpul_sbn.py` (harian, detik): YIELD OBLIGASI INDONESIA dari PHEI (Penilai Harga Efek Indonesia; robots.txt mengizinkan /Data)
   → `raw/harian/sbn` (mulai 20 Nov 2026, hanya ke depan; histori gratis tidak ada). Format panjang: kurva IGSYC tenor 0,1–30 thn,
   benchmark SUN (FR) & sukuk (PBS) dengan harga & kupon, seri ritel (ORI/SBR/ST/SR), korporasi per tenor × peringkat (IGS/AAA/AA/A/BBB).
@@ -524,6 +530,7 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   dinaikkan ke 150 & langkah Wikipedia dibatasi 45 mnt (22 Nov 2026). Cek run 23 Nov: job sukses & durasi wajar.
 - [ ] **Jumat 27 Nov – Senin 30 Nov 2026**: `reksadana_ojk.yml` (12:37 WIB) run pertama → cek server OJK menerima GitHub (callback 'All'),
   `raw/reksadana_ojk/indeks.parquet` bertambah ~50–60 bulan/run; histori 166 bulan lengkap ~3 run; job < 70 mnt. Gagal dari server → jalankan dari laptop.
+- [ ] **Sabtu 28 Nov 2026** (setelah ~11:45 WIB): `estimasi_idx.yml` run pertama → file `raw/estimasi_idx/2026-11-28.parquet`, ≥ 100 saham berisi.
 - [ ] **Sabtu 28 Nov 2026** (setelah ~13:00 WIB): `fundamental_idx.yml` → langkah BARU saham beredar, ALFRED (~13 mnt), OJK emisi
   (hanya file baru) → cek durasi tiap langkah & file baru di HF (`raw/saham_beredar`, `raw/alfred/vintage`, `raw/ojk_emisi/arsip`);
   job total < 240 menit.

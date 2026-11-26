@@ -1,0 +1,28 @@
+name: Perkiraan analis IDX (mingguan)
+
+on:
+  schedule:
+    - cron: "23 4 * * 6"    # Sabtu 11:23 WIB (terpisah dari fundamental_idx.yml yang sudah panjang)
+  workflow_dispatch:
+
+jobs:
+  foto:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install library
+        run: pip install -r requirements.txt
+      - name: Foto perkiraan analis (EPS/pendapatan, revisi 7/30 hari, rekomendasi, target harga)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}     # semesta dari foto screener di gudang; kode_idx() cadangan
+        run: python kumpul_estimasi_idx.py
+      - name: Upload ke Hugging Face
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python upload_satu.py data/raw/estimasi_idx
