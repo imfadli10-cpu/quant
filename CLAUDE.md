@@ -207,6 +207,12 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   Lakonishok 1996) setelah ~1 tahun foto. upgrades_downgrades IDX KOSONG di Yahoo. JEBAKAN: 0 = kosong bila numberOfAnalysts 0.
   Laporan publikasi BULANAN per bank (cfs.ojk.go.id) TIDAK diambil: sejak POJK 37/2019 terbit 3 bulan setelah periode (bulan ke-4) & bulan
   Mar/Jun/Sep/Des tidak wajib → kalah segar dari laporan kuartalan emiten (27 Nov 2026).
+- `kumpul_mpob.py` (harian, detik): STATISTIK SAWIT MALAYSIA MPOB (bepi.mpob.gov.my; robots mpob.gov.my tanpa larangan) → `raw/harian/mpob/<tgl>`
+  (format panjang laporan/bagian/baris/kolom/teks/nilai). Laporan = iframe `stat/web_report1.php?val=...` yg URL-nya DIBACA dari halaman menu
+  (Monthly Release terbaru & Summary tahun berjalan; `val` = kode laporan, BUKAN tahun — tebakan val lain kosong). Bulanan: bulan lalu (r) & ini (p)
+  per negara bagian (produksi, STOK, ekspor, impor, TBS) dgn header DIFFERENCE = 2 sel (selisih, selisih_pct). Ringkasan: tabel bulanan Des−bulan
+  terakhir; impor CPO punya SEL GABUNGAN (kolom sel_<j>). Cek 26 Nov 2026: stok palm oil Sep 3.510.554 (bulanan) = 3.510.555 (ringkasan); Okt (p)
+  3,62 jt t (+3,2%); ekspor Okt +56%. Histori tahun lalu TIDAK ada (hanya PDF Overview tahunan 2016–2025, belum diurai) → HANYA KE DEPAN.
 - `kumpul_sbn.py` (harian, detik): YIELD OBLIGASI INDONESIA dari PHEI (Penilai Harga Efek Indonesia; robots.txt mengizinkan /Data)
   → `raw/harian/sbn` (mulai 20 Nov 2026, hanya ke depan; histori gratis tidak ada). Format panjang: kurva IGSYC tenor 0,1–30 thn,
   benchmark SUN (FR) & sukuk (PBS) dengan harga & kupon, seri ritel (ORI/SBR/ST/SR), korporasi per tenor × peringkat (IGS/AAA/AA/A/BBB).
@@ -537,6 +543,7 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - [ ] **Jumat 27 Nov 2026** (setelah ~08:40 WIB): `harian.yml` langkah BARU kepemilikan SBN → cek sukses & di HF ada `raw/kepemilikan_sbn/harian.parquet`
   + `indeks.parquet` (run pertama dari laptop 26 Nov TERPUTUS tanpa WARP: 38 file arsip sudah di HF, harian & indeks BELUM; run server mengunggah
   ulang semuanya dalam SATU commit). Cek: ~3.200 tanggal, non-residen terakhir ~Rp930 T, server DJPPR menerima GitHub.
+  JUGA langkah BARU MPOB: `raw/harian/mpob/2026-11-27.parquet` ~280 sel (server MPOB menerima GitHub?).
   JUGA langkah BARU IndONIA: file `raw/harian/indonia/2026-11-27.parquet` (~2.400 hari) & `kurva_pasar_uang` ada; kalau sukses → tambah ke validasi_harian.
   JUGA langkah BARU operasi moneter BI: file `raw/harian/operasi_moneter/2026-11-27.parquet` ada (~30 operasi) = server BI menerima postback dari GitHub.
 - [ ] **Pantau beberapa hari**: `kumpul_opsi.py` dari server (21 Nov semua 49 kode gagal; 22 Nov PULIH: 34.649 kontrak, 426 dtk) &

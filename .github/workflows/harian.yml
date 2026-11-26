@@ -117,6 +117,11 @@ jobs:
         timeout-minutes: 10
         run: python kumpul_indonia.py
 
+      - name: Statistik bulanan sawit Malaysia MPOB (produksi, stok, ekspor; foto harian = lacak terbit & revisi)
+        continue-on-error: true
+        timeout-minutes: 10
+        run: python kumpul_mpob.py
+
       - name: Kepemilikan SBN per jenis investor termasuk ASING (DJPPR; hanya file baru, langsung ke gudang)
         continue-on-error: true
         timeout-minutes: 15
