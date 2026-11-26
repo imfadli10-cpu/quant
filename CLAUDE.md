@@ -1000,6 +1000,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   `docs/prareg_55_beta_asing.md` 9d1dd06). ❌ TIDAK LOLOS. 207 mg, ~118 saham: U1 IC searah arus t −0,20 | U2 IC~F t +0,37 | U3 bersih t −0,71.
   AKAR: beta 52 minggu per saham TIDAK persisten (cek minggu sama IC t +0,41; data palsu t +7) → kepekaan per saham tak terukur dgn desain ini.
   Potong-data identik. Uji ulang dgn kelompok kepemilikan asing nyata / beta harian.
+- **Riset #56 SELESAI: akhir lock-up 8 bulan IPO IDX (POJK 25/2017; Field-Hanka 2001)** (`riset_56_lockup.py`, pra-reg `docs/prareg_56_lockup.md`
+  dac280e). ❌ TIDAK LOLOS & tanpa efek khusus. 134 IPO latih: CAR[−5,+5] −2,35% t −1,91 | [−20,−1] −4,08% t −2,52 | [0,+20] −2,01% t −1,55;
+  volume TURUN ×0,50. PLASEBO (efektif + 6 bln) SAMA: −2,59% t −2,13, volume ×0,53 → yang terlihat = kelemahan umum IPO bulan 6–9 (#28), bukan
+  tanggal kunci. Daya uji rendah (hanya efek ≳ 6% terdeteksi). Tanggal efektif = perkiraan (penawaran − 1 hari kerja).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)

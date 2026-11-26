@@ -16,3 +16,13 @@ Literatur: Field & Hanka (2001, JF) volume +40% permanen & CAR 3 hari −1,5%; a
 
 DAYA UJI RENDAH (diakui di depan): hanya efek ≳ 6% (≈ 4x Field-Hanka) yang bisa lolos |t| > 3 dgn 134 peristiwa.
 Versi pertama pembuat data palsu punya drift +σ²/2 (kosong +2,1%) → dikoreksi sebelum data asli.
+
+## HASIL data asli (26 Nov 2026) — ❌ tidak lolos; tidak ada efek KHUSUS lock-up
+134 peristiwa (d0 2021-11 .. 2024-02), 0 IPO tanpa harga.
+- U1 CAR[−5,+5] −2,35% t −1,91 (median −2,64%, 66% negatif) | U2 CAR[−20,−1] −4,08% t −2,52 | U3 CAR[0,+20] −2,01% t −1,55.
+- Volume [0,+20] vs [−60,−21]: ×0,50 (t −3,56) = TURUN, bukan naik +40% seperti Field-Hanka.
+- PLASEBO (efektif + 6 bulan, bukan tanggal kunci): CAR[−5,+5] −2,59% t −2,13, volume ×0,53 → SAMA dgn tanggal lock-up.
+- Tafsiran: return negatif & volume menyusut = pola UMUM saham IPO IDX bulan 6–9 (euforia memudar; lihat #28: median −15,8% dlm 6 bln),
+  bukan tekanan jual di tanggal kunci. Lock-up − plasebo U1 ≈ +0,2 pp. Data uji tidak dibuka.
+- Catatan: tanggal efektif hanya PERKIRAAN (penawaran − 1 hari kerja) & tidak semua IPO punya pemegang saham terkunci → efek bisa terencerkan.
+  Uji ulang kalau ada daftar IPO dgn porsi saham terkunci (prospektus) — belum ada sumber terstruktur.
