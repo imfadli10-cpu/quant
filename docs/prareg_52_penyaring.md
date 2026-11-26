@@ -52,3 +52,16 @@ lebih lambat (DellaVigna-Pollet 2009, perhatian terbatas). Alasan pengguna: Rena
   dilaporkan terpisah & dicurigai lebih dulu. Variabel sangat berkorelasi (34 provinsi × komoditas) → BH tetap sah di bawah ketergantungan
   positif, tapi temuan berkelompok = SATU ide. Beta per saham dari 60 bulan berderau → daya uji terbatas; dilaporkan lewat tes tiruan.
 - Ini uji PERINGKAT (IC), belum strategi bersih biaya; variabel lolos menjadi FITUR model gabungan (#21/#36 gaya) dgn pra-registrasi sendiri.
+
+## 7. HASIL TES KODE (26 Nov 2026, SEBELUM data asli; mode `--cepat` = 1 dari 10 variabel, 1.321 variabel / 1.133 uji)
+- `--tes-kosong`: sebaran t rata +0,04, sb 0,99; |t| > 2: 56 (acak ~52), |t| > 3: 2 (acak ~3); lolos BH 0 → kalibrasi BENAR.
+- `--tes-tiruan` (21 variabel tertanam, gamma 0,005/0,010/0,015 + reaksi kontemporer 0,03): hanya 14 cukup panjang utk diuji;
+  ditemukan A 3 / B 2; median t 0,8–1,8. "Temuan palsu" 83 uji, sebagian besar SAUDARA variabel tertanam (indeks petani provinsi lain,
+  |kor z| 0,5–0,8) → satu ide muncul sebagai satu KELOMPOK temuan (sesuai keterbatasan di bagian 6).
+- `--tes-tiruan --satu` (hanya harga jagung, gamma 0,015, 127 bulan IC): IC +0,063 t 2,55; IC ORAKEL (kepekaan SEBENARNYA) +0,068 t 2,60
+  → taksiran beta TIDAK bermasalah (korelasi beta–kepekaan median 0,94). IC per bulan sangat berderau (sb ~0,28) karena reaksi kontemporer
+  thd berita BULAN BERIKUTNYA ikut di return bulan pegang (juga terjadi di data asli).
+- KESIMPULAN DAYA UJI (diakui SEBELUM data asli): satu variabel dgn IC ~0,06 hanya t ~2,5; ambang BH utk ~10 ribu uji ≈ |t| 4,5 →
+  uji per-variabel ini HANYA menangkap efek sangat kuat / berita persisten. Hasil negatif ≠ variabel tak berguna. Desain yang lebih kuat
+  (gabungan banyak sinyal lemah dgn arah dipelajari maju-bertahap, dinilai sebagai SATU uji) = riset #52b dgn pra-registrasi sendiri.
+- Desain #52 TIDAK diubah (dijalankan persis seperti bagian 1–5).
