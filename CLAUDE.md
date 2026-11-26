@@ -506,6 +506,7 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - [ ] **Jumat 27 Nov 2026** (setelah ~08:40 WIB): `harian.yml` langkah BARU kepemilikan SBN → cek sukses & di HF ada `raw/kepemilikan_sbn/harian.parquet`
   + `indeks.parquet` (run pertama dari laptop 26 Nov TERPUTUS tanpa WARP: 38 file arsip sudah di HF, harian & indeks BELUM; run server mengunggah
   ulang semuanya dalam SATU commit). Cek: ~3.200 tanggal, non-residen terakhir ~Rp930 T, server DJPPR menerima GitHub.
+  JUGA langkah BARU operasi moneter BI: file `raw/harian/operasi_moneter/2026-11-27.parquet` ada (~30 operasi) = server BI menerima postback dari GitHub.
 - [ ] **Pantau beberapa hari**: `kumpul_opsi.py` dari server (21 Nov semua 49 kode gagal; 22 Nov PULIH: 34.649 kontrak, 426 dtk) &
   Kontan RSS (403 dari server, sudah diketahui). Centang setelah ~5 hari opsi berturut-turut normal.
 - [ ] **Senin 30 Nov / Selasa 1 Des 2026**: paper trading — pilihan akhir Nov tercatat SEBELUM beli (`dicatat_sebelum_beli`=True) untuk
