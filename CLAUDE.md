@@ -1035,6 +1035,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - **Riset #58 SELESAI: laba diumumkan TELAT vs kebiasaan emiten (Givoly-Palmon 1982; deHaan dkk. 2015)** (`riset_58_laba_telat.py`, pra-reg
   `docs/prareg_58_laba_telat.md` 5e84faf). ❌ TIDAK LOLOS (daya uji rendah). 1.249 peristiwa, TELAT ≥ 14 hr cuma 103 (8%; jadwal emiten IDX sangat tetap):
   U1 +1,20%/kuartal t +0,92 (14 kuartal) | U2 t −0,03. Kejutan EPS kelompok telat hanya sedikit lebih buruk (median −3,2% vs −1,8%). Potong-data identik.
+- **Riset #59 SELESAI: lead-lag DALAM sektor (Hou 2007; pemimpin = 3 saham paling likuid per sektor)** (`riset_59_lead_lag_sektor.py`,
+  pra-reg `docs/prareg_59_lead_lag_sektor.md` 7303390). ❌ TIDAK LOLOS. 126 bln, 8 sektor, ~78 pengikut: U1 IC +0,020 t +1,40 | U2 (kontrol r0 sendiri)
+  t +1,21 | U3 bersih −0,74%/bln t −2,25 (biaya 1,07%). INFO: return 1 bulan SENDIRI t +3,56 (= #2). Tes kosong menemukan cacat aturan U3 (|t| meloloskan
+  biaya) → diperbaiki jadi t > +3 SEBELUM data asli. Potong-data: IC identik (biaya beda tipis, sebab #46). Uji ulang dgn industri rinci (~70).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
