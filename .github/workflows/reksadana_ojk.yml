@@ -1,0 +1,25 @@
+name: Reksa dana OJK (NAB & unit per reksa dana, bulanan)
+
+on:
+  schedule:
+    - cron: "37 5 * * *"    # tiap hari 12:37 WIB: histori 2013+ dicicil (anggaran 45 mnt/run), lalu tangkap bulan baru (~tgl 8) & revisi
+  workflow_dispatch:
+
+jobs:
+  ambil:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install library
+        run: pip install -r requirements.txt
+      - name: NAB & unit penyertaan setiap reksa dana (OJK; upload atomik sendiri tiap 12 bulan)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          ANGGARAN_MENIT: "45"
+        run: python kumpul_reksadana_ojk.py

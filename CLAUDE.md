@@ -190,6 +190,17 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   Cek 26 Nov 2026: indeks = ACT/360 (selisih maks 0,00002 pp vs IndONIA); IndONIA − suku bunga kebijakan (BIS) −1,09..+0,92 pp (di koridor;
   2021–22 −0,71 = banjir likuiditas); lonjakan > 0,5 pp kebanyakan MENJELANG LEBARAN (2018-06-08, 2022-04-28, 2025-03-27, 2026-03-17) = nyata.
   JIBOR: halaman ada tapi tanpa tabel (tidak diambil). BI-Rate: sudah ada di BIS WS_CBPOL.
+- `kumpul_reksadana_ojk.py` (workflow SENDIRI `reksadana_ojk.yml`, harian 05:37 UTC, anggaran 45 mnt): NAB & UNIT PENYERTAAN SETIAP REKSA DANA
+  per akhir bulan dari halaman publik OJK (reksadana.ojk.go.id, tanpa robots.txt; detail bulan = StatistikNABReksadanaPublicDetail.aspx?year=&month=,
+  grid DevExpress; 'Page size: All' = callback `c0:KV|<n>;<kv>;GB|21;12|PAGERONCLICK5|PSP-1;` + SEMUA input hidden termasuk CallbackState) →
+  `raw/reksadana_ojk/bulan/<YYYY-MM>__<sha8>.parquet` (SETIAP versi; revisi bank kustodian) + `indeks.parquet`. Sejak 2013-01 (710 RD, Rp186 T) s/d
+  2026-10 (2.161 RD, Rp624 T; Equity 361, Fixed Income 528, Money Market 308, Index 115, ETF 48). RD NAB 0 ikut (bubar) = BEBAS PENYINTAS.
+  Cek: jumlah baris = 'N items' & jumlah NAB/unit = [Total] resmi (selisih pembulatan sen). Server OJK ~30–60 dtk/bulan. Histori dicicil
+  ~3 run. Terbit mulai tgl 8 bulan berikutnya (OJK) → pit: tersedia = waktu_ambil versi pertama (histori: 27 Nov 2026 = artefak, pakai tgl 8 m+1
+  + jeda). Total sejak Okt 2021 termasuk 'produk investasi lainnya'. Arus dana RD saham = permintaan domestik (bahan riset arus dana per saham? —
+  portofolio per RD TIDAK ada, hanya NAB/unit). Pasardana (komersial, histori butuh login) & Infovesta (robots melarang) TIDAK dipakai.
+  HBA/HMA ESDM TIDAK diambil (27 Nov 2026): situs Minerba 'dalam perbaikan', Kepmen di JDIH = PDF HASIL PINDAI (butuh OCR), dan HBA = rata-rata
+  indeks bulan lalu (mirip IMF batu bara). Google News RSS: robots MELARANG bot Claude.
 - `kumpul_sbn.py` (harian, detik): YIELD OBLIGASI INDONESIA dari PHEI (Penilai Harga Efek Indonesia; robots.txt mengizinkan /Data)
   → `raw/harian/sbn` (mulai 20 Nov 2026, hanya ke depan; histori gratis tidak ada). Format panjang: kurva IGSYC tenor 0,1–30 thn,
   benchmark SUN (FR) & sukuk (PBS) dengan harga & kupon, seri ritel (ORI/SBR/ST/SR), korporasi per tenor × peringkat (IGS/AAA/AA/A/BBB).
@@ -507,6 +518,8 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   harian punya file; validasi hijau (langkah validasi TANPA continue-on-error). Server BI & CBOE menerima GitHub.
   TEMUAN: job harian ~76 menit (bukan 35) dgn batas lama 90 → MEPET; langkah Wikipedia per saham ~35 mnt (429 Wikimedia) → batas job
   dinaikkan ke 150 & langkah Wikipedia dibatasi 45 mnt (22 Nov 2026). Cek run 23 Nov: job sukses & durasi wajar.
+- [ ] **Jumat 27 Nov – Senin 30 Nov 2026**: `reksadana_ojk.yml` (12:37 WIB) run pertama → cek server OJK menerima GitHub (callback 'All'),
+  `raw/reksadana_ojk/indeks.parquet` bertambah ~50–60 bulan/run; histori 166 bulan lengkap ~3 run; job < 70 mnt. Gagal dari server → jalankan dari laptop.
 - [ ] **Sabtu 28 Nov 2026** (setelah ~13:00 WIB): `fundamental_idx.yml` → langkah BARU saham beredar, ALFRED (~13 mnt), OJK emisi
   (hanya file baru) → cek durasi tiap langkah & file baru di HF (`raw/saham_beredar`, `raw/alfred/vintage`, `raw/ojk_emisi/arsip`);
   job total < 240 menit.
