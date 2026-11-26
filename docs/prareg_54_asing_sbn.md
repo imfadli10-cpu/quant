@@ -22,3 +22,13 @@ Sebelum menulis, yang dilihat dari data hanya KETERSEDIAAN (jumlah tanggal per t
 
 DAYA UJI RENDAH: efek tiruan sebesar itu (≈ 0,4% per minggu per 1 sb sinyal = besar) pun hanya t 2,3–3,1. Hasil negatif = "tidak terdeteksi
 pada daya uji ini", BUKAN bukti tidak ada. Bug ditemukan tes: selisih Period bulanan memberi offset (bukan 1) → U3 kosong; diperbaiki sebelum data asli.
+
+## HASIL DATA ASLI (26 Nov 2026) — ❌ TIDAK LOLOS (belum terbukti pada daya uji rendah)
+- U1 IDX minggu depan +0,07% per +1% arus, t +0,35 (242 mg) | U2 EIDO +0,09%, t +0,32 (254 mg) | U3 bulanan −0,91% per +1 pp, t −1,24 (179 bln).
+- Versi swasta saja (tanpa pemerintah & bank sentral asing): t +0,06 / −0,08.
+- CEK KEWAJARAN lolos: arus minggu yang SAMA ↔ keranjang minggu yang sama +1,20% per +1%, t +3,35 → data bermakna (asing masuk SBN saat
+  saham naik), tetapi informasinya SUDAH masuk harga di minggu yang sama (sesuai EMFT 2020). Tidak ada keterlambatan yang bisa dipakai
+  dgn jeda konservatif 7 hari.
+- Cek `--potong-data`: IDENTIK. (Paruh pertama U1 'nan' = ada minggu tanpa return keranjang di paruh itu; info saja.)
+- Tafsiran: belum terbukti sebagai sinyal timing. Data tetap berguna: (a) jeda nyata ~3 hari (bukan 7) bisa diuji ulang setelah jeda terbit
+  terukur dari `pertama_terlihat` ke depan; (b) fitur rezim/risiko; (c) penampang (saham yg disukai asing × arus) = desain lain.

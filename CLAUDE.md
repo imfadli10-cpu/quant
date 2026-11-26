@@ -974,6 +974,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   persis sesuai teori pun alpha t < 1 (porsi dibatasi 1 + Sharpe dasar rendah). Asli 2007-07..2018-10 (128 bln): alpha −0,009%/bln t −0,23;
   Sharpe 0,14 vs 0,15; DD maks −47% vs −50%; porsi rata 0,98. Jendela 126 hari TERLAMBAT (Agu–Sep 2008 porsi masih 1,00). Info: varians 21 hari
   t +0,67. Potong-data identik (biaya beda tipis, sebab #46). S2 resmi TIDAK diubah. Pelajaran: porsi-vol long-only = alat risiko, bukan alpha.
+- **Riset #54 SELESAI: arus asing di SBN (kepemilikan non-residen DJPPR) → saham Indonesia** (`riset_54_asing_sbn.py`, pra-reg
+  `docs/prareg_54_asing_sbn.md` a8a5fb1). ❌ TIDAK LOLOS (daya uji rendah: tiruan besar pun t 2,3–3,1). Jeda konservatif 7 hari. U1 IDX minggu depan
+  t +0,35 | U2 EIDO t +0,32 | U3 bulanan (porsi asing, 2003–2018) t −1,24. Cek kewajaran minggu SAMA t +3,35 (asing masuk ↔ saham naik) → info
+  sudah masuk harga minggu itu. Potong-data identik. Uji ulang dgn jeda nyata (~3 hari, ukur dari `pertama_terlihat`) / sbg fitur penampang.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
