@@ -183,6 +183,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   **DNDF Jual (volume USD per tenor = jejak INTERVENSI kurs BI)**. Daftar = 10/halaman, halaman 2-3 lewat postback tombol halaman (pola JISDOR).
   Mulai 26 Nov 2026. JEBAKAN: `<title>` halaman kadang generik → judul dari teks tautan daftar; halaman utuh ~300 KB → simpan tabel saja.
   Daftar resmi memuat 20.138 operasi (histori panjang) → lihat daftar periksa (histori belum diambil).
+- `kumpul_indonia.py` (harian, detik): Bank Indonesia (robots Allow /) → (1) `raw/harian/indonia/<tgl>` = SELURUH histori IndONIA (suku bunga antarbank
+  SEMALAM, sejak 2017-01-03, 2.396 hari) + Compounded IndONIA 30/90/180/360 hr & Indeks IndONIA (sejak 2019-01-02), format panjang tanggal/seri/nilai;
+  formulir publik rentang bulan (pola JISDOR, 1 permintaan). (2) `raw/harian/kurva_pasar_uang/<tgl>` = MM Curve BI: rata-rata tertimbang & VOLUME
+  pasar sekunder REPO 1 bln & SRBI 3/6/12 bln, sejak Jun 2026 (zip tahunan ditimpa BI; tahun lalu 302 → HANYA KE DEPAN). Angka file = pecahan (×100).
+  Cek 26 Nov 2026: indeks = ACT/360 (selisih maks 0,00002 pp vs IndONIA); IndONIA − suku bunga kebijakan (BIS) −1,09..+0,92 pp (di koridor;
+  2021–22 −0,71 = banjir likuiditas); lonjakan > 0,5 pp kebanyakan MENJELANG LEBARAN (2018-06-08, 2022-04-28, 2025-03-27, 2026-03-17) = nyata.
+  JIBOR: halaman ada tapi tanpa tabel (tidak diambil). BI-Rate: sudah ada di BIS WS_CBPOL.
 - `kumpul_sbn.py` (harian, detik): YIELD OBLIGASI INDONESIA dari PHEI (Penilai Harga Efek Indonesia; robots.txt mengizinkan /Data)
   → `raw/harian/sbn` (mulai 20 Nov 2026, hanya ke depan; histori gratis tidak ada). Format panjang: kurva IGSYC tenor 0,1–30 thn,
   benchmark SUN (FR) & sukuk (PBS) dengan harga & kupon, seri ritel (ORI/SBR/ST/SR), korporasi per tenor × peringkat (IGS/AAA/AA/A/BBB).
@@ -506,6 +513,7 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
 - [ ] **Jumat 27 Nov 2026** (setelah ~08:40 WIB): `harian.yml` langkah BARU kepemilikan SBN → cek sukses & di HF ada `raw/kepemilikan_sbn/harian.parquet`
   + `indeks.parquet` (run pertama dari laptop 26 Nov TERPUTUS tanpa WARP: 38 file arsip sudah di HF, harian & indeks BELUM; run server mengunggah
   ulang semuanya dalam SATU commit). Cek: ~3.200 tanggal, non-residen terakhir ~Rp930 T, server DJPPR menerima GitHub.
+  JUGA langkah BARU IndONIA: file `raw/harian/indonia/2026-11-27.parquet` (~2.400 hari) & `kurva_pasar_uang` ada; kalau sukses → tambah ke validasi_harian.
   JUGA langkah BARU operasi moneter BI: file `raw/harian/operasi_moneter/2026-11-27.parquet` ada (~30 operasi) = server BI menerima postback dari GitHub.
 - [ ] **Pantau beberapa hari**: `kumpul_opsi.py` dari server (21 Nov semua 49 kode gagal; 22 Nov PULIH: 34.649 kontrak, 426 dtk) &
   Kontan RSS (403 dari server, sudah diketahui). Centang setelah ~5 hari opsi berturut-turut normal.

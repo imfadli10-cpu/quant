@@ -112,6 +112,11 @@ jobs:
         timeout-minutes: 15
         run: python kumpul_operasi_moneter.py
 
+      - name: IndONIA (suku bunga antarbank semalam) + kurva pasar uang repo/SRBI (Bank Indonesia)
+        continue-on-error: true
+        timeout-minutes: 10
+        run: python kumpul_indonia.py
+
       - name: Kepemilikan SBN per jenis investor termasuk ASING (DJPPR; hanya file baru, langsung ke gudang)
         continue-on-error: true
         timeout-minutes: 15
