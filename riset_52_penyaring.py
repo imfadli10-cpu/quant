@@ -72,8 +72,12 @@ def berita(bulan, tersedia, nilai, sudah_delta):
     bulan, tersedia, nilai = bulan[o], tersedia[o], nilai[o]
     if sudah_delta:
         d = nilai
-    elif np.all(nilai > 0):
-        d = np.concatenate([[np.nan], np.diff(np.log(nilai))])
+    elif np.all(nilai[bulan <= np.datetime64(BATAS)] > 0) and np.any(bulan <= np.datetime64(BATAS)):
+        # PERBAIKAN KEBOCORAN (26 Nov 2026, ditemukan --potong-data): pilihan log/selisih dulu melihat SELURUH seri (nilai <= 0 sesudah
+        # 2018 mengubah transformasi 57 variabel latih). Kini hanya data s/d 2018; nilai <= 0 belakangan -> perubahan di titik itu kosong.
+        with np.errstate(invalid="ignore", divide="ignore"):
+            lg = np.where(nilai > 0, np.log(np.where(nilai > 0, nilai, 1.0)), np.nan)
+        d = np.concatenate([[np.nan], np.diff(lg)])
     else:
         d = np.concatenate([[np.nan], np.diff(nilai)])
     urut = np.argsort(tersedia, kind="stable")

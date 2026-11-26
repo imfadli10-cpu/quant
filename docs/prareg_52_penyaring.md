@@ -65,3 +65,12 @@ lebih lambat (DellaVigna-Pollet 2009, perhatian terbatas). Alasan pengguna: Rena
   uji per-variabel ini HANYA menangkap efek sangat kuat / berita persisten. Hasil negatif ≠ variabel tak berguna. Desain yang lebih kuat
   (gabungan banyak sinyal lemah dgn arah dipelajari maju-bertahap, dinilai sebagai SATU uji) = riset #52b dgn pra-registrasi sendiri.
 - Desain #52 TIDAK diubah (dijalankan persis seperti bagian 1–5).
+
+## 8. HASIL DATA ASLI (26 Nov 2026) — ❌ 0 lolos BH (belum terbukti pada daya uji ini)
+- BUG KEBOCORAN ditemukan `--potong-data` & diperbaiki SEBELUM hasil dipakai: pilihan log/selisih melihat SELURUH seri (nilai ≤ 0 sesudah
+  2018 mengubah transformasi 57 variabel di latih; beda t s/d 1,27). Kini dari data ≤ 2018 saja → potong-data IDENTIK (beda t = 0, 10.766 uji).
+- 13.527 variabel → 10.766 uji (A + B). |t| > 2: 613 (acak ~490); |t| > 3: 48 (acak ~29); |t| > 4: 1 (acak ~0,7). Sebaran t rata −0,08, sb 1,04.
+  LOLOS BH q = 0,05: **0**. |t| > 3 per panel: SEKI 37 (kebanyakan kredit bank per sektor/kelompok, saling berkorelasi = satu ide), lain 6
+  (BIS GLI), BPS 5. Terbesar: kredit pengangkutan & komunikasi (SEKI I.4, kel. A) t +4,03 (paruh 3,1/2,6); BIS GLI USD t +3,9 (42 bln).
+- Kelebihan |t| > 3 (48 vs 29) wajar utk variabel berkorelasi (sb t 1,04) → bukan bukti. Data uji 2019+ TIDAK dibuka (tidak ada yang lolos).
+- Tabel lengkap: HF `olah/riset52_latih.parquet`. Lanjut: #52b (gabungan, satu uji).
