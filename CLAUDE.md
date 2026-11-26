@@ -1017,6 +1017,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   dac280e). ❌ TIDAK LOLOS & tanpa efek khusus. 134 IPO latih: CAR[−5,+5] −2,35% t −1,91 | [−20,−1] −4,08% t −2,52 | [0,+20] −2,01% t −1,55;
   volume TURUN ×0,50. PLASEBO (efektif + 6 bln) SAMA: −2,59% t −2,13, volume ×0,53 → yang terlihat = kelemahan umum IPO bulan 6–9 (#28), bukan
   tanggal kunci. Daya uji rendah (hanya efek ≳ 6% terdeteksi). Tanggal efektif = perkiraan (penawaran − 1 hari kerja).
+- **Riset #57 SELESAI: frog-in-the-pan (Da-Gurun-Warachka 2014; momentum KONTINU)** (`riset_57_frog_in_pan.py`, pra-reg `docs/prareg_57_frog_in_pan.md`
+  d9bb718). U1 ✅ IC(−ID, r) di antara pemenang 12-1 +0,065 t +3,83 (paruh 2,2/3,4) | U2 ❌ FIP beli-saja bersih +0,24%/bln t +0,78 (= momentum biasa).
+  DIAGNOSIS sesudah hasil: −ID kor +0,28 dgn S2 & +0,30 dgn S3; residual setelah S1/S2/S3 IC +0,027 t +1,80 → sebagian besar = sinyal lama.
+  Kandidat FITUR model penampang (ID = tanda(PRET) x (%turun − %naik), 150+ hari). Potong-data: IC identik (biaya beda tipis, sebab #46).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
