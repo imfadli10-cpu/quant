@@ -1046,6 +1046,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   pra-reg `docs/prareg_59_lead_lag_sektor.md` 7303390). ❌ TIDAK LOLOS. 126 bln, 8 sektor, ~78 pengikut: U1 IC +0,020 t +1,40 | U2 (kontrol r0 sendiri)
   t +1,21 | U3 bersih −0,74%/bln t −2,25 (biaya 1,07%). INFO: return 1 bulan SENDIRI t +3,56 (= #2). Tes kosong menemukan cacat aturan U3 (|t| meloloskan
   biaya) → diperbaiki jadi t > +3 SEBELUM data asli. Potong-data: IC identik (biaya beda tipis, sebab #46). Uji ulang dgn industri rinci (~70).
+- **Riset #60 SELESAI: lonjakan 'tutup di puncak' (mirip ARA: return ≥ +20% & Close = High; magnet Kim-Rhee 1997 vs lotre)** (`riset_60_lonjakan_puncak.py`,
+  pra-reg `docs/prareg_60_lonjakan_puncak.md` abe613d). ❌ TIDAK LOLOS, pola LOTRE: 181 peristiwa likuid (2002–2018): +20 hr rata +0,75% tapi MEDIAN −4,0%
+  (t −0,08); +60 hr median −5,8% (t +0,10); d+1 +0,58%. Aturan ARA resmi berubah antar tahun (35/25/20 simetris resmi Jan 2017; ARB asimetris 2015 &
+  2020–2023; ARB 15% Apr 2025) → definisi bebas-aturan. Potong-data identik.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
