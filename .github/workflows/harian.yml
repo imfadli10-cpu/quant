@@ -107,6 +107,11 @@ jobs:
         continue-on-error: true
         run: python kumpul_lelang_sbn.py
 
+      - name: Hasil operasi moneter BI (SRBI, SUVBI, TD, repo, FX swap, DNDF jual = intervensi kurs)
+        continue-on-error: true
+        timeout-minutes: 15
+        run: python kumpul_operasi_moneter.py
+
       - name: Kepemilikan SBN per jenis investor termasuk ASING (DJPPR; hanya file baru, langsung ke gudang)
         continue-on-error: true
         timeout-minutes: 15

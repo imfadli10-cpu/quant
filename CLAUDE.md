@@ -176,6 +176,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   salah ketik tahun sumber (lembar Des 2022: 30-12-2023) dikoreksi otomatis & dicetak. Dobel antar file (2015-12-31 direvisi) → file terbaru menang.
   `pertama_terlihat` histori = 26 Nov 2026 (bukan tanggal terbit); jeda terbit nyata terlihat ke depan (23 Nov terlihat 26 Nov). Lampiran asing
   per SEKTOR & TENOR (bulanan 2008+) diarsip mentah, BELUM diurai.
+- `kumpul_operasi_moneter.py` (harian, ~2 mnt): HASIL OPERASI MONETER Bank Indonesia (halaman publik bi.go.id/id/publikasi/lelang/operasi-moneter,
+  robots Allow /) → `raw/harian/operasi_moneter/<tanggal>` (format panjang url/judul/tanggal_operasi/jenis/tabel_ke/baris/kolom/teks; angka = TEKS
+  asli format Indonesia, mis. '39.023,00', 'Rp18.409', 'Tidak terdapat penawaran yang masuk') + `halaman_<tanggal>` (potongan <table> HTML asli).
+  Jenis: SRBI, SUVBI, SVBI, SukBI, Term Deposit (Rp/valas), Repo, Reverse Repo SBN, PasBI, BI FRN, FX Swap, Spot/Swap CNY-CNH-JPY, Rollover DNDF,
+  **DNDF Jual (volume USD per tenor = jejak INTERVENSI kurs BI)**. Daftar = 10/halaman, halaman 2-3 lewat postback tombol halaman (pola JISDOR).
+  Mulai 26 Nov 2026. JEBAKAN: `<title>` halaman kadang generik → judul dari teks tautan daftar; halaman utuh ~300 KB → simpan tabel saja.
+  Daftar resmi memuat 20.138 operasi (histori panjang) → lihat daftar periksa (histori belum diambil).
 - `kumpul_sbn.py` (harian, detik): YIELD OBLIGASI INDONESIA dari PHEI (Penilai Harga Efek Indonesia; robots.txt mengizinkan /Data)
   → `raw/harian/sbn` (mulai 20 Nov 2026, hanya ke depan; histori gratis tidak ada). Format panjang: kurva IGSYC tenor 0,1–30 thn,
   benchmark SUN (FR) & sukuk (PBS) dengan harga & kupon, seri ritel (ORI/SBR/ST/SR), korporasi per tenor × peringkat (IGS/AAA/AA/A/BBB).
@@ -594,6 +601,8 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     Notebook (eksplorasi yang bisa dilihat langkah demi langkah), pustaka hmmlearn/PyWavelets/networkx.
   - RENCANA 4 TAHAP: (1) fondasi data panel terpadu & bersih → (2) eksplorasi multi-metode → (3) model gabungan banyak sinyal lemah →
     (4) validasi bertahun-tahun lewat data maju & paper trading. Pengumpulan data otomatis tetap jalan.
+- [ ] **Histori operasi moneter BI** (20.138 operasi di daftar resmi, termasuk SRBI sejak Sep 2023 & DNDF): butuh ~2.000 postback halaman berurutan
+  + ~20 rb halaman hasil (±1 hari pada jeda 2 dtk) → rancang workflow MANUAL yang bisa dilanjutkan & sopan (atau saring per jenis: DNDF, SRBI, SUVBI).
 - [ ] Ide tersimpan (perlu pra-registrasi sendiri): fitur "pembagi dividen" (#47/#48) untuk model penampang; riset kejutan rilis makro
   (ALFRED rilis pertama + Kalshi, setelah data Kalshi beberapa bulan); #10 volatilitas tersirat opsi (data opsi beberapa bulan).
 
