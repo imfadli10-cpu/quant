@@ -35,3 +35,13 @@ versi lama t −0,94, tersusut t −1,27 → reaksi tertunda IC ≤ ~0,06 TIDAK 
 "tidak terdeteksi pada daya uji ini", BUKAN bukti tidak ada. Kriteria LOLOS (t > 3, satu uji) TIDAK diubah.
 Kejujuran: kode penyusutan ditulis sebelum hasil #52 asli terlihat; sebelum amandemen ini di-commit, daftar 20 t terbesar cek potong-data #52
 sempat terbaca sekilas (tidak ada yang lolos BH di daftar itu). Desain tidak diubah karena itu.
+
+## HASIL DATA ASLI (26 Nov 2026) — ❌ TIDAK LOLOS (belum terbukti pada daya uji ini)
+- 13.527 variabel, bobot tersusut; median 110 variabel berbobot per bulan (maks 278). Evaluasi 102 bulan (bulan awal belum punya bobot).
+- [semua] IC G +0,0035 t +0,27 (paruh +1,05 / −0,67); setelah S2 dikendalikan −0,0018 t −0,15; K5−K1 kotor −0,39%/bln t −0,81; kor G vs S2 +0,08.
+- [pit saja] IC −0,0046 t −0,33. Data uji 2019+ TIDAK dibuka.
+- Tafsiran jujur: gabungan linear maju-bertahap dari ~13 ribu variabel "data aneh" tidak memberi kemampuan meranking saham IDX bulan depan
+  di 2005–2018 yang bisa dibedakan dari nol. Daya uji terbatas (tes `--z-acak`: reaksi tertunda IC ≤ 0,06 tak terdeteksi) → TIDAK berarti
+  variabel tak berguna; mungkin berguna di horizon lain (harian/mingguan), untuk sektor tertentu (desain terarah dgn mekanisme jelas:
+  komoditas → emiten produsennya), sebagai pengatur RISIKO/rezim, atau dengan data yang lebih panjang ke depan.
+- Cek `--potong-data`: IDENTIK (semua angka sama persis).

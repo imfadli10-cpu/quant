@@ -125,6 +125,10 @@ for nama, (f, kol) in PANEL.items():
         info.append({"seri": s, "panel": nama, "judul": str(x["judul"].iloc[0])[:150], "frek": str(x["frek"].iloc[0]),
                      "pit": bool(x["pit"].mean() > 0.5) if "pit" in x else False})
     print(f"   {nama}: {len(calon):,} seri cukup panjang -> {len(Z) - n0:,} punya >= {MIN_IC} bulan berita di latih ({time.time() - t0:.0f} dtk)")
+del p, x                                                           # lepas panel mentah (BPS 6,7 jt baris) -> hemat RAM
+import gc  # noqa: E402
+
+gc.collect()
 Z = np.array(Z).T                                                  # T x V
 info = pd.DataFrame(info)
 V = Z.shape[1]

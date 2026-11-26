@@ -547,7 +547,12 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     Cek: M2 yoy Des 2018/2020/2023 = 6,3/12,5/3,5% (resmi), kredit total 2020 −2,6%. TERLEWAT 21 tabel berheader kuartalan/tahunan
     (IV.1–3 APBN, V.1–V.8 neraca pembayaran, V.39 PII, VI.1–5 ULN, IX.1–4) → pengurai kuartalan NANTI. CATATAN: III.3 versi baru = volume/
     nilai transaksi & indeks BEI, BUKAN kepemilikan asing (kepemilikan asing hanya lembar lama 1990–2003). Sudah di HF `olah/`.
-  - SEDANG (26 Nov 2026): MESIN PENYARING #52 (`riset_52_penyaring.py`, pra-reg `docs/prareg_52_penyaring.md` 2558b44 + hasil tes kode
+  - HASIL (26 Nov 2026): #52 per-variabel ❌ 0 lolos BH dari 10.766 uji (|t|>3: 48 vs acak 29, kebanyakan kredit bank SEKI berkorelasi;
+    terbesar kredit pengangkutan & komunikasi t +4,0); #52b gabungan ❌ IC +0,0035 t +0,27 (pit saja −0,33). Data uji TIDAK dibuka.
+    Bug kebocoran (pilihan log/selisih melihat data > 2018) ditemukan --potong-data & diperbaiki. JEBAKAN RAM: 2 proses #52b paralel
+    di laptop 7,5 GB → Memory Compression, macet → jalankan SENDIRIAN (panel mentah dilepas setelah Z dibangun).
+    Langkah berikutnya yang masuk akal: desain TERARAH dgn mekanisme jelas (bukan penyaring buta), horizon lain, atau #53 (S2 + vol scaling).
+  - (riwayat) MESIN PENYARING #52 (`riset_52_penyaring.py`, pra-reg `docs/prareg_52_penyaring.md` 2558b44 + hasil tes kode
     f9979bb) & GABUNGAN #52b (`riset_52b_gabungan.py`, pra-reg `docs/prareg_52b_gabungan.md` b37d712). Tes kode: #52 kosong terkalibrasi;
     daya uji per-variabel RENDAH (IC 0,06 → t ~2,5; ambang BH ~4,5). #52b: jalur "berita persisten" terdeteksi kuat (t 8) tapi itu sebagian
     ARTEFAK pembuat data palsu (rata-rata bulanan berautokorelasi; Working 1960); dgn berita acak (`--z-acak`) reaksi tertunda IC ≤ 0,06
