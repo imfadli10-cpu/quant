@@ -164,6 +164,13 @@ jobs:
         timeout-minutes: 10
         run: python kumpul_shfe.py
 
+      - name: USDA PSD neraca komoditas dunia (sawit, kedelai, dll.; HANYA versi baru, langsung ke gudang)
+        continue-on-error: true
+        timeout-minutes: 15
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python kumpul_usda_psd.py
+
       - name: Kepemilikan SBN per jenis investor termasuk ASING (DJPPR; hanya file baru, langsung ke gudang)
         continue-on-error: true
         timeout-minutes: 15

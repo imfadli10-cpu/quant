@@ -403,6 +403,13 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   (4) format stok BERGANTI ~akhir 2025: `weeklydata/<tgl>weeklystock.dat` & `dailydata/<tgl>dailystock.dat` (lama) → `stockdata/<jenis>_<tgl>/ZH/all.html`;
   (5) tutup sesi siang 15:00 Beijing = 14:00 WIB (sebelum IDX tutup) + sesi MALAM 21:00–01:00 dihitung ke hari dagang berikutnya. Hari libur = 404.
   Kegunaan: stok gudang China nikel/timah/karet + premi SHFE−LME (arbitrase impor China) → emiten INCO/ANTM/NCKL/MBMA/TINS & karet.
+- `kumpul_usda_psd.py` (harian, detik kalau tidak ada versi baru): USDA FAS PSD (unduhan publik psd_alldata_csv.zip, robots kosong, tanpa kunci) →
+  `raw/usda_psd/versi/<Last-Modified>__<sha8>.parquet` (SETIAP versi; 2,1 jt baris, 63 komoditas × 214 negara, tahun pemasaran 1960–2027) +
+  `indeks.parquet`; satu commit atomik langsung ke gudang. USDA MENIMPA file tiap pembaruan (WASDE ~tgl 8–12) → point-in-time MULAI 27 Nov 2026.
+  Kolom Calendar_Year/Month = kapan baris terakhir direvisi. Sawit Indonesia MY2025 47 jt t (direvisi 2026-11). Karet TIDAK ada di PSD.
+  Sumber yang DICOBA & TIDAK dipakai (27 Nov 2026): DCE Dalian (tantangan JS anti-bot 412), Bursa Malaysia FCPO (Cloudflare), JFX (robots MELARANG
+  ClaudeBot/anthropic-ai), ICDX (harga dimuat lewat /cms/api/ yang DILARANG robots; padahal ada pasar fisik TIMAH & CPO → nanti unduh manual?),
+  Logam Mulia/harga emas Antam (Akamai 403).
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
@@ -656,6 +663,7 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     Notebook (eksplorasi yang bisa dilihat langkah demi langkah), pustaka hmmlearn/PyWavelets/networkx.
   - RENCANA 4 TAHAP: (1) fondasi data panel terpadu & bersih → (2) eksplorasi multi-metode → (3) model gabungan banyak sinyal lemah →
     (4) validasi bertahun-tahun lewat data maju & paper trading. Pengumpulan data otomatis tetap jalan.
+- [ ] **Sabtu 28 Nov 2026**: run harian pertama `kumpul_usda_psd.py` → `raw/usda_psd/indeks.parquet` + 1 versi (~10 MB) di HF; hari berikutnya 'sudah tersimpan'.
 - [ ] **Histori SHFE**: pengguna menjalankan workflow MANUAL `histori_shfe.yml` (~2 jam) → cek `raw/histori/shfe/kx_2002..2026` & `stok_mingguan_*`
   di HF (tahun stok pertama yang ada?). Run harian pertama `kumpul_shfe.py` dari server: cek `raw/harian/shfe/<tgl>` & `shfe_stok` (server SHFE menerima GitHub?).
 - [ ] **Histori operasi moneter BI** (kode SIAP 27 Nov 2026, daftar mulai 2019): pengguna menjalankan workflow MANUAL `histori_operasi_moneter.yml`
