@@ -410,6 +410,10 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   Sumber yang DICOBA & TIDAK dipakai (27 Nov 2026): DCE Dalian (tantangan JS anti-bot 412), Bursa Malaysia FCPO (Cloudflare), JFX (robots MELARANG
   ClaudeBot/anthropic-ai), ICDX (harga dimuat lewat /cms/api/ yang DILARANG robots; padahal ada pasar fisik TIMAH & CPO → nanti unduh manual?),
   Logam Mulia/harga emas Antam (Akamai 403).
+- `kumpul_imf_dagang.py` (workflow `fundamental_idx.yml`, SABTU, ~2 mnt): IMF IMTS (dulu DOTS) lewat API SDMX resmi (tanpa kunci) → `raw/imf_dagang/versi/
+  <tgl>__<sha8>.parquet` (SETIAP versi) + `indeks.parquet`: perdagangan barang BULANAN Indonesia × 243 mitra sejak 1960, DUA SISI: pelapor IDN (`IDN...M`)
+  & pelapor mitra = data CERMIN (`..IDN.M`, 236 pelapor). 617 rb baris. TELAT ~4 bln (27 Nov 2026: s/d 2026-07) → kalah segar dari BPS; nilainya histori &
+  sisi mitra. SELISIH CERMIN besar: ekspor IDN→CHN Jul 2026 US$6,17 M vs impor CHN dari IDN US$8,65 M (CIF/FOB, transit, salah faktur → bahan riset).
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
@@ -663,6 +667,7 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     Notebook (eksplorasi yang bisa dilihat langkah demi langkah), pustaka hmmlearn/PyWavelets/networkx.
   - RENCANA 4 TAHAP: (1) fondasi data panel terpadu & bersih → (2) eksplorasi multi-metode → (3) model gabungan banyak sinyal lemah →
     (4) validasi bertahun-tahun lewat data maju & paper trading. Pengumpulan data otomatis tetap jalan.
+- [ ] **Sabtu 28 Nov 2026**: `fundamental_idx.yml` langkah BARU `kumpul_imf_dagang.py` → `raw/imf_dagang/indeks.parquet` + 1 versi di HF (API IMF menerima GitHub?).
 - [ ] **Sabtu 28 Nov 2026**: run harian pertama `kumpul_usda_psd.py` → `raw/usda_psd/indeks.parquet` + 1 versi (~10 MB) di HF; hari berikutnya 'sudah tersimpan'.
 - [ ] **Histori SHFE**: pengguna menjalankan workflow MANUAL `histori_shfe.yml` (~2 jam) → cek `raw/histori/shfe/kx_2002..2026` & `stok_mingguan_*`
   di HF (tahun stok pertama yang ada?). Run harian pertama `kumpul_shfe.py` dari server: cek `raw/harian/shfe/<tgl>` & `shfe_stok` (server SHFE menerima GitHub?).

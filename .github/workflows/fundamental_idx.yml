@@ -84,6 +84,13 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: python kumpul_ojk_emisi.py && if [ -d data/raw/ojk_emisi ]; then python upload_satu.py data/raw/ojk_emisi; fi
 
+      - name: IMF IMTS perdagangan bulanan Indonesia per mitra + data cermin (hanya versi baru; langsung ke gudang)
+        continue-on-error: true
+        timeout-minutes: 30
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python kumpul_imf_dagang.py
+
       - name: Upload ke Hugging Face (hanya folder ini, file lama tidak dihapus)
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
