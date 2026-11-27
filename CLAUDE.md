@@ -1075,6 +1075,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   harga naik (kuintil momentum median 4). Split BALIK hanya 1 yang lolos saringan. Desain diganti ke portofolio kalender SEBELUM data asli (rata-rata
   bulan non-tumpang tindih membuang 2/3 peristiwa). Cek potong-data MENEMUKAN bocor seleksi (syarat jendela 120 hr melihat data 2019) → diperbaiki → IDENTIK.
   Kandidat FITUR 'hindari' model penampang (perlu pra-reg baru; jangan dirayakan: t −2,3 dari 57 peristiwa).
+- **Riset #62 SELESAI: premi BULAN PENGUMUMAN LABA (Frazzini-Lamont 2007; Barber dkk. 2013, 18 negara)** (`riset_62_premi_pengumuman.py`, pra-reg
+  `docs/prareg_62_premi_pengumuman.md` a243f06). ❌ TIDAK LOLOS (daya uji terbatas, diakui di depan: tiruan +2%/bln → t 4,7; efek literatur → t ~1–2,3).
+  Diramal mengumumkan = punya pengumuman di bulan kalender yang sama tahun lalu (ketepatan 57%, tanggal Yahoo tak lengkap); 87 bln latih, 13 vs 27 saham:
+  U1 −0,22%/bln t −0,50 (paruh +0,1/−1,0; musim Okt–Nov −2,2% t −2,4, lainnya ±0,7) | U2 beli diramal bersih −1,13%/bln t −3,08 (biaya 0,78%/bln).
+  Potong-data: U1 identik (biaya beda tipis, sebab #46). Data uji tidak dibuka. Uji ulang kalau ada kalender pengumuman resmi yang lengkap.
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
