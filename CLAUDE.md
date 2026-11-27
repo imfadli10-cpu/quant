@@ -1054,6 +1054,13 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   pra-reg `docs/prareg_60_lonjakan_puncak.md` abe613d). ❌ TIDAK LOLOS, pola LOTRE: 181 peristiwa likuid (2002–2018): +20 hr rata +0,75% tapi MEDIAN −4,0%
   (t −0,08); +60 hr median −5,8% (t +0,10); d+1 +0,58%. Aturan ARA resmi berubah antar tahun (35/25/20 simetris resmi Jan 2017; ARB asimetris 2015 &
   2020–2023; ARB 15% Apr 2025) → definisi bebas-aturan. Potong-data identik.
+- **Riset #61 SELESAI: drift sesudah STOCK SPLIT (Ikenberry 1996; Desai-Jain 1997; kontrol momentum Boehme-Danielsen 2007)** (`riset_61_split.py`,
+  pra-reg `docs/prareg_61_split.md` 9594072). ❌ TIDAK LOLOS, arah BERLAWANAN literatur (daya uji rendah, diakui di depan: tiruan +5%/60 hr → t 2,4).
+  57 split maju (rasio >= 1,5) yang lolos saringan likuiditas 2004–2018; portofolio WAKTU KALENDER (110 bln): U1 vs keranjang 30 −2,45%/bln t −2,27
+  (paruh −0,8/−2,7) | U2 vs kuintil momentum sama −2,62%/bln t −2,33 | per peristiwa +60 hr −4,4% (median −3,5%), hari ex +2,1%. Split terjadi setelah
+  harga naik (kuintil momentum median 4). Split BALIK hanya 1 yang lolos saringan. Desain diganti ke portofolio kalender SEBELUM data asli (rata-rata
+  bulan non-tumpang tindih membuang 2/3 peristiwa). Cek potong-data MENEMUKAN bocor seleksi (syarat jendela 120 hr melihat data 2019) → diperbaiki → IDENTIK.
+  Kandidat FITUR 'hindari' model penampang (perlu pra-reg baru; jangan dirayakan: t −2,3 dari 57 peristiwa).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)

@@ -92,16 +92,19 @@ def peristiwa(maju):
         terakhir = -10**9
         for tgl, rasio in zip(b["tanggal"], b["split"]):
             i0 = int(np.searchsorted(hari.values, np.datetime64(tgl)))
-            if i0 >= len(hari) or i0 - terakhir <= H or i0 + JAUH >= len(hari) or hari[i0 + H] > BATAS:
+            if i0 >= len(hari) or i0 - terakhir <= H or i0 + H >= len(hari) or hari[i0 + H] > BATAS:     # TIDAK bergantung data > 2018
                 continue
             if not (syarat[i0, j] and np.isfinite(A[i0, j]) and np.isfinite(A[i0 - 1, j])):
                 continue
             terakhir = i0
             e = {"kode": kode, "d0": hari[i0], "rasio": rasio, "hari_ex": A[i0, j] / A[i0 - 1, j] - r_pasar.iloc[i0] - 1}
             for nama, h in (("u20", 20), ("u1", H), ("u120", JAUH)):
+                if i0 + h >= len(hari) or hari[i0 + h] > BATAS:
+                    e[nama] = np.nan
+                    continue
                 rs = A[i0 + h, j] / A[i0, j] - 1
                 rp = pasar_kum[i0 + h + 1] / pasar_kum[i0 + 1] - 1
-                e[nama] = float(np.clip(rs - rp, -1, 1)) if np.isfinite(rs) and hari[i0 + h] <= BATAS else np.nan
+                e[nama] = float(np.clip(rs - rp, -1, 1)) if np.isfinite(rs) else np.nan
             # pembanding kuintil momentum yang sama (saham lain yang lolos syarat di d0)
             ok = syarat[i0] & np.isfinite(mom[i0]) & np.isfinite(A[i0])
             ok[j] = False
