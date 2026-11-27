@@ -16,7 +16,7 @@ SIMPAN
   raw/harian/shfe_stok/<tgl UTC>.parquet       stok mingguan (3 Jumat terakhir) + warrant harian (5 hari) format HTML baru, sel-per-sel:
                                               laporan (mingguan/harian), tanggal, tabel_ke, baris, kolom, teks
   --histori: raw/histori/shfe/kx_<tahun>.parquet (2002+) & stok_mingguan_<tahun>.parquet (format .dat, semua baris JSON asli)
-             upload per tahun, bisa dilanjutkan (tahun yang sudah ada dilewati kecuali tahun berjalan). ~2 jam (workflow manual).
+             upload per tahun, bisa dilanjutkan (tahun yang sudah ada dilewati kecuali tahun berjalan). bisa >5 jam dari server GitHub (lambat ke China) -> 4 permintaan paralel; terpotong = jalankan ulang (workflow manual).
 JEBAKAN: angka kosong = '' ; baris 'DELIVERYMONTH' = '小计' (subtotal produk) & PRODUCTID '总计' (total bursa) ikut disimpan -> saring saat riset.
   Harga dalam YUAN/ton TERMASUK PPN 13% China (cek 17 Nov 2026: SHFE/kurs/1,13 = LME 3 bln, nikel 15.971 vs 15.990 USD); jam tutup 15:00 Beijing = 14:00 WIB (SEBELUM IDX tutup!) tapi ada
   sesi MALAM (21:00-01:00 Beijing) -> 'tanggal' = hari dagang SHFE (sesi malam dihitung ke hari berikutnya).
@@ -170,13 +170,16 @@ if HISTORI:
             tgl_list = hari_kerja(f"{th}-01-01", min(date(th, 12, 31), HARI_INI))
             if hari:
                 tgl_list = [t for t in tgl_list if t.weekday() == 4]
-            for t in tgl_list:
+            def satu(t):
                 x = fungsi(t)
                 if x is None and hari:                      # Jumat libur -> coba Kamis
                     x = fungsi(t - timedelta(days=1))
-                if x is not None:
-                    bag.append(x)
                 time.sleep(0.6)
+                return x
+            # 4 permintaan paralel: dari server GitHub (AS) tiap permintaan ke SHFE lambat (~15-20 mnt/tahun kalau berurutan, 27 Nov 2026)
+            from concurrent.futures import ThreadPoolExecutor
+            with ThreadPoolExecutor(max_workers=4) as ex:
+                bag = [x for x in ex.map(satu, tgl_list) if x is not None]
             if not bag:
                 print(f"   {nama} {th}: kosong")
                 continue

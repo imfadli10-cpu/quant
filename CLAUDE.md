@@ -669,7 +669,7 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     (4) validasi bertahun-tahun lewat data maju & paper trading. Pengumpulan data otomatis tetap jalan.
 - [ ] **Sabtu 28 Nov 2026**: `fundamental_idx.yml` langkah BARU `kumpul_imf_dagang.py` → `raw/imf_dagang/indeks.parquet` + 1 versi di HF (API IMF menerima GitHub?).
 - [ ] **Sabtu 28 Nov 2026**: run harian pertama `kumpul_usda_psd.py` → `raw/usda_psd/indeks.parquet` + 1 versi (~10 MB) di HF; hari berikutnya 'sudah tersimpan'.
-- [ ] **Histori SHFE**: pengguna menjalankan workflow MANUAL `histori_shfe.yml` (~2 jam) → cek `raw/histori/shfe/kx_2002..2026` & `stok_mingguan_*`
+- [ ] **Histori SHFE**: run pertama 27 Nov 14:17 WIB LAMBAT (~15–20 mnt/tahun dari server GitHub) → pasti terpotong 340 mnt; kode kini 4 paralel → JALANKAN ULANG `histori_shfe.yml` setelah run pertama berhenti → cek `raw/histori/shfe/kx_2002..2026` & `stok_mingguan_*`
   di HF (tahun stok pertama yang ada?). Run harian pertama `kumpul_shfe.py` dari server: cek `raw/harian/shfe/<tgl>` & `shfe_stok` (server SHFE menerima GitHub?).
 - [ ] **Histori operasi moneter BI** (kode SIAP 27 Nov 2026, daftar mulai 2019): pengguna menjalankan workflow MANUAL `histori_operasi_moneter.yml`
   (Actions → Run workflow; ~3–4 jam) → cek `raw/histori/operasi_moneter/2019..2026.parquet` di HF, log 'jumlah tautan beda dgn label' & 'tanpa tabel'.
