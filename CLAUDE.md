@@ -1098,6 +1098,10 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   U2 setelah kontrol S1 & S2 −0,021 t −1,13 (HILANG) | U3 20% teratas bersih +0,03%/bln t +0,09. Komponen SIANG 12 bln JUGA positif (IC t +2,80) →
   TIDAK ada 'tarik-menarik' di IDX; keduanya cermin momentum (kor ON12–S1 +0,42). DATA: 33% hari aktif overnight TEPAT 0 (Open Yahoo = tutup kemarin)
   → ulangi dgn harga pembukaan dari bar intraday (`raw/harian/intraday_idx`, ke depan). Potong-data: IC identik (biaya beda tipis, sebab #46).
+- **Riset #64 SELESAI: anjlok >= 10% & TUTUP DI TERENDAH (mirip ARB; cermin #60)** (`riset_64_tutup_di_bawah.py`, pra-reg `docs/prareg_64_tutup_di_bawah.md`
+  0c257b1). ❌ TIDAK LOLOS, arah BERLANJUT (Kim-Rhee), bukan memantul. 285 peristiwa likuid 2002–2018, portofolio kalender: U1 H=20 −1,62%/bln t −1,50
+  (daya uji rendah, tiruan +5% → t 2,9) | U2 H=60 −1,49%/bln t −1,97 | per peristiwa +60 hr −3,3% (median −5,6%); d+1 +0,66% (tak bisa dibeli).
+  Membeli setelah anjlok TIDAK menguntungkan (searah momentum/#2). Potong-data identik. Kandidat fitur 'hindari' (pra-reg baru).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
