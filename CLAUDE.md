@@ -62,7 +62,7 @@ Laptop hanya untuk menulis kode, tes kecil (`--tes`), dan analisis. Pekerjaan be
 
 ## 5. Jadwal otomatis (.github/workflows/)
 
-- `harian.yml`: **00:17 UTC (07:17 WIB)** setiap hari (~76 menit per 22 Nov 2026; terlama: Wikipedia per saham ~35 mnt, saham AS ~12 mnt,
+- `harian.yml`: **00:17 UTC (07:17 WIB)** + CADANGAN **04:47 UTC (11:47 WIB)** (27 Nov 2026: run 26 Nov terlambat 8 jam, run 27 Nov tidak muncul s/d 12:44 WIB). Job `cek` melewati run JADWAL kalau `raw/harian/harga/<tanggal UTC>.parquet` sudah ada di HF; `concurrency: harian` = run kedua MENUNGGU; manual selalu jalan penuh. Setiap hari (~76 menit per 22 Nov 2026; terlama: Wikipedia per saham ~35 mnt, saham AS ~12 mnt,
   opsi ~7 mnt; batas job 150 mnt, langkah Wikipedia per saham 45 mnt). Job yang terpotong batas waktu = upload di akhir TIDAK jalan = data hari itu hilang. Semua collector harian (masing-masing
   `continue-on-error: true` supaya tidak saling menghentikan) → `upload_ke_cloud.py` → `buat_katalog.py` →
   `validasi_harian.py` (gagal = GitHub mengirim email alarm ke pengguna).
@@ -549,6 +549,8 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   JUGA langkah BARU MPOB: `raw/harian/mpob/2026-11-27.parquet` ~280 sel (server MPOB menerima GitHub?).
   JUGA langkah BARU IndONIA: file `raw/harian/indonia/2026-11-27.parquet` (~2.400 hari) & `kurva_pasar_uang` ada; kalau sukses → tambah ke validasi_harian.
   JUGA langkah BARU operasi moneter BI: file `raw/harian/operasi_moneter/2026-11-27.parquet` ada (~30 operasi) = server BI menerima postback dari GitHub.
+- [ ] **Sabtu 28 Nov 2026**: cek jadwal cadangan `harian.yml` bekerja: hanya SATU run penuh per hari (run lain = job `cek` saja, ~1 mnt, 'sudah ada: true').
+  27 Nov: run harian jadwal tidak muncul s/d 12:44 WIB → langkah baru (kepemilikan SBN, operasi moneter, IndONIA, MPOB) BELUM teruji dari server → cek di run 27/28 Nov.
 - [ ] **Pantau beberapa hari**: `kumpul_opsi.py` dari server (21 Nov semua 49 kode gagal; 22 Nov PULIH: 34.649 kontrak, 426 dtk) &
   Kontan RSS (403 dari server, sudah diketahui). Centang setelah ~5 hari opsi berturut-turut normal.
 - [ ] **Senin 30 Nov / Selasa 1 Des 2026**: paper trading — pilihan akhir Nov tercatat SEBELUM beli (`dicatat_sebelum_beli`=True) untuk

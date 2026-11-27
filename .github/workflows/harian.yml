@@ -3,10 +3,47 @@ name: Kumpulkan data harian
 on:
   schedule:
     - cron: "17 0 * * *"    # setiap hari jam 07:17 WIB (00:17 UTC)
-  workflow_dispatch:         # tombol untuk menjalankan manual
+    - cron: "47 4 * * *"    # CADANGAN 11:47 WIB: jadwal GitHub pernah terlambat 8 jam / hilang (26-27 Nov 2026); dilewati kalau data hari ini sudah ada
+  workflow_dispatch:         # tombol untuk menjalankan manual (selalu jalan penuh)
+
+concurrency:                 # run cadangan MENUNGGU run utama yang masih jalan (tidak bersamaan, tidak dibatalkan)
+  group: harian
+  cancel-in-progress: false
 
 jobs:
+  cek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      sudah: ${{ steps.c.outputs.sudah }}
+    steps:
+      - name: Cek apakah data harian hari ini (UTC) sudah ada di gudang
+        id: c
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          PEMICU: ${{ github.event_name }}
+        run: |
+          pip install -q huggingface_hub
+          python - <<'EOF'
+          import os
+          from datetime import datetime, timezone
+          from huggingface_hub import HfApi
+          tgl = datetime.now(timezone.utc).date().isoformat()
+          sudah = "false"
+          if os.environ["PEMICU"] == "schedule":
+              try:
+                  f = HfApi(token=os.environ["HF_TOKEN"]).list_repo_tree("fadli-sparks/quant-data", path_in_repo="raw/harian/harga", repo_type="dataset")
+                  sudah = "true" if any(x.path.endswith(f"/{tgl}.parquet") for x in f) else "false"
+              except Exception as e:
+                  print(f"gagal cek ({type(e).__name__}) -> jalan saja")
+          print(f"tanggal {tgl}, pemicu {os.environ['PEMICU']}, sudah ada: {sudah}")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as g:
+              print(f"sudah={sudah}", file=g)
+          EOF
+
   kumpulkan:
+    needs: cek
+    if: needs.cek.outputs.sudah != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 150   # job ~76 mnt (22 Nov 2026); batas lama 90 terlalu mepet -> upload di akhir bisa terpotong
     steps:
