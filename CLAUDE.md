@@ -182,7 +182,10 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   Jenis: SRBI, SUVBI, SVBI, SukBI, Term Deposit (Rp/valas), Repo, Reverse Repo SBN, PasBI, BI FRN, FX Swap, Spot/Swap CNY-CNH-JPY, Rollover DNDF,
   **DNDF Jual (volume USD per tenor = jejak INTERVENSI kurs BI)**. Daftar = 10/halaman, halaman 2-3 lewat postback tombol halaman (pola JISDOR).
   Mulai 26 Nov 2026. JEBAKAN: `<title>` halaman kadang generik → judul dari teks tautan daftar; halaman utuh ~300 KB → simpan tabel saja.
-  Daftar resmi memuat 20.138 operasi (histori panjang) → lihat daftar periksa (histori belum diambil).
+  HISTORI (`--histori`, workflow MANUAL `histori_operasi_moneter.yml`, ~3–4 jam, upload per tahun, bisa dilanjutkan) → `raw/histori/operasi_moneter/<tahun>`
+  + `halaman_<tahun>`: lewat FILTER TANGGAL RESMI halaman daftar (dd/mm/yyyy, tombol Cari) per bulan + tombol Next. Daftar resmi baru mulai 2019
+  (filter 2010–2018 kosong; label '20.138'/'4.667 data' tak konsisten → jumlah per BULAN yang dipercaya; Mar 2020 = 165 operasi). Halaman 2020 terurai
+  normal. JEBAKAN: judul daftar memuat '&#160;' & U+200B di tengah kata → `bersih_judul()` sebelum tanggal/jenis diurai.
 - `kumpul_indonia.py` (harian, detik): Bank Indonesia (robots Allow /) → (1) `raw/harian/indonia/<tgl>` = SELURUH histori IndONIA (suku bunga antarbank
   SEMALAM, sejak 2017-01-03, 2.396 hari) + Compounded IndONIA 30/90/180/360 hr & Indeks IndONIA (sejak 2019-01-02), format panjang tanggal/seri/nilai;
   formulir publik rentang bulan (pola JISDOR, 1 permintaan). (2) `raw/harian/kurva_pasar_uang/<tgl>` = MM Curve BI: rata-rata tertimbang & VOLUME
@@ -641,8 +644,9 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     Notebook (eksplorasi yang bisa dilihat langkah demi langkah), pustaka hmmlearn/PyWavelets/networkx.
   - RENCANA 4 TAHAP: (1) fondasi data panel terpadu & bersih → (2) eksplorasi multi-metode → (3) model gabungan banyak sinyal lemah →
     (4) validasi bertahun-tahun lewat data maju & paper trading. Pengumpulan data otomatis tetap jalan.
-- [ ] **Histori operasi moneter BI** (20.138 operasi di daftar resmi, termasuk SRBI sejak Sep 2023 & DNDF): butuh ~2.000 postback halaman berurutan
-  + ~20 rb halaman hasil (±1 hari pada jeda 2 dtk) → rancang workflow MANUAL yang bisa dilanjutkan & sopan (atau saring per jenis: DNDF, SRBI, SUVBI).
+- [ ] **Histori operasi moneter BI** (kode SIAP 27 Nov 2026, daftar mulai 2019): pengguna menjalankan workflow MANUAL `histori_operasi_moneter.yml`
+  (Actions → Run workflow; ~3–4 jam) → cek `raw/histori/operasi_moneter/2019..2026.parquet` di HF, log 'jumlah tautan beda dgn label' & 'tanpa tabel'.
+  Terputus → jalankan ulang (tahun yang sudah ada dilewati).
 - [ ] Ide tersimpan (perlu pra-registrasi sendiri): fitur "pembagi dividen" (#47/#48) untuk model penampang; riset kejutan rilis makro
   (ALFRED rilis pertama + Kalshi, setelah data Kalshi beberapa bulan); #10 volatilitas tersirat opsi (data opsi beberapa bulan).
 
