@@ -1088,6 +1088,11 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
   Diramal mengumumkan = punya pengumuman di bulan kalender yang sama tahun lalu (ketepatan 57%, tanggal Yahoo tak lengkap); 87 bln latih, 13 vs 27 saham:
   U1 −0,22%/bln t −0,50 (paruh +0,1/−1,0; musim Okt–Nov −2,2% t −2,4, lainnya ±0,7) | U2 beli diramal bersih −1,13%/bln t −3,08 (biaya 0,78%/bln).
   Potong-data: U1 identik (biaya beda tipis, sebab #46). Data uji tidak dibuka. Uji ulang kalau ada kalender pengumuman resmi yang lengkap.
+- **Riset #63 SELESAI: "tarik-menarik" overnight vs siang (Lou-Polk-Skouras 2019 JFE)** (`riset_63_overnight.py`, pra-reg `docs/prareg_63_overnight.md`
+  645e12c). ❌ TIDAK LOLOS. ON12 = Σ log return overnight 12 bln (Open disesuaikan dividen). 158 bln, ~98 saham: U1 IC +0,032 t +1,96 (paruh 2,8/0,2) |
+  U2 setelah kontrol S1 & S2 −0,021 t −1,13 (HILANG) | U3 20% teratas bersih +0,03%/bln t +0,09. Komponen SIANG 12 bln JUGA positif (IC t +2,80) →
+  TIDAK ada 'tarik-menarik' di IDX; keduanya cermin momentum (kor ON12–S1 +0,42). DATA: 33% hari aktif overnight TEPAT 0 (Open Yahoo = tutup kemarin)
+  → ulangi dgn harga pembukaan dari bar intraday (`raw/harian/intraday_idx`, ke depan). Potong-data: IC identik (biaya beda tipis, sebab #46).
 - **Daftar ide berikutnya** (urutan rekomendasi):
     (#7, #8, #9 SUDAH) → #10 volatilitas tersirat opsi (tunggu data beberapa bulan) → riset 'kejutan' rilis makro dengan
     perkiraan pasar Kalshi (tunggu data menumpuk) → proteksi 'momentum crash' S2 (butuh pra-registrasi, lihat private)
