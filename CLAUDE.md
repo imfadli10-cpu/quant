@@ -393,6 +393,16 @@ Collector harian (file per hari di `raw/harian/<nama>/<tanggal UTC>.parquet`, is
   perubahan usaha) + tgl RUPS/efektif → deretan mingguan = point-in-time. Halaman utama hanya menautkan ~5 bulan → mulai Jul 2026 (19 file),
   HANYA KE DEPAN. 2026 s/d Nov: 90 aksi korporasi (21 PMTHMETD), 18+ right issue. Nama emiten = nama PT (bukan kode) → cocokkan dgn longName.
   Server OJK lambat (~1 menit/file dari laptop). OJK juga punya xlsx "Rata-rata Bid-Ask Spread & Turnover" mingguan, tapi hanya agregat pasar (tidak diambil).
+- `kumpul_shfe.py` (harian, ~1 mnt): SHANGHAI FUTURES EXCHANGE (+INE) — berkas data publik yang dimuat halaman resmi (alamat dari `/images/api.js`;
+  shfe.com.cn TANPA robots.txt) → `raw/harian/shfe/<tgl>` (kx = harga harian SEMUA kontrak: nikel ni_f, timah sn_f, karet ru_f/nr_f, tembaga, aluminium,
+  stainless, baja, bitumen, minyak sc_f; settlement, volume, OI; 10 hari) + `raw/harian/shfe_stok/<tgl>` (stok gudang MINGGUAN 3 Jumat + warrant HARIAN
+  5 hari, format HTML baru, sel-per-sel). `--histori` (workflow MANUAL `histori_shfe.yml`, ~2 jam) → `raw/histori/shfe/kx_<tahun>` SEJAK 2002 (cu/al/ru;
+  nikel & timah sejak 2015) + `stok_mingguan_<tahun>` (JSON lama per gudang, 2014?–2025; ROWSTATUS '2' / '总计$$Total' = total produk). Mulai 27 Nov 2026.
+  JEBAKAN: (1) harga SHFE TERMASUK PPN 13% China → cek: SHFE/kurs/1,13 ≈ LME 3 bln (nikel 15.971 vs 15.990, timah 46.332 vs 46.350 USD; 17 Nov 2026);
+  (2) file hari berjalan sudah ada SEBELUM tutup dgn settlement kosong → dibuang; (3) pandas 3: kolom teks murni bertipe 'str' bukan object;
+  (4) format stok BERGANTI ~akhir 2025: `weeklydata/<tgl>weeklystock.dat` & `dailydata/<tgl>dailystock.dat` (lama) → `stockdata/<jenis>_<tgl>/ZH/all.html`;
+  (5) tutup sesi siang 15:00 Beijing = 14:00 WIB (sebelum IDX tutup) + sesi MALAM 21:00–01:00 dihitung ke hari dagang berikutnya. Hari libur = 404.
+  Kegunaan: stok gudang China nikel/timah/karet + premi SHFE−LME (arbitrase impor China) → emiten INCO/ANTM/NCKL/MBMA/TINS & karet.
 - Batu bara HARIAN: tidak ada sumber gratis yang hidup (`MTF=F` Yahoo berhenti Des 2025; Newcastle tidak ada). Tetap bulanan IMF.
 
 Bulanan:
@@ -646,6 +656,8 @@ Alat bantu: `upload_satu.py <jalur...>` (upload file/folder tertentu), `cari_bps
     Notebook (eksplorasi yang bisa dilihat langkah demi langkah), pustaka hmmlearn/PyWavelets/networkx.
   - RENCANA 4 TAHAP: (1) fondasi data panel terpadu & bersih → (2) eksplorasi multi-metode → (3) model gabungan banyak sinyal lemah →
     (4) validasi bertahun-tahun lewat data maju & paper trading. Pengumpulan data otomatis tetap jalan.
+- [ ] **Histori SHFE**: pengguna menjalankan workflow MANUAL `histori_shfe.yml` (~2 jam) → cek `raw/histori/shfe/kx_2002..2026` & `stok_mingguan_*`
+  di HF (tahun stok pertama yang ada?). Run harian pertama `kumpul_shfe.py` dari server: cek `raw/harian/shfe/<tgl>` & `shfe_stok` (server SHFE menerima GitHub?).
 - [ ] **Histori operasi moneter BI** (kode SIAP 27 Nov 2026, daftar mulai 2019): pengguna menjalankan workflow MANUAL `histori_operasi_moneter.yml`
   (Actions → Run workflow; ~3–4 jam) → cek `raw/histori/operasi_moneter/2019..2026.parquet` di HF, log 'jumlah tautan beda dgn label' & 'tanpa tabel'.
   Terputus → jalankan ulang (tahun yang sudah ada dilewati).

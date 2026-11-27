@@ -159,6 +159,11 @@ jobs:
         timeout-minutes: 10
         run: python kumpul_mpob.py
 
+      - name: Shanghai Futures Exchange (harga harian semua kontrak + stok gudang mingguan/warrant harian)
+        continue-on-error: true
+        timeout-minutes: 10
+        run: python kumpul_shfe.py
+
       - name: Kepemilikan SBN per jenis investor termasuk ASING (DJPPR; hanya file baru, langsung ke gudang)
         continue-on-error: true
         timeout-minutes: 15
